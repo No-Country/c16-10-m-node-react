@@ -1,10 +1,8 @@
 import React from 'react'
-import './App.css'
 
 function App() {
   return (
-    <div>
-      Jesus
+    <div className="bg-slate-400 w-screen h-60">
     </div>
   )
 }
