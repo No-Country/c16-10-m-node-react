@@ -1,10 +1,13 @@
+import { Navbar } from './containers/Navbar'
+import './normalize.css'
+import { SearchPage } from './pages/Search'
+
 const App = () => {
   return (
-    <header>
-      <h1>
-        Trabajo Listo
-      </h1>
-    </header>
+    <>
+      <Navbar />
+      <SearchPage />
+    </>
   )
 }
 
