@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 export const Navbar = () => {
   return (
     <header className="relative">
+
       <Link to="/">
         <img
           src={logo}

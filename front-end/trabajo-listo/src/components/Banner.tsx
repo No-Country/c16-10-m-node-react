@@ -16,7 +16,7 @@ export const Banner = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-16 bg-red-100/50 h-80 ">
+    <div className="flex flex-col items-center justify-center gap-16 bg-red-100/50 h-80">
       <section className="flex items-center gap-24 font-bold text-center">
         <div className="flex flex-col items-center justify-center gap-4">
           <h1 className="text-5xl text-red-500">
