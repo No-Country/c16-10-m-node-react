@@ -137,14 +137,14 @@ export const FormModal = ({
               )}
             />
             {isRegister && (
-              <div className="flex items-center space-x-2 mt-4">
+              <div className="flex items-center mt-4 space-x-2">
                 <Checkbox
                   id="terms"
                   onClick={() => setIsChecked(!isChecked)}
                 />
                 <label
                   htmlFor="terms"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
                 >
                   Aceptar términos y condiciones
                 </label>
