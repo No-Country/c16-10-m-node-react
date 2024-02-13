@@ -3,9 +3,9 @@ import { OfrecemosCard } from "@/components/OfrecemosCard"
 export const OfrecemosContainer = () => {
 
     const CARDS = [
-        {id: 1, text: "Efectivos a la hora de ser efectivos"},
-        {id: 2, text: "Efectivos a la hora de ser efectivos"},
-        {id: 3, text: "Efectivos a la hora de ser efectivos"},
+        {id: 1, text: "Intuitivo, pensado para todas las personas"},
+        {id: 2, text: "Rápido, tu necesidad cumplida en simples pasos"},
+        {id: 3, text: "Gratis, no tienes que mover un milímetro tu billetera"},
         {id: 4, text: "Efectivos a la hora de ser efectivos"}
     ]
 
