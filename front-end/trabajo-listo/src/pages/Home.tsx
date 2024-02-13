@@ -1,8 +1,11 @@
+import Hero from "@/components/Hero";
+import Servicios from "@/containers/ServiciosContainer";
 
 export const Home = () => {
   return (
-    <div className="text-9xl">
-        jesusmariaasa
-    </div>
-  )
-}
+    <main>
+      <Hero />
+      <Servicios />
+    </main>
+  );
+};
