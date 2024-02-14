@@ -5,3 +5,10 @@ export interface ServiciosCardProps {
     title: string;
   };
 }
+
+export interface OfrecemosCards {
+    card: {
+        id: number;
+        text: string;
+    }
+}
