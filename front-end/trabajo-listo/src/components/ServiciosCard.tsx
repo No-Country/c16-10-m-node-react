@@ -2,13 +2,13 @@ import { ServiciosCardProps } from "./component";
 
 const ServiciosCard: React.FC<ServiciosCardProps> = ({ servicio }) => {
   return (
-    <div className=" shadow-md flex flex-col gap-3 w-2/4 bg-[#FE4C55] rounded-xl px-2 py-2  ">
-      <p className=" text-center font-medium text-2xl text-[#FEF4E2]">
+    <div className="flex flex-col gap-3 bg-red-400 pb-2 border-red-400 rounded-xl w-80 ">
+      <p className="mt-3 font-medium text-[#FEF4E2] text-2xl text-center ">
         {servicio.title}
       </p>
-      <div className="flex gap-3 p-2">
-        <img className="h-60 w-60 rounded-xl " src={servicio.imgUrl}></img>
-        <p className="font-medium text-l text-[#FEF4E2]">
+      <div className="flex flex-col gap-3 pt-3 rounded-b-xl">
+        <img className=" " src={servicio.imgUrl}></img>
+        <p className="flex-1 px-2 rounded-b-xl font-medium text-[#FEF4E2] text-center self-center">
           Lorem ipsum dolor sit amet consectetur adipiscing elit integer
           himenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,
           faucibus pulvinar ultricies tellus purus euismod gravida venenatis.

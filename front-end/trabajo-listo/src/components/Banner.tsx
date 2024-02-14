@@ -1,27 +1,24 @@
-import { FormSignUpModal } from "@/modals/FormSignUpModal"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { useState } from "react"
-
+import { FormSignUpModal } from "@/modals/FormSignUpModal";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { useState } from "react";
 
 export const Banner = () => {
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = () => {
     try {
-      console.log(searchValue)
+      console.log(searchValue);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <section className="flex flex-col items-center justify-center gap-16 bg-red-100/50 h-80">
       <div className="flex items-center gap-24 font-bold text-center">
         <div className="flex flex-col items-center justify-center gap-4">
-          <h1 className="text-5xl text-red-500">
-            Tus servicios a un click
-          </h1>
+          <h1 className="text-5xl text-red-500">Tus servicios a un click</h1>
           <h4 className="font-medium text-neutral-500 text-xl">
             Contrata, negocia y encuentra tus necesidades
           </h4>
@@ -44,5 +41,5 @@ export const Banner = () => {
         </Button>
       </search>
     </section>
-  )
-}
+  );
+};
