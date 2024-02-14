@@ -17,7 +17,7 @@ const Hero = () => {
         <p className="font-medium text-[#5D5657] text-lg">
           Lorem ipsum dolor sit amet consectetur adipiscing elit integer
           himenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,
-          faucibus pulvinar ultricies tellus purus euismod gravida venenatis.
+          faucibus pulvinar ultricies tellus purus euismod gravida.
         </p>
         <Button className="bg-red-500 hover:bg-red-600 px-10 py-6 rounded-full w-40 text-white text-xl hover:text-white outline-none">
           Ver servicios
