@@ -1,6 +1,9 @@
-import { FormModal } from "@/modals/FormModal";
-import logo from "@/assets/navbar-logo.png";
-import { Link } from "react-router-dom";
+import logo from "@/assets/navbar-logo.png"
+import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import { FormSignUpModal } from "@/modals/FormSignUpModal"
+import { FormLogInModal } from "@/modals/FormLogInModal"
+
 
 export const Navbar = () => {
   return (
@@ -13,15 +16,12 @@ export const Navbar = () => {
         />
       </Link>
       <nav className="flex justify-end gap-12 bg-red-500 px-20 py-2 h-16">
-        <FormModal
-          buttonTitle="Acceder"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
-        />
-        <FormModal
-          buttonTitle="Registrarse"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
-        />
+        <Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
+          ¡Quiero ser profesional!
+        </Button>
+        <FormLogInModal />
+        <FormSignUpModal />
       </nav>
     </header>
-  );
-};
+  )
+}
