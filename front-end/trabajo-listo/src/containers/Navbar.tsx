@@ -1,6 +1,6 @@
-import { FormModal } from "@/modals/FormModal"
-import logo from "@/assets/navbar-logo.png"
-import { Link } from "react-router-dom"
+import { FormModal } from "@/modals/FormModal";
+import logo from "@/assets/navbar-logo.png";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
@@ -23,5 +23,5 @@ export const Navbar = () => {
         />
       </nav>
     </header>
-  )
-}
+  );
+};

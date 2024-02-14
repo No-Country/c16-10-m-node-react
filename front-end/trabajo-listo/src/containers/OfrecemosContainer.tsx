@@ -11,9 +11,9 @@ export const OfrecemosContainer = () => {
 
 
   return (
-    <section className="flex flex-col items-center justify-center gap-12 w-full h-[605px]">
-        <h2 className="bg-[#FEF4E2] px-2 py-3 font-bold text-red-500 italic">¿POR QUÉ ELEGIR TRABAJO LISTO?</h2>
-        <div className="flex flex-wrap gap-4 w-[620px] h-auto">
+    <section className="flex flex-col items-center justify-center gap-12 w-full h-auto">
+        <h2 className="bg-[#FEF4E2] mt-[70px] px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">¿POR QUÉ ELEGIR TRABAJO LISTO?</h2>
+        <div className="flex flex-wrap justify-center gap-4 mb-[70px] px-6 max-w-[870px] h-auto">
             {CARDS.map((card) => (
                 <OfrecemosCard key={card.id} card={card}/>
             ))}
