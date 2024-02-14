@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import {
   Sheet,
@@ -11,7 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 
 import {
   Form,
@@ -20,56 +20,52 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "@/components/ui/form";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useState } from "react";
 
 type FormModalProps = {
-  buttonTitle: "Registrarse" | "Acceder",
-  className?: string
-}
+  buttonTitle: "Registrarse" | "Acceder";
+  className?: string;
+};
 
-export const FormModal = ({
-  buttonTitle,
-  className
-}: FormModalProps) => {
+export const FormModal = ({ buttonTitle, className }: FormModalProps) => {
+  const [isChecked, setIsChecked] = useState(false);
 
-  const [isChecked, setIsChecked] = useState(false)
-
-  const isRegister = buttonTitle === "Registrarse"
+  const isRegister = buttonTitle === "Registrarse";
 
   const formSchema = z.object({
     email: z.string().min(5, {
-      message: "Ingrese un email válido"
+      message: "Ingrese un email válido",
     }),
     contraseña: z.string().min(8, {
-      message: isRegister ? "Mínimo 8 caracteres" : "Contraseña inválida"
-    })
-  })
+      message: isRegister ? "Mínimo 8 caracteres" : "Contraseña inválida",
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      contraseña: ""
+      contraseña: "",
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values)
+      console.log(values);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleClose = () => {
-    form.reset()
-    setIsChecked(false)
-  }
+    form.reset();
+    setIsChecked(false);
+  };
 
   return (
     <Sheet onOpenChange={handleClose}>
@@ -81,9 +77,13 @@ export const FormModal = ({
       <SheetContent>
         <SheetHeader className="mb-4">
           <SheetTitle>
-            {isRegister
-              ? <p>Registrarse en <i>Trabajo Listo</i></p>
-              : "Iniciar sesión"}
+            {isRegister ? (
+              <p>
+                Registrarse en <i>Trabajo Listo</i>
+              </p>
+            ) : (
+              "Iniciar sesión"
+            )}
           </SheetTitle>
           <SheetDescription>
             {isRegister
@@ -92,18 +92,13 @@ export const FormModal = ({
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Email
-                  </FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -121,9 +116,7 @@ export const FormModal = ({
               name="contraseña"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Contraseña
-                  </FormLabel>
+                  <FormLabel>Contraseña</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -137,14 +130,11 @@ export const FormModal = ({
               )}
             />
             {isRegister && (
-              <div className="flex items-center space-x-2 mt-4">
-                <Checkbox
-                  id="terms"
-                  onClick={() => setIsChecked(!isChecked)}
-                />
+              <div className="flex items-center mt-4 space-x-2">
+                <Checkbox id="terms" onClick={() => setIsChecked(!isChecked)} />
                 <label
                   htmlFor="terms"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
                 >
                   Aceptar términos y condiciones
                 </label>
@@ -155,13 +145,11 @@ export const FormModal = ({
               type="submit"
               disabled={isRegister && !isChecked}
             >
-              {isRegister
-                ? "Crear cuenta"
-                : "Ingresar"}
+              {isRegister ? "Crear cuenta" : "Ingresar"}
             </Button>
           </form>
         </Form>
       </SheetContent>
     </Sheet>
-  )
-}
+  );
+};
