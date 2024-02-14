@@ -1,7 +1,9 @@
-import { FormModal } from "@/modals/FormModal"
 import logo from "@/assets/navbar-logo.png"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import { FormSignUpModal } from "@/modals/FormSignUpModal"
+import { FormLogInModal } from "@/modals/FormLogInModal"
+
 
 export const Navbar = () => {
   return (
@@ -17,15 +19,9 @@ export const Navbar = () => {
         <Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
           ¡Quiero ser profesional!
         </Button>
-        <FormModal
-          buttonTitle="Acceder"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
-        />
-        <FormModal
-          buttonTitle="Registrarse"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
-        />
+        <FormLogInModal />
+        <FormSignUpModal />
       </nav>
     </header>
-  );
-};
+  )
+}

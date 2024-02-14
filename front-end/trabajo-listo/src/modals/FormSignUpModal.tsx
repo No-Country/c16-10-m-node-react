@@ -27,26 +27,16 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useState } from "react"
 
-type FormModalProps = {
-  buttonTitle: "Registrarse" | "Acceder",
-  className?: string
-}
 
-export const FormModal = ({
-  buttonTitle,
-  className
-}: FormModalProps) => {
-
+export const FormSignUpModal = () => {
   const [isChecked, setIsChecked] = useState(false)
-
-  const isRegister = buttonTitle === "Registrarse"
 
   const formSchema = z.object({
     email: z.string().min(5, {
       message: "Ingrese un email válido"
     }),
     contraseña: z.string().min(8, {
-      message: isRegister ? "Mínimo 8 caracteres" : "Contraseña inválida"
+      message: "Mínimo 8 caracteres"
     })
   })
 
@@ -74,21 +64,17 @@ export const FormModal = ({
   return (
     <Sheet onOpenChange={handleClose}>
       <SheetTrigger asChild>
-        <Button variant="default" className={className}>
-          {buttonTitle}
+        <Button variant="default" className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
+          Registrarse
         </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className="mb-4">
           <SheetTitle>
-            {isRegister
-              ? <p>Registrarse en <i>Trabajo Listo</i></p>
-              : "Iniciar sesión"}
+            Registrarse en <i>Trabajo Listo</i>
           </SheetTitle>
           <SheetDescription>
-            {isRegister
-              ? "¡Regístrate y comienza a contratar a tus profesionales favoritos!"
-              : "¡Accede y contrata a profesionales de tu preferencia!"}
+            ¡Regístrate y comienza a contratar a tus profesionales favoritos!"
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -136,28 +122,24 @@ export const FormModal = ({
                 </FormItem>
               )}
             />
-            {isRegister && (
-              <div className="flex items-center mt-4 space-x-2">
-                <Checkbox
-                  id="terms"
-                  onClick={() => setIsChecked(!isChecked)}
-                />
-                <label
-                  htmlFor="terms"
-                  className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
-                >
-                  Aceptar términos y condiciones
-                </label>
-              </div>
-            )}
+            <div className="flex items-center mt-4 space-x-2">
+              <Checkbox
+                id="terms"
+                onClick={() => setIsChecked(!isChecked)}
+              />
+              <label
+                htmlFor="terms"
+                className="peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed"
+              >
+                Aceptar términos y condiciones
+              </label>
+            </div>
             <Button
-              className="bg-red-500 hover:bg-red-600"
+              className="bg-red-500 hover:bg-red-600 rounded-full"
               type="submit"
-              disabled={isRegister && !isChecked}
+              disabled={!isChecked}
             >
-              {isRegister
-                ? "Crear cuenta"
-                : "Ingresar"}
+              Crear cuenta
             </Button>
           </form>
         </Form>
