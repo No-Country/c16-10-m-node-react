@@ -15,7 +15,7 @@ export class CreateUserDto {
   @Transform(({ value }) => value.trim())
   @IsNotEmpty()
   @MinLength(6)
-  readonly password: string;
+  password: string;
 
   @IsNumber()
   @IsOptional()

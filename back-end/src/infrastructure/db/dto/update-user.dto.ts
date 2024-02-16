@@ -13,7 +13,7 @@ export class UpdateUserDto {
 
   @Transform(({ value }) => value.trim())
   @MinLength(6)
-  readonly password?: string;
+  password?: string;
 
   @IsNumber()
   @IsOptional()
