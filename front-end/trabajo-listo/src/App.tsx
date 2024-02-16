@@ -3,6 +3,8 @@ import { Navbar } from "./containers/Navbar";
 import "./normalize.css";
 import { SearchPage } from "./pages/Search";
 import { Home } from "./pages/Home";
+import { Footer } from "./containers/Footer";
+import { Equipo } from "./pages/Equipo";
 
 const App = () => {
   return (
@@ -11,7 +13,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="search" element={<SearchPage />} />
+        <Route path="equipo" element={<Equipo />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };
