@@ -12,9 +12,7 @@ import { MulterModule } from '@nestjs/platform-express';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://jioh19:jioh19@cluster0.3jxsbjs.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.DATABASES_URL),
     UserModule,
   ],
   controllers: [AppController],
