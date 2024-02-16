@@ -15,20 +15,21 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
 import { UserService } from './user.service';
+import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // @Post()
-  // async create(@Body() createUserDto: CreateUserDto) {
-  //   return this.userService.create(createUserDto);
-  // }
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
 
-  // @Get()
-  // async findAll(@Res() res: Response) {
-  //   return res.status(HttpStatus.OK).json(this.userService.findAll());
-  // }
+  @Get()
+  async findAll(@Res() res: Response) {
+    return res.status(HttpStatus.OK).json(this.userService.findAll());
+  }
 
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
