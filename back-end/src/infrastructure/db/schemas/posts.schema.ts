@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
+import { Category } from 'src/common/interfaces/category.interfaces';
 import { Services } from 'src/common/interfaces/services.interface';
 
 export type PostDocument = HydratedDocument<Post>;
 
-@Schema({ timestamps: true })
+@Schema()
 export class Post {
   @Prop({ type: String, required: true })
   title: string;
@@ -12,19 +13,19 @@ export class Post {
   @Prop({ type: String, required: true })
   description: string;
 
-  @Prop({ type: String, required: true })
-  category: string;
+  @Prop()
+  category: Category[];
 
-  @Prop({ type: Array, required: true })
+  @Prop()
   services: Services[];
 
-  @Prop({ type: String, required: true })
+  @Prop()
   nameProfessional: string;
 
   @Prop({ type: Number })
   views: number;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+  @Prop()
   idProfessional: object;
 }
 
