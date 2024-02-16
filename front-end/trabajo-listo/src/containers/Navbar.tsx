@@ -19,6 +19,11 @@ export const Navbar = () => {
         <Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
           ¡Quiero ser profesional!
         </Button>
+        <Link to="/Testimonios">
+          <Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
+            Testimonios
+          </Button>
+        </Link>
         <FormLogInModal />
         <FormSignUpModal />
       </nav>
