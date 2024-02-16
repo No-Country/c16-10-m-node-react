@@ -5,10 +5,12 @@ import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { UserModule } from 'src/application/user/user.module';
 
 @Module({
   imports: [
     PassportModule,
+    UserModule,
     JwtModule.register({
       secret: 'Super secret key code',
       signOptions: { expiresIn: '60m' },
