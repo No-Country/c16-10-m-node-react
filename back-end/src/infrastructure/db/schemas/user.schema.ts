@@ -6,10 +6,15 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, unique: true })
   name: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({
+    unique: true,
+    required: true,
+    trim: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  })
   email: string;
 
   @Prop({ type: String, required: true })
