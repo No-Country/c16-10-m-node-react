@@ -26,7 +26,7 @@ export class UserService {
     return createdUser.save();
   }
   async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return await this.userModel.find().exec();
   }
 
   async findId(id: string): Promise<any> {
@@ -44,10 +44,7 @@ export class UserService {
 
   async findEmail(email: string): Promise<any> {
     try {
-      const user = await this.userModel
-        .findOne({ email })
-        .lean()
-        .select('-password');
+      const user = await this.userModel.findOne({ email }).exec();
       if (!user) {
         throw new NotFoundException(`User user ${email} not found`);
       }

@@ -23,12 +23,12 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+    return await this.userService.create(createUserDto);
   }
 
   @Get()
   async findAll(@Res() res: Response) {
-    return res.status(HttpStatus.OK).json(this.userService.findAll());
+    return res.status(HttpStatus.OK).json(await this.userService.findAll());
   }
 
   @Get(':id')

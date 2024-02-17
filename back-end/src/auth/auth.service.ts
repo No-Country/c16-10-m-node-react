@@ -10,14 +10,13 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(user: any): Promise<any> {
-    const userAccount = await this.userService.findEmail(user.email);
-
+  async login(email: string, password: string): Promise<any> {
+    const userAccount = await this.userService.findEmail(email);
     if (userAccount == null) {
       throw new UnauthorizedException();
     }
     const userPassword = userAccount?.password as string;
-    const valid = await this.comparePassword(user.password, userPassword);
+    const valid = await this.comparePassword(password, userPassword);
     if (!valid) {
       throw new UnauthorizedException();
     }
@@ -27,7 +26,7 @@ export class AuthService {
     ///***********************************************************************/
     const payload = {
       id: userAccount.id,
-      email: user.email,
+      email: email,
       message: 'Este es el payload',
     };
     return await this.jwtService.signAsync(payload);

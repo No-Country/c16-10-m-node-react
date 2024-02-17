@@ -1,9 +1,15 @@
-import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
-import { Category } from "src/common/interfaces/category.interfaces";
+import { Transform } from 'class-transformer';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { Category } from 'src/common/interfaces/category.interfaces';
 
 export class CreateUserDto {
-
   @IsString()
   @IsNotEmpty()
   readonly name: string;
