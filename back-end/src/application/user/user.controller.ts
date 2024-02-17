@@ -9,6 +9,7 @@ import {
   Put,
   Res,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -16,6 +17,7 @@ import { Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -25,7 +27,7 @@ export class UserController {
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.userService.create(createUserDto);
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async findAll(@Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findAll());
