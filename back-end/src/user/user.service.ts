@@ -26,7 +26,7 @@ export class UserService {
     return createdUser.save();
   }
   async findAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
+    return await this.userModel.find().lean().select('-password');
   }
 
   async findId(id: string): Promise<any> {
@@ -42,7 +42,7 @@ export class UserService {
     }
   }
 
-  async findEmail(email: string): Promise<any> {
+  async findEmail(email: string): Promise<User> {
     try {
       const user = await this.userModel.findOne({ email }).exec();
       if (!user) {
