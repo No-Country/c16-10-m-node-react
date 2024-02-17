@@ -12,7 +12,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(username: string, password: string): Promise<any> {
-    return 'Success passport';
+  validate(payload: any) {
+    console.log('estoy en jwt strategy');
+    console.log(payload);
+    return payload;
   }
 }
