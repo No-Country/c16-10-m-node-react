@@ -84,6 +84,7 @@ export const Navbar = () => {
         </Link>
         <FormLogInModal />
         <FormSignUpModal />
+
       </nav>
     </header>
   )
