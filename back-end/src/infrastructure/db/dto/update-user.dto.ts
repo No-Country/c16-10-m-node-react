@@ -3,6 +3,7 @@ import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "
 import { Category } from "src/common/interfaces/category.interfaces";
 
 export class UpdateUserDto {
+
   @IsString()
   @IsOptional()
   readonly name?: string;
