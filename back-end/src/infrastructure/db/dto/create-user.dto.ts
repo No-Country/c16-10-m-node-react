@@ -33,7 +33,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsOptional()
-  readonly isProfesisonal?: boolean;
+  readonly isProfessional?: boolean;
 
   @IsOptional()
   readonly category?: Category[];
