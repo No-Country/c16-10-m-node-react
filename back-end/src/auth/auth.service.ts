@@ -25,7 +25,11 @@ export class AuthService {
     ///***********************************************************************/
     //! Aca esta el payload para el JWT
     ///***********************************************************************/
-    const payload = { email: user.email, message: 'Este es el payload' };
+    const payload = {
+      id: userAccount.id,
+      email: user.email,
+      message: 'Este es el payload',
+    };
     return await this.jwtService.signAsync(payload);
   }
 

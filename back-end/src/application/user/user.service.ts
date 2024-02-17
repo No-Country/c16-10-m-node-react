@@ -22,7 +22,7 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async findId(id: string): Promise<User> {
+  async findId(id: string): Promise<any> {
     try {
       const user = await this.userModel.findById(id);
       if (!user) {
@@ -35,7 +35,7 @@ export class UserService {
     }
   }
 
-  async findEmail(email: string): Promise<User> {
+  async findEmail(email: string): Promise<any> {
     try {
       const user = await this.userModel.findOne({ email });
       if (!user) {
