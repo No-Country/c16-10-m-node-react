@@ -42,7 +42,7 @@ export class UserService {
     }
   }
 
-  async findEmail(email: string): Promise<User> {
+  async findEmail(email: string): Promise<any> {
     try {
       const user = await this.userModel.findOne({ email }).exec();
       if (!user) {

@@ -20,17 +20,12 @@ export class AuthService {
     if (!valid) {
       throw new UnauthorizedException();
     }
-    return userAccount;
-  }
-
-  login(user: any): Promise<any> {
-
-    ///***********************************************************************/
+    //***********************************************************************/
     //! Aca esta el payload para el JWT
-    ///***********************************************************************/
+    //***********************************************************************/
     const payload = {
-      id: user._id,
-      email: user.email,
+      id: userAccount._id,
+      email: userAccount.email,
       message: 'Este es el payload',
     };
     return this.jwtService.signAsync(payload);
