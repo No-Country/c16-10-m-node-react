@@ -27,17 +27,17 @@ export class UserController {
   async create(@Body() createUserDto: CreateUserDto) {
     return await this.userService.create(createUserDto);
   }
-  @UseGuards(AuthGuard('jwt'))
+
   @Get()
   async findAll(@Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findAll());
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(this.userService.findId(id));
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Get('find/:email')
   async findEmail(@Param('email') email: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(this.userService.findEmail(email));
@@ -53,7 +53,7 @@ export class UserController {
       .status(HttpStatus.OK)
       .json(this.userService.update(id, updateUser));
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     const data = await this.userService.delete(id);
@@ -63,20 +63,20 @@ export class UserController {
     });
   }
 
-  @Post('image-profile')
-  @UseInterceptors(FileInterceptor('image'))
-  async uploadFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Res() res: Response,
-  ) {
-    try {
-      const data = await this.userService.uploadImage(file);
-      return res.status(HttpStatus.OK).json(data.secure_url);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      throw new Error('Failed to upload image');
-    }
-  }
+  // @Post('image-profile')
+  // @UseInterceptors(FileInterceptor('image'))
+  // async uploadFile(
+  //   @UploadedFile() file: Express.Multer.File,
+  //   @Res() res: Response,
+  // ) {
+  //   try {
+  //     const data = await this.userService.uploadImage(file);
+  //     return res.status(HttpStatus.OK).json(data.secure_url);
+  //   } catch (error) {
+  //     console.error('Error uploading image:', error);
+  //     throw new Error('Failed to upload image');
+  //   }
+  // }
 
   @Post('image/:id')
   @UseInterceptors(FileInterceptor('image'))
