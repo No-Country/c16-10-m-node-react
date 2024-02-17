@@ -6,10 +6,15 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, unique: true })
   name: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({
+    unique: true,
+    required: true,
+    trim: true,
+    match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  })
   email: string;
 
   @Prop({ type: String, required: true })
@@ -17,6 +22,13 @@ export class User {
 
   @Prop({ type: Number })
   phone?: number;
+
+  @Prop({
+    type: String,
+    default:
+      'https://res.cloudinary.com/dne12pcpf/image/upload/v1708098888/trabajoListo/l8klbjwse7bpxebfrq4y.png',
+  })
+  imageProfile: string;
 
   @Prop({ type: Boolean })
   isProfessional?: boolean;
