@@ -1,9 +1,15 @@
-import { Transform } from "class-transformer";
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
-import { Category } from "src/common/interfaces/category.interfaces";
+import { Transform } from 'class-transformer';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
+import { Category } from 'src/common/interfaces/category.interfaces';
 
 export class UpdateUserDto {
-
   @IsString()
   @IsOptional()
   readonly name?: string;
@@ -13,6 +19,7 @@ export class UpdateUserDto {
   readonly email?: string;
 
   @Transform(({ value }) => value.trim())
+  @IsOptional()
   @MinLength(6)
   password?: string;
 
@@ -24,9 +31,9 @@ export class UpdateUserDto {
   @IsOptional()
   readonly imageProfile?: string;
 
-  @IsString()
+  @IsBoolean()
   @IsOptional()
-  readonly isProfesisonal?: boolean;
+  readonly isProfessional?: boolean;
 
   @IsOptional()
   readonly category?: Category[];

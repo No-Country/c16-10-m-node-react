@@ -17,30 +17,36 @@ import { Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    return await this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    return res
+      .status(HttpStatus.CREATED)
+      .json(await this.userService.create(createUserDto));
   }
 
   @Get()
   async findAll(@Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findAll());
   }
-  @UseGuards(AuthGuard('jwt'))
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
-    return res.status(HttpStatus.OK).json(this.userService.findId(id));
+    return res.status(HttpStatus.OK).json(await this.userService.findId(id));
   }
-  @UseGuards(AuthGuard('jwt'))
+
+  @UseGuards(JwtAuthGuard)
   @Get('find/:email')
   async findEmail(@Param('email') email: string, @Res() res: Response) {
-    return res.status(HttpStatus.OK).json(this.userService.findEmail(email));
+    return res
+      .status(HttpStatus.OK)
+      .json(await this.userService.findEmail(email));
   }
 
   @Put(':id')
@@ -51,9 +57,10 @@ export class UserController {
   ) {
     return res
       .status(HttpStatus.OK)
-      .json(this.userService.update(id, updateUser));
+      .json(await this.userService.update(id, updateUser));
   }
-  @UseGuards(AuthGuard('jwt'))
+
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     const data = await this.userService.delete(id);

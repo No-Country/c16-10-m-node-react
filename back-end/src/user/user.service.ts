@@ -17,8 +17,7 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    //TODO agregar saltOrRounds a dotenv
-    const saltOrRounds = 10;
+    const saltOrRounds = Number(process.env.BCRYPT_ENV);
     const { password } = createUserDto;
 
     createUserDto.password = await bcrypt.hash(password, saltOrRounds);
@@ -26,7 +25,7 @@ export class UserService {
     return createdUser.save();
   }
   async findAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
+    return await this.userModel.find().lean().select('-password');
   }
 
   async findId(id: string): Promise<any> {
@@ -71,6 +70,11 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
+      const { password } = updateUserDto;
+      if (password != undefined) {
+        const saltOrRounds = Number(process.env.BCRYPT_SALT);
+        updateUserDto.password = await bcrypt.hash(password, saltOrRounds);
+      }
       const user = await this.userModel
         .findByIdAndUpdate(id, updateUserDto, {
           new: true,
