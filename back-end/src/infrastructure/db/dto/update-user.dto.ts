@@ -19,6 +19,7 @@ export class UpdateUserDto {
   readonly email?: string;
 
   @Transform(({ value }) => value.trim())
+  @IsOptional()
   @MinLength(6)
   password?: string;
 

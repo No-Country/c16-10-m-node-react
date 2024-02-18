@@ -57,7 +57,7 @@ export class UserController {
   ) {
     return res
       .status(HttpStatus.OK)
-      .json(this.userService.update(id, updateUser));
+      .json(await this.userService.update(id, updateUser));
   }
 
   @UseGuards(JwtAuthGuard)
