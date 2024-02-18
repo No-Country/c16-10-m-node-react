@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const ServiciosCard = ({ servicio }: ServiciosCardProps) => {
   return (
-    <div className={cn("flex items-center justify-center gap-[120px] pb-2 pt-2 rounded-xl shadow-xl border-b-[1px]", servicio.id == 2 ? "flex-row-reverse pl-12 pr-2" : "pr-12 pl-2")}>
+    <div className={cn("flex items-center justify-center gap-[120px] pb-2 pt-2 rounded-xl shadow-lg transition-all duration-75 hover:shadow-xl border-b-[1px]", servicio.id == 2 ? "flex-row-reverse pl-12 pr-2" : "pr-12 pl-2")}>
       <div className="flex justify-center">
         <img className="rounded-xl w-[400px] h-auto" src={servicio.imgUrl} alt={servicio.title} />
       </div>

@@ -4,20 +4,18 @@ import imageHome from "../assets/imagenTrabajolisto.png";
 
 const Hero = () => {
   return (
-    <div className="flex items-center justify-around bg-red-100 px-10 border-white h-[675px] overflow-hidden">
+    <div className="flex items-center justify-around bg-gradient-to-r from-[#fffcfc] via-[#fffcfc] to-red-300 px-10 border-white h-[675px] overflow-hidden">
       <div className="flex flex-col flex-1 justify-around pl-16 h-[60%]">
         <div className="flex flex-col gap-2">
           <h2 className="font-black text-5xl text-red-500 italic">
-            TE OFRECEMOS
+            TRABAJO LISTO
           </h2>
           <h3 className="font-bold text-[#5D5657] text-3xl">
-            Accesibilidad y velocidad de busquedas en servicios
+            Te ofrecemos accesibilidad y velocidad en busquedas de servicios
           </h3>
         </div>
         <p className="font-medium text-[#5D5657] text-lg">
-          Lorem ipsum dolor sit amet consectetur adipiscing elit integer
-          himenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,
-          faucibus pulvinar ultricies tellus purus euismod gravida.
+        Descubre una amplia gama de servicios ofrecidos por profesionales y personas de diversas áreas en nuestra plataforma. ¡Encuentra exactamente lo que necesitas entre miles de opciones disponibles!
         </p>
         <Button className="bg-red-500 hover:bg-red-600 px-10 py-6 rounded-full w-40 text-white text-xl hover:text-white outline-none">
           Ver servicios

@@ -15,3 +15,13 @@ export interface OfrecemosCards {
         svg: React.ReactNode;
     }
 }
+
+export interface EquipoCards {
+  item: {
+    id: number;
+    nombre: string;
+    rol: string;
+    link: string;
+    img:string;
+  }
+}
