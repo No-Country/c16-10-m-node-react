@@ -10,11 +10,23 @@ export const OfrecemosCard: React.FC<OfrecemosCards> = ({ card }) => {
         </div>
       </div>
       <div>
-        <h3 className={cn("font-bold italic mt-3 mb-2 px-5 text-3xl",card.id == 2 || card.id == 3 ? "text-[#FE4C55]" : "text-[#fffcfc]")}>{card.title}</h3>
-        <p className={cn("font-semibold px-5 text-lg",card.id == 2 || card.id == 3 ? "text-[#FE4C55]" : "text-[#fffcfc]")}>
-            {card.text}
+        <h3
+          className={cn(
+            "font-bold italic mt-3 mb-2 px-5 text-3xl",
+            card.id == 2 || card.id == 3 ? "text-[#FE4C55]" : "text-[#fffcfc]"
+          )}
+        >
+          {card.title}
+        </h3>
+        <p
+          className={cn(
+            "font-semibold px-5 text-lg",
+            card.id == 2 || card.id == 3 ? "text-[#FE4C55]" : "text-[#fffcfc]"
+          )}
+        >
+          {card.text}
         </p>
-      </div>   
+      </div>
     </div>
   );
 };

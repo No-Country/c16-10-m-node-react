@@ -8,21 +8,21 @@ export const OfrecemosContainer = () => {
   
 
     const CARDS = [
-        {id: 1, title: "Intuitivo", text: "Fácil de usar y accesible para todas las personas", svg: svg1},
-        {id: 2, title: "Variedad", text: "Ofrecemos una gran diversidad de servicios, garantizando que encuentres exactamente lo que necesitas.", svg: svg2},
-        {id: 3, title: "Confianza", text: "Garantizamos transparencia, seguridad y protección en cada transacción y experiencia que tengas con los servicios.", svg: svg3},
-        {id: 4, title: "Eficiencia", text: "Encuentra o presta servicios de manera rápida y sin complicaciones.", svg: svg4}
+        { id: 1, title: "Intuitivo", text: "Fácil de usar y accesible para todas las personas", svg: svg1 },
+        { id: 2, title: "Variedad", text: "Ofrecemos una gran diversidad de servicios, garantizando que encuentres exactamente lo que necesitas.", svg: svg2 },
+        { id: 3, title: "Confianza", text: "Garantizamos transparencia, seguridad y protección en cada transacción y experiencia que tengas con los servicios.", svg: svg3 },
+        { id: 4, title: "Eficiencia", text: "Encuentra o presta servicios de manera rápida y sin complicaciones.", svg: svg4 }
     ]
 
 
-  return (
-    <section className="flex flex-col items-center justify-center gap-12 bg-red-100 w-full h-auto">
-        <h2 className="mt-[70px] px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">¿POR QUÉ ELEGIR TRABAJO LISTO?</h2>
-        <div className="flex flex-wrap justify-center gap-4 mb-[70px] px-6 max-w-[870px] h-auto">
-            {CARDS.map((card) => (
-                <OfrecemosCard key={card.id} card={card}/>
-            ))}
-        </div>
-    </section>
-  )
+    return (
+        <section className="flex flex-col items-center justify-center gap-12 bg-red-100 w-full h-auto">
+            <h2 className="mt-[70px] px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">¿POR QUÉ ELEGIR TRABAJO LISTO?</h2>
+            <div className="flex flex-wrap justify-center gap-4 mb-[70px] px-6 max-w-[870px] h-auto">
+                {CARDS.map((card) => (
+                    <OfrecemosCard key={card.id} card={card} />
+                ))}
+            </div>
+        </section>
+    )
 }

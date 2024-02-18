@@ -6,6 +6,7 @@ import pieroTL from "../assets/teamImg/pieroTL.png"
 import valenTL from "../assets/teamImg/valenTL.png"
 import franTL from "../assets/teamImg/franTL.jpeg"
 import ferTL from "../assets/teamImg/ferTL.jpeg"
+import harryTL from "../assets/teamImg/harryTL.jpg"
 
 export const Equipo = () => {
   
@@ -17,7 +18,7 @@ export const Equipo = () => {
     {id:5, nombre: "Nicolas Ramos", rol:"Back-End", link: "https://www.linkedin.com/in/dario-nicolas-ramos", img: nicoTL},
     {id:6, nombre: "Juan Oh", rol:"Back-End", link: "https://www.linkedin.com/in/jioh19/", img: juanTL},
     {id:7, nombre: "Piero Sanchez", rol:"UX/UI Designer", link: "", img: pieroTL},
-    {id:8, nombre: "Harry Yanarico", rol:"Full-Stack", link: "", img: pieroTL},
+    {id:8, nombre: "Harry Yanarico", rol:"Full-Stack", link: "", img: harryTL},
   ]
 
   return (
