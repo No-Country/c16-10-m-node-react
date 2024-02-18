@@ -1,20 +1,16 @@
-export interface ServiciosCardProps {
-  servicio: {
-    imgUrl: string;
-    id: number;
-    title: string;
-    text: string;
-    nombre?: string;
-  };
+export interface Servicio {
+  imgUrl: string;
+  id: number;
+  title: string;
+  text: string;
+  nombre?: string;
 }
 
-export interface ServicioProfesionalprops {
-  servicioProfesional: {
-    imgUrl: string;
-    id: number;
-    nombre: string;
-    servicio: ServiciosCardProps;
-  };
+export interface ServicioProfesional {
+  imgUrl: string;
+  id: number;
+  nombre: string;
+  servicio: Servicio;
 }
 
 export interface OfrecemosCards {

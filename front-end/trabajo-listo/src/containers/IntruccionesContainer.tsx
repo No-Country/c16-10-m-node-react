@@ -2,6 +2,7 @@ import ServiciosCard from "@/components/InstruccionesCard";
 import image1 from "../assets/imageServicio1.png";
 import image2 from "../assets/imageServicio2.png";
 import image3 from "../assets/imageServicio3.png";
+import { Servicio } from "@/components/component";
 
 const ServiciosContainer = () => {
   const DUMMY_SERVICIOS = [
@@ -35,7 +36,7 @@ const ServiciosContainer = () => {
         </h2>
       </div>
       <div className="flex flex-col items-center gap-7 px-1 ">
-        {DUMMY_SERVICIOS.map((servicio) => (
+        {DUMMY_SERVICIOS.map((servicio: Servicio) => (
           <ServiciosCard key={servicio.id} servicio={servicio}></ServiciosCard>
         ))}
       </div>
