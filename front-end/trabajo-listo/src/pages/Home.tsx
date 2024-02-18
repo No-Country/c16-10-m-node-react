@@ -9,8 +9,8 @@ export const Home = () => {
     <main>
       <Hero />
       <Servicios />
-      <OfrecemosContainer />
       <TuNecesidad />
+      <OfrecemosContainer />
       <RecomendacionesContainer />
     </main>
   );
