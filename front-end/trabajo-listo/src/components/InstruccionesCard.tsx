@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Servicio } from "./component";
 
-const ServiciosCard = ({ servicio }: { servicio: Servicio }) => {
+const InstruccionesCard = ({ servicio }: { servicio: Servicio }) => {
   return (
     <div
       className={cn(
@@ -33,4 +33,4 @@ const ServiciosCard = ({ servicio }: { servicio: Servicio }) => {
   );
 };
 
-export default ServiciosCard;
+export default InstruccionesCard;

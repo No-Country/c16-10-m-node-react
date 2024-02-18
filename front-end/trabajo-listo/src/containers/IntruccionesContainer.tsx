@@ -4,7 +4,7 @@ import image2 from "../assets/imageServicio2.png";
 import image3 from "../assets/imageServicio3.png";
 import { Servicio } from "@/components/component";
 
-const ServiciosContainer = () => {
+const IntruccionesContainer = () => {
   const DUMMY_SERVICIOS = [
     {
       imgUrl: image1,
@@ -44,4 +44,4 @@ const ServiciosContainer = () => {
   );
 };
 
-export default ServiciosContainer;
+export default IntruccionesContainer;
