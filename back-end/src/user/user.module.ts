@@ -4,8 +4,10 @@ import { User, UserSchema } from 'src/infrastructure/db/schemas/user.schema';
 import { CloudinaryProvider } from './cloudinary.provider';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   exports: [UserService, CloudinaryProvider],
