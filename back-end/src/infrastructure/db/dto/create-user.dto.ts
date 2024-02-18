@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsNumber,
@@ -31,7 +32,7 @@ export class CreateUserDto {
   @IsOptional()
   readonly imageProfile?: string;
 
-  @IsString()
+  @IsBoolean()
   @IsOptional()
   readonly isProfessional?: boolean;
 

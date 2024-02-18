@@ -17,7 +17,6 @@ import { Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
