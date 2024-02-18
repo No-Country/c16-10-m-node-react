@@ -26,15 +26,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
+import { registerUser } from "@/api/user.endpoint";
 
 export const FormSignUpModal = () => {
   const [isChecked, setIsChecked] = useState(false);
 
   const formSchema = z.object({
+    name: z.string().min(3, {
+      message: "Mínimo 3 caracteres"
+    }),
     email: z.string().min(5, {
       message: "Ingrese un email válido",
     }),
-    contraseña: z.string().min(8, {
+    password: z.string().min(8, {
       message: "Mínimo 8 caracteres",
     }),
   });
@@ -42,17 +46,14 @@ export const FormSignUpModal = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       email: "",
-      contraseña: "",
+      password: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      console.log(values);
-    } catch (error) {
-      console.log(error);
-    }
+    registerUser(values)
   };
 
   const handleClose = () => {
@@ -80,7 +81,27 @@ export const FormSignUpModal = () => {
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Nombre y apellido
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Jesus"
+                      className="focus-visible:ring-0 focus-visible:ring-offset-0"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -101,7 +122,7 @@ export const FormSignUpModal = () => {
             />
             <FormField
               control={form.control}
-              name="contraseña"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Contraseña</FormLabel>

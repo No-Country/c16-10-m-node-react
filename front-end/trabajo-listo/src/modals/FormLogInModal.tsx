@@ -24,6 +24,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { authUser } from "@/api/user.endpoint"
 
 
 export const FormLogInModal = () => {
@@ -45,11 +46,7 @@ export const FormLogInModal = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      console.log(values)
-    } catch (error) {
-      console.log(error)
-    }
+    authUser(values)
   }
 
   const handleClose = () => {
