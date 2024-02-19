@@ -8,7 +8,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { Category } from 'src/common/interfaces/category.interfaces';
+import { Category } from 'src/common/classes/category.interfaces';
 
 export class CreateUserDto {
   @IsString()

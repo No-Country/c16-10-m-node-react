@@ -1,4 +1,4 @@
-export interface Services {
+export class Services {
   name: string;
   price: number;
 }

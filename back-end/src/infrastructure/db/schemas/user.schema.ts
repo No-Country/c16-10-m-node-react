@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { Category } from 'src/common/interfaces/category.interfaces';
+import { Category } from 'src/common/classes/category.class';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -33,7 +33,7 @@ export class User {
   @Prop({ type: Boolean })
   isProfessional?: boolean;
 
-  @Prop({ type: Array })
+  @Prop({ type: [Category] })
   category?: Category[];
 
   @Prop({ type: String })
