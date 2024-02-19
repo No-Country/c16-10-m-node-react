@@ -8,14 +8,14 @@ const RecomendacionesCard = ({
 }) => {
   return (
     <div className="bg-white shadow-3xl rounded-2xl w-full h-full overflow-hidden">
-      <div className="h-1/2 ">
+      <div className=" ">
         <img
-          className="rounded-lg w-full max-h-1/2 "
+          className="rounded-lg w-full "
           src={servicioProfesional.servicio.imgUrl}
         ></img>
       </div>
-      <div className="flex flex-col gap-3 px-2 py-5 w-full h-ful ">
-        <div className="flex h-1/2">
+      <div className="flex flex-col gap-3 px-2 py-5 w-full ">
+        <div className="flex ">
           <div className="flex items-center mr-2">
             <img
               className="rounded-full w-[3rem] "
@@ -39,7 +39,7 @@ const RecomendacionesCard = ({
           <p>{4.3}</p>
         </div>
         <div>
-          <p>US5$</p>
+          <p className="font-semibold">US5$</p>
         </div>
       </div>
     </div>
