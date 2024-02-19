@@ -28,6 +28,11 @@ export interface EquipoCards {
     nombre: string;
     rol: string;
     link: string;
-    img:string;
-  }
+    img: string;
+  };
+}
+
+export interface UserState {
+  nombre: string;
+  email: string;
 }
