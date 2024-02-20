@@ -26,6 +26,7 @@ export class AuthService {
     const payload = {
       id: userAccount._id,
       email: userAccount.email,
+      isProfessional: userAccount.isProfessional,
       message: 'Este es el payload',
     };
     return this.jwtService.signAsync(payload);
