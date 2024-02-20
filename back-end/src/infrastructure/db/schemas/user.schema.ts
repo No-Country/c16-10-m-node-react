@@ -30,7 +30,7 @@ export class User {
   })
   imageProfile: string;
 
-  @Prop({ type: Boolean })
+  @Prop({ type: Boolean, default: false })
   isProfessional?: boolean;
 
   @Prop({ type: [Category] })
