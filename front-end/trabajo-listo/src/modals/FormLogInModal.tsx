@@ -1,5 +1,14 @@
 "use client";
+import { authUser, getProfile } from "@/api/user.endpoint";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   Sheet,
@@ -9,24 +18,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { userActions } from "@/store/userSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
-import { authUser, getUser } from "@/api/user.endpoint";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "@/store/userSlice";
-import { UserState } from "@/components/component";
 
 export const FormLogInModal = () => {
-  const user = useSelector((state: { user: UserState }) => state.user);
   const dispatch = useDispatch();
 
   const formSchema = z.object({
@@ -48,10 +46,11 @@ export const FormLogInModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = await authUser(values);
+    
     if (token) {
-      const userData = await getUser(token);
+      dispatch(userActions.SET_TOKEN({token: token}))
+      const userData = await getProfile(token);
       dispatch(userActions.USER_LOGIN(userData));
-      console.log(user, "redux");
     }
   };
 

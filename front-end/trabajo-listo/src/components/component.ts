@@ -37,6 +37,8 @@ export interface UserState {
   email: string;
   imageProfile: string;
   id: string;
+  token: string;
+  isPro: boolean;
 }
 export interface tokenUser {
   email: string;
