@@ -33,6 +33,15 @@ export interface EquipoCards {
 }
 
 export interface UserState {
-  nombre: string;
+  name: string;
   email: string;
+  imageProfile: string;
+  id: string;
+}
+export interface tokenUser {
+  email: string;
+  exp: number;
+  iat: number;
+  id: string;
+  message: string;
 }

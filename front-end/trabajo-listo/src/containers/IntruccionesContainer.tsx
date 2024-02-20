@@ -2,9 +2,7 @@ import ServiciosCard from "@/components/InstruccionesCard";
 import image1 from "../assets/imageServicio1.png";
 import image2 from "../assets/imageServicio2.png";
 import image3 from "../assets/imageServicio3.png";
-import { Servicio, UserState } from "@/components/component";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "@/store/userSlice";
+import { Servicio } from "@/components/component";
 
 const IntruccionesContainer = () => {
   const DUMMY_SERVICIOS = [
@@ -28,23 +26,8 @@ const IntruccionesContainer = () => {
     },
   ];
 
-  const dispatch = useDispatch();
-  const users = useSelector((state: { user: UserState }) => state.user);
-
-  console.log(users);
   return (
-    <div
-      onClick={() => {
-        dispatch(
-          userActions.USER_LOGIN({
-            nombre: "fernando",
-            email: "fernando@hotmail.com",
-          })
-        );
-        console.log(users);
-      }}
-      className="flex flex-col gap-20 bg-[#fffcfc] px-10 py-20"
-    >
+    <div className="flex flex-col gap-20 bg-[#fffcfc] px-10 py-20">
       <div className="text-center">
         <h1 className="px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">
           ¿COMO PUEDO CONTRATAR?
