@@ -2,27 +2,26 @@ import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsEmail,
-  IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
-import { Category } from 'src/common/classes/category.interfaces';
+import { Category } from 'src/common/classes/category.class';
 
-export class CreateUserDto {
+export class UpdateUserDto {
   @IsString()
-  @IsNotEmpty()
-  readonly name: string;
+  @IsOptional()
+  readonly name?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEmail()
-  readonly email: string;
+  readonly email?: string;
 
   @Transform(({ value }) => value.trim())
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(6)
-  password: string;
+  password?: string;
 
   @IsNumber()
   @IsOptional()

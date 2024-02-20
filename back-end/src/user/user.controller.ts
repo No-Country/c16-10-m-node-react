@@ -14,9 +14,9 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
+import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
 import { UserService } from './user.service';
-import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
+import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
