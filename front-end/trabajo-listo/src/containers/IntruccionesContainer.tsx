@@ -25,6 +25,7 @@ const IntruccionesContainer = () => {
       text: "Lorem ipsum dolor sit amet consectetur adipiscing elit integerhimenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,faucibus pulvinar ultricies tellus purus euismod gravida venenatis.",
     },
   ];
+
   return (
     <div className="flex flex-col gap-20 bg-[#fffcfc] px-10 py-20">
       <div className="text-center">
