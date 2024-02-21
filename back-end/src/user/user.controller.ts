@@ -7,16 +7,18 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Req,
   Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
-import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
+import { Request, Response } from 'express';
+import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
 import { UserService } from './user.service';
-import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
+import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
@@ -25,14 +27,21 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    const user = await this.userService.create(createUserDto);
     return res
       .status(HttpStatus.CREATED)
-      .json(await this.userService.create(createUserDto));
+      .json({ message: 'user created', name: user.name });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(@Res() res: Response) {
-    return res.status(HttpStatus.OK).json(await this.userService.findAll());
+  async findAll(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+    @Res() res: Response,
+  ) {
+    const users = await this.userService.findAll(page, limit);
+    return res.status(HttpStatus.OK).json(users);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -42,13 +51,14 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('find/:email')
-  async findEmail(@Param('email') email: string, @Res() res: Response) {
+  @Get('find')
+  async findEmail(@Body() email: string, @Res() res: Response) {
     return res
       .status(HttpStatus.OK)
       .json(await this.userService.findEmail(email));
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -70,6 +80,8 @@ export class UserController {
     });
   }
 
+
+  @UseGuards(JwtAuthGuard)
   @Post('image/:id')
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
