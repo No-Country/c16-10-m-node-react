@@ -6,6 +6,7 @@ export const registerUser = async (user: object) => {
   try {
     const res = await apiClient.post("user", user);
     if (!res) throw new Error("Bad Request");
+    return true;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
     throw error;
@@ -84,11 +85,21 @@ export const updateProfile = async (
 
 export const updateImage = async (
   id: string,
+  token: string,
   image: object
 ): Promise<object> => {
   try {
     console.log(image);
-    const res = await apiClient.post(`user/image/${id}`, { image: image });
+    const res = await apiClient.post(
+      `user/image/${id}`,
+      { image: image },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     console.log(res.data);
     if (!res) throw new Error("Fallo al cargar la imagen");
 

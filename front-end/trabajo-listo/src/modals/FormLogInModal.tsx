@@ -46,10 +46,11 @@ export const FormLogInModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = await authUser(values);
-    
+
     if (token) {
-      dispatch(userActions.SET_TOKEN({token: token}))
+      dispatch(userActions.SET_TOKEN({ token: token }));
       const userData = await getProfile(token);
+      handleClose();
       dispatch(userActions.USER_LOGIN(userData));
     }
   };
