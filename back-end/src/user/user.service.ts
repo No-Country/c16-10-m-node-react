@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import {
@@ -20,16 +24,26 @@ export class UserService {
     try {
       const saltOrRounds = Number(process.env.BCRYPT_ENV);
       const { password } = createUserDto;
-
       createUserDto.password = await bcrypt.hash(password, saltOrRounds);
+
       const createdUser = new this.userModel(createUserDto);
+      if (!createdUser) throw new BadRequestException();
       return createdUser.save();
     } catch (error) {
       throw new Error(error);
     }
   }
-  async findAll(): Promise<User[]> {
-    return await this.userModel.find().lean().select('-password');
+  async findAll(page: string, limit: string): Promise<User[]> {
+    const pageInt = parseInt(page);
+    const limitInt = parseInt(limit);
+    const skip = (pageInt - 1) * limitInt;
+    const usersProfessionals = await this.userModel
+      .find({ isProfessional: true })
+      .skip(skip)
+      .limit(limitInt)
+      .lean()
+      .select('-password');
+    return usersProfessionals;
   }
 
   async findId(id: string): Promise<any> {
