@@ -95,12 +95,15 @@ export const Navbar = () => {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid md:grid-cols-1 gap-1 p-4 w-[125px] md:w-[150px]">
-                      <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
-                          <Link to={`/perfil/${user.id}`}>Ver perfil</Link>
-                      </li>
-                      <li onClick={logoutHandler} className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
-                          Logout
-                      </li>
+                    <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
+                      <Link to={`/perfil/${user.id}`}>Ver perfil</Link>
+                    </li>
+                    <li
+                      onClick={logoutHandler}
+                      className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer"
+                    >
+                      Cerrar sesión
+                    </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>

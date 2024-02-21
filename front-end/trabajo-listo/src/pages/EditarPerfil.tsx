@@ -1,10 +1,12 @@
 import { updateImage, updateProfile } from "@/api/user.endpoint";
 import { UserState } from "@/components/component";
+import { userActions } from "@/store/userSlice";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const EditarPerfil = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
+  const dispatch = useDispatch();
   const [nombre, setNombre] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [imagen, setImagen] = useState<null | object>(null);
@@ -26,11 +28,12 @@ export const EditarPerfil = () => {
     const data = { name: nombre, email: email };
     if (data.name.length > 2 && data.email.length > 2) {
       const newValues = await updateProfile(user.id, data);
+      dispatch(userActions.EDIT_USER(newValues));
       console.log(newValues);
     }
     if (imagen != null && data.name.length > 3 && data.email.length > 3) {
-      const urlImage = await updateImage(user.id, imagen);
-      console.log(urlImage);
+      const urlImage = await updateImage(user.id, user.token, imagen);
+      dispatch(userActions.EDIT_USER({ imageProfile: urlImage }));
     }
   };
 
