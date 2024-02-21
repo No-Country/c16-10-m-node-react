@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Services } from 'src/common/classes/services.class';
 import { User } from './user.schema';
+import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
 export type PostDocument = HydratedDocument<Post>;
 
@@ -13,8 +14,8 @@ export class Post {
   @Prop({ type: String, required: true })
   description: string;
 
-  @Prop({ type: String, required: true })
-  category: string;
+  @Prop({ type: String, enum: CategoriesEnum, required: true })
+  category: CategoriesEnum;
 
   @Prop({ type: [Services] })
   services: Services[];
@@ -22,7 +23,17 @@ export class Post {
   @Prop({ type: String, required: true })
   nameProfessional: string;
 
-  @Prop({ type: Number })
+  @Prop({
+    type: String,
+    default:
+      'https://res.cloudinary.com/dne12pcpf/image/upload/v1708098888/trabajoListo/l8klbjwse7bpxebfrq4y.png',
+  })
+  imagePost: string;
+
+  @Prop({ type: [String] })
+  comments: string[];
+
+  @Prop({ type: Number, default: 0 })
   views: number;
 
   @Prop({

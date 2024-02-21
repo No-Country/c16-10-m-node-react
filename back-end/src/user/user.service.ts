@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import {
@@ -7,8 +11,8 @@ import {
   v2 as cloudinary,
 } from 'cloudinary';
 import { Model } from 'mongoose';
-import { CreateUserDto } from 'src/infrastructure/db/dto/create-user.dto';
-import { UpdateUserDto } from 'src/infrastructure/db/dto/update-user.dto';
+import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
+import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
 import { User } from 'src/infrastructure/db/schemas/user.schema';
 
 const streamifier = require('streamifier');
@@ -17,15 +21,29 @@ export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const saltOrRounds = Number(process.env.BCRYPT_ENV);
-    const { password } = createUserDto;
+    try {
+      const saltOrRounds = Number(process.env.BCRYPT_ENV);
+      const { password } = createUserDto;
+      createUserDto.password = await bcrypt.hash(password, saltOrRounds);
 
-    createUserDto.password = await bcrypt.hash(password, saltOrRounds);
-    const createdUser = new this.userModel(createUserDto);
-    return createdUser.save();
+      const createdUser = new this.userModel(createUserDto);
+      if (!createdUser) throw new BadRequestException();
+      return createdUser.save();
+    } catch (error) {
+      throw new Error(error);
+    }
   }
-  async findAll(): Promise<User[]> {
-    return await this.userModel.find().lean().select('-password');
+  async findAll(page: string, limit: string): Promise<User[]> {
+    const pageInt = parseInt(page);
+    const limitInt = parseInt(limit);
+    const skip = (pageInt - 1) * limitInt;
+    const usersProfessionals = await this.userModel
+      .find({ isProfessional: true })
+      .skip(skip)
+      .limit(limitInt)
+      .lean()
+      .select('-password');
+    return usersProfessionals;
   }
 
   async findId(id: string): Promise<any> {
