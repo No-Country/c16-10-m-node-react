@@ -8,7 +8,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-//import { Category } from 'src/common/classes/category.interfaces';
+import { Category } from 'src/common/classes/category.class';
 
 export class CreateUserDto {
   @IsString()
@@ -36,8 +36,8 @@ export class CreateUserDto {
   @IsOptional()
   readonly isProfessional?: boolean;
 
-  // @IsOptional()
-  // readonly category?: Category[];
+  @IsOptional()
+  readonly category?: Category[];
 
   @IsString()
   @IsOptional()

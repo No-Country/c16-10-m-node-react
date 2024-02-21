@@ -7,7 +7,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-//import { Category } from 'src/common/classes/category.interfaces';
+import { Category } from 'src/common/classes/category.class';
 
 export class UpdateUserDto {
   @IsString()
@@ -35,8 +35,8 @@ export class UpdateUserDto {
   @IsOptional()
   readonly isProfessional?: boolean;
 
-  // @IsOptional()
-  // readonly category?: Category[];
+  @IsOptional()
+  readonly category?: Category[];
 
   @IsString()
   @IsOptional()

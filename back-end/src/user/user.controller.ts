@@ -70,21 +70,6 @@ export class UserController {
     });
   }
 
-  // @Post('image-profile')
-  // @UseInterceptors(FileInterceptor('image'))
-  // async uploadFile(
-  //   @UploadedFile() file: Express.Multer.File,
-  //   @Res() res: Response,
-  // ) {
-  //   try {
-  //     const data = await this.userService.uploadImage(file);
-  //     return res.status(HttpStatus.OK).json(data.secure_url);
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //     throw new Error('Failed to upload image');
-  //   }
-  // }
-
   @Post('image/:id')
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
