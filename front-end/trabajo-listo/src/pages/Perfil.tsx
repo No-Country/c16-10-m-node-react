@@ -9,8 +9,6 @@ export const Perfil = () => {
     const { id } = useParams<{ id: string }>();
     const user = useSelector((state: { user: UserState }) => state.user);
     const [usuario, setUsuario] = useState<UserState>({name: "",email: "",imageProfile: "",id: "",token: "",isPro: false,})
-    console.log(usuario);
-    
 
     useEffect(() => {
         const llamada = async () => {
@@ -39,7 +37,7 @@ export const Perfil = () => {
             </div>
             )}
         </section>
-        {!usuario.isPro && (
+        {!usuario.isPro && user.id == usuario.id && (
             <div className="flex flex-col items-center justify-center gap-5 bg-white mt-[70px] border border-slate-300 rounded-sm w-[700px] h-[270px]">
                 <h2 className="font-semibold text-xl text-zinc-600">¿Quieres publicar tus propios servicios?</h2>
                 <button className="bg-red-500 px-5 py-3 rounded-sm font-semibold text-white" typeof="button">Conviertete en vendedor</button>

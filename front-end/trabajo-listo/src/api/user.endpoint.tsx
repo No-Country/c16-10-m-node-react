@@ -96,3 +96,24 @@ export const updateImage = async (id: string, token: string, image: object): Pro
     throw error
   }
 };
+
+
+export const getAll = async (token: string): Promise<object> => {
+  try {
+    
+    const res = await apiClient.get(`user/`,{
+      headers: { 
+        Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data'
+      },
+    });
+    
+    console.log(res.data);
+    if (!res) throw new Error("Fallo al cargar la imagen")
+    
+
+    return res.data;
+  } catch (error) {
+    console.error("Error al obtener los datos: ", error)
+    throw error
+  }
+};
