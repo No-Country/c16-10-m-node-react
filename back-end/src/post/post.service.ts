@@ -1,11 +1,14 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Post } from 'src/infrastructure/db/schemas/posts.schema';
+import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
-import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
 @Injectable()
 export class PostService {
@@ -35,19 +38,62 @@ export class PostService {
     }
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll(): Promise<Post[]> {
+    return await this.postModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: string): Promise<Post> {
+    try {
+      const post = await this.postModel.findById(id).lean().select('-password');
+      if (!post) {
+        throw new NotFoundException(`Post #${id} not found`);
+      }
+      return post;
+    } catch (err) {
+      console.error(`Error occurred while finding Post #${id}: `, err);
+      throw err;
+    }
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
+  async findByProfessional(id: string): Promise<Post[]> {
+    try {
+      const posts = await this.postModel.find({ idProfessional: id });
+      if (posts.length == 0) {
+        throw new NotFoundException(`Posts by professional #${id} not found`);
+      }
+      return posts;
+    } catch (err) {
+      console.error(
+        `Error occurred while finding posts by Professional #${id}: `,
+        err,
+      );
+      throw err;
+    }
+  }
+
+  async findByCategory(category: string): Promise<Post[]> {
+    try {
+      const posts = await this.postModel.find({
+        category: { $all: category },
+      });
+      if (posts.length == 0) {
+        throw new NotFoundException(`Posts with category #${category} not found`);
+      }
+      return posts;
+    } catch (err) {
+      console.error(
+        `Error occurred while finding posts with category #${category}: `,
+        err,
+      );
+      throw err;
+    }
+  }
+
+  update(id: string, updatePostDto: UpdatePostDto) {
     return `This action updates a #${id} post`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} post`;
   }
 }

@@ -33,22 +33,37 @@ export class PostController {
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  async findAll() {
+    return await this.postService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.postService.findOne(id);
+  }
+
+  @Get('professional/:id')
+  async findByProfessional(@Param('id') id: string, @Res() res: Response) {
+    const newPost = await this.postService.findByProfessional(id);
+    return res.status(HttpStatus.OK).json(newPost);
+  }
+
+  @Get('category/:category')
+  async findByCategory(
+    @Param('category') category: string,
+    @Res() res: Response,
+  ) {
+    const newPost = await this.postService.findByCategory(category);
+    return res.status(HttpStatus.OK).json(newPost);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
+    return this.postService.update(id, updatePostDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+    return this.postService.remove(id);
   }
 }
