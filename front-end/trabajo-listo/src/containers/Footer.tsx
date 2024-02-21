@@ -17,6 +17,9 @@ export const Footer = () => {
                         <p className="cursor-pointer hover:underline mb-2">Términos y Condiciones</p>
                         <p className="cursor-pointer hover:underline mb-2">Formas de Pago</p>
                         <p className="cursor-pointer hover:underline mb-2">Preguntas Frecuentes</p>
+                        <Link to="/Testimonios">
+                            <p className="cursor-pointer hover:underline mb-2">Testimonios</p>
+                        </Link>
                     </div>
                 </div>
             </section>

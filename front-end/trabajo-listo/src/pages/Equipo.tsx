@@ -24,7 +24,7 @@ export const Equipo = () => {
   return (
     <main className="flex flex-col items-center gap-14 min-h-[100vh]">
         <h1 className="mt-[60px] font-bold text-[#FE4C55] text-4xl italic">CONOCE AL EQUIPO</h1>
-        <div className="flex flex-wrap justify-center gap-5 max-w-[800px]">
+        <div className="flex flex-wrap justify-center gap-5 mb-[80px] max-w-[800px]">
           {EQUIPO.map((item) => (
             <EquipoCard key={item.id} item={item}/>
           ))}

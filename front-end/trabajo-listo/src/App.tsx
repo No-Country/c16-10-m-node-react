@@ -7,6 +7,7 @@ import { Footer } from "./containers/Footer";
 import { Equipo } from "./pages/Equipo";
 import { Testimonios } from "./pages/Testimonios";
 import { Perfil } from "./pages/Perfil";
+import { EditarPerfil } from "./pages/EditarPerfil";
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="equipo" element={<Equipo />} />
         <Route path="testimonios" element={<Testimonios />} />
         <Route path="perfil/:id" element={<Perfil /> }/>
+        <Route path="editar-perfil" element={<EditarPerfil /> }/>
       </Routes>
       <Footer />
     </BrowserRouter>
