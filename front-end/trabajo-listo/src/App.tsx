@@ -11,6 +11,7 @@ import { EditarPerfil } from "./pages/EditarPerfil";
 import { useSelector } from "react-redux";
 import { UserState } from "./components/component";
 import React from "react";
+import { NuevoServicio } from "./pages/NuevoServicio";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="search" element={<SearchPage />} />
@@ -47,6 +48,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="nuevo-servicio" element={<NuevoServicio />} />
       </Routes>
       <Footer />
     </BrowserRouter>

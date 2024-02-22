@@ -23,6 +23,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const FormLogInModal = () => {
   const dispatch = useDispatch();
@@ -48,10 +50,16 @@ export const FormLogInModal = () => {
     const token = await authUser(values);
 
     if (token) {
-      dispatch(userActions.SET_TOKEN({ token: token }));
-      const userData = await getProfile(token);
-      handleClose();
-      dispatch(userActions.USER_LOGIN(userData));
+      if(token == "error 401"){
+        toast('Tu email o contraseña son incorrectos');
+      }else{
+        dispatch(userActions.SET_TOKEN({ token: token }));
+        const userData = await getProfile(token);
+        handleClose();
+        dispatch(userActions.USER_LOGIN(userData));
+        toast("Ingresaste a tu cuenta correctamente")
+      }
+      
     }
   };
 
@@ -61,6 +69,20 @@ export const FormLogInModal = () => {
 
   return (
     <Sheet onOpenChange={handleClose}>
+       <div className="absolute">
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+        </div>
       <SheetTrigger asChild>
         <Button
           variant="default"
