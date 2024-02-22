@@ -33,7 +33,6 @@ export class UserController {
       .json({ message: 'user created', name: user.name });
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(
     @Query('page') page: string = '1',
@@ -44,7 +43,7 @@ export class UserController {
     return res.status(HttpStatus.OK).json(users);
   }
 
-  @UseGuards(JwtAuthGuard)
+
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findId(id));
