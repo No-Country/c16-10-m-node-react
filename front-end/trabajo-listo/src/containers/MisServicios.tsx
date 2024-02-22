@@ -1,11 +1,11 @@
 import { getProfesionalService } from "@/api/service.endpoint";
 import RecomendacionesCard from "@/components/RecomendacionesCard";
-import { MisServiciosLista } from "@/components/component";
+import { ServicioProfesional } from "@/components/component";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export const MisServicios = ({ id }: { id: string }) => {
-  const [servicios, setServicios] = useState<null | Array<MisServiciosLista>>(
+  const [servicios, setServicios] = useState<null | Array<ServicioProfesional>>(
     null
   );
 
@@ -15,7 +15,7 @@ export const MisServicios = ({ id }: { id: string }) => {
         const value = await getProfesionalService(id);
         console.log(value);
 
-        if (value) setServicios(value);
+        if (value?.data) setServicios(value.data);
       }
     };
 

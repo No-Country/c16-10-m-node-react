@@ -7,10 +7,17 @@ export interface Servicio {
 }
 
 export interface ServicioProfesional {
-  imgUrl: string;
-  id: number;
-  nombre: string;
-  servicio: Servicio;
+  _id: string;
+  category: string;
+  comments: [];
+  description: string;
+  idProfessional: string;
+  imagePost: string;
+  nameProfessional: string;
+  services: { name: string; price: number }[];
+  title: string;
+  views: number;
+  __v: number;
 }
 
 export interface OfrecemosCards {
@@ -46,18 +53,4 @@ export interface tokenUser {
   iat: number;
   id: string;
   message: string;
-}
-
-export interface MisServiciosLista {
-  _id: string;
-  category: string;
-  comments: [];
-  description: string;
-  idProfessional: string;
-  imagePost: string;
-  nameProfessional: string;
-  services: { name: string, price: number }[];
-  title: string;
-  views: number;
-  __v: number;
 }
