@@ -48,12 +48,18 @@ export class PostController {
     return res.status(HttpStatus.OK).json(newPost);
   }
 
-  @Get('category/:category')
+  @Get('category/:category/:limit/:skip')
   async findByCategory(
     @Param('category') category: string,
+    @Param('limit') limit: number,
+    @Param('skip') skip: number,
     @Res() res: Response,
   ) {
-    const newPost = await this.postService.findByCategory(category);
+    const newPost = await this.postService.findByCategory(
+      category,
+      limit,
+      skip,
+    );
     return res.status(HttpStatus.OK).json(newPost);
   }
 

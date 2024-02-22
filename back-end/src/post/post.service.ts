@@ -71,13 +71,23 @@ export class PostService {
     }
   }
 
-  async findByCategory(category: string): Promise<Post[]> {
+  async findByCategory(
+    category: string,
+    limit: number = 0,
+    skip: number = 0,
+  ): Promise<Post[]> {
     try {
-      const posts = await this.postModel.find({
-        category: { $all: category },
-      });
+      const posts = await this.postModel
+        .find({
+          category: { $all: category },
+        })
+        .limit(limit)
+        .skip(skip);
+
       if (posts.length == 0) {
-        throw new NotFoundException(`Posts with category #${category} not found`);
+        throw new NotFoundException(
+          `Posts with category #${category} not found`,
+        );
       }
       return posts;
     } catch (err) {
