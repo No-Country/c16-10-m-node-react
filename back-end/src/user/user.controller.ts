@@ -33,7 +33,6 @@ export class UserController {
       .json({ message: 'user created', name: user.name });
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(
     @Query('page') page: string = '1',
