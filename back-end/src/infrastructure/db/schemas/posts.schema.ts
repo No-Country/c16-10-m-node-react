@@ -26,7 +26,7 @@ export class Post {
   @Prop({
     type: String,
     default:
-      'https://res.cloudinary.com/dne12pcpf/image/upload/v1708098888/trabajoListo/l8klbjwse7bpxebfrq4y.png',
+      'https://res.cloudinary.com/dne12pcpf/image/upload/v1708619304/trabajoListo/publicacion-vacia_npqmts.jpg',
   })
   imagePost: string;
 
