@@ -9,6 +9,7 @@ import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
+import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
 @Injectable()
 export class PostService {
@@ -43,13 +44,11 @@ export class PostService {
     const limitInt = parseInt(limit);
     const skip = (pageInt - 1) * limitInt;
     const postsProfessionals = await this.postModel
-      .find({ isProfessional: true })
+      .find()
       .skip(skip)
       .limit(limitInt)
       .lean();
     return postsProfessionals;
-
-    //return await this.postModel.find();
   }
 
   async findOne(id: string): Promise<Post> {
@@ -83,16 +82,22 @@ export class PostService {
 
   async findByCategory(
     category: string,
-    limit: number = 0,
-    skip: number = 0,
+    page: string,
+    limit: string,
   ): Promise<Post[]> {
     try {
+      const categoryEnum = CategoriesEnum[category];
+      console.log(categoryEnum, limit, page);
+      const pageInt = parseInt(page);
+      const limitInt = parseInt(limit);
+      const skip = (pageInt - 1) * limitInt;
       const posts = await this.postModel
         .find({
-          category: { $all: category },
+          category: { $all: categoryEnum },
         })
-        .limit(limit)
-        .skip(skip);
+        .skip(skip)
+        .limit(limitInt)
+        .lean();
 
       if (posts.length == 0) {
         throw new NotFoundException(
@@ -109,11 +114,34 @@ export class PostService {
     }
   }
 
-  update(id: string, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: string, updatePostDto: UpdatePostDto) {
+    try {
+      const post = await this.postModel
+        .findByIdAndUpdate(id, updatePostDto, {
+          new: true,
+        })
+        .exec();
+      if (!post) {
+        throw new NotFoundException(`Post #${id} not found`);
+      }
+      return post;
+    } catch (err) {
+      console.error(`Error occurred while updating Post Post #${id}:`, err);
+      throw err;
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} post`;
+  async remove(id: string) {
+    try {
+      const post = await this.postModel.findById(id);
+      if (!post) {
+        throw new NotFoundException(`Post post #${id} not found`);
+      }
+      const postDeleted = await this.postModel.findByIdAndDelete(id).exec();
+      return postDeleted;
+    } catch (err) {
+      console.error('Error occurred while deleting post:', err);
+      throw err;
+    }
   }
 }

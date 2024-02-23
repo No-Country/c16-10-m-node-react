@@ -33,16 +33,14 @@ export class PostController {
     return res.status(HttpStatus.CREATED).json(newPost);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(
-    @Query('page') page: string = '1',
-    @Query('limit') limit: string = '10',
+    @Query('page') page: string = '0',
+    @Query('limit') limit: string = '0',
     @Res() res: Response,
   ) {
     const posts = await this.postService.findAll(page, limit);
     return res.status(HttpStatus.OK).json(posts);
-    //return await this.postService.findAll();
   }
 
   @Get(':id')
@@ -56,17 +54,18 @@ export class PostController {
     return res.status(HttpStatus.OK).json(newPost);
   }
 
-  @Get('category/:category/:limit/:skip')
+  @Get('category/:category')
   async findByCategory(
     @Param('category') category: string,
-    @Param('limit') limit: number,
-    @Param('skip') skip: number,
+    @Query('page') page: string = '0',
+    @Query('limit') limit: string = '0',
     @Res() res: Response,
   ) {
+    console.log('get category', category, page, limit);
     const newPost = await this.postService.findByCategory(
       category,
+      page,
       limit,
-      skip,
     );
     return res.status(HttpStatus.OK).json(newPost);
   }
