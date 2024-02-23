@@ -38,8 +38,18 @@ export class PostService {
     }
   }
 
-  async findAll(): Promise<Post[]> {
-    return await this.postModel.find();
+  async findAll(page: string, limit: string): Promise<Post[]> {
+    const pageInt = parseInt(page);
+    const limitInt = parseInt(limit);
+    const skip = (pageInt - 1) * limitInt;
+    const postsProfessionals = await this.postModel
+      .find({ isProfessional: true })
+      .skip(skip)
+      .limit(limitInt)
+      .lean();
+    return postsProfessionals;
+
+    //return await this.postModel.find();
   }
 
   async findOne(id: string): Promise<Post> {

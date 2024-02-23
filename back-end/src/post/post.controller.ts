@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -32,9 +33,16 @@ export class PostController {
     return res.status(HttpStatus.CREATED).json(newPost);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll() {
-    return await this.postService.findAll();
+  async findAll(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+    @Res() res: Response,
+  ) {
+    const posts = await this.postService.findAll(page, limit);
+    return res.status(HttpStatus.OK).json(posts);
+    //return await this.postService.findAll();
   }
 
   @Get(':id')

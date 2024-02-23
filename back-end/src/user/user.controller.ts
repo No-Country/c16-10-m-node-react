@@ -35,13 +35,11 @@ export class UserController {
     return res.status(HttpStatus.OK).json(await this.userService.findAll());
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findId(id));
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('find/:email')
   async findEmail(@Param('email') email: string, @Res() res: Response) {
     return res
