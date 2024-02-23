@@ -150,4 +150,18 @@ export class PostService {
       throw err;
     }
   }
+
+  async saveImagePost(urlFile: string, idPost: string) {
+    const data = await this.postModel.findById(idPost).exec();
+    data.imagePost = urlFile;
+    data.save();
+  }
+
+  async security(userPayload: any, idPost: string) {
+    const { id } = userPayload;
+    const data = await this.postModel.findById(idPost).exec();
+    if (!data) return false;
+    if (data.idProfessional.toString() !== id) return false;
+    return true;
+  }
 }
