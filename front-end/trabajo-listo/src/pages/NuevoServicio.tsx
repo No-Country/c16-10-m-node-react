@@ -1,3 +1,4 @@
+import { subirServicio } from "@/api/service.endpoint";
 import { useState } from "react";
 
 export const NuevoServicio = () => {
@@ -29,19 +30,35 @@ export const NuevoServicio = () => {
     "otros",
   ];
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos a través de una función de envío
-    // Puedes utilizar fetch, axios u otra librería para hacer la solicitud
-    // Por ejemplo:
-    const data = {
-      titulo,
-      descripcion,
-      precio,
-      subcategoria,
-      foto,
-    };
-    console.log(data);
+    if (
+      titulo.length > 5 &&
+      descripcion.length > 5 &&
+      subcategoria.length > 5 &&
+      parseInt(precio) > 0
+    ) {
+      const data = {
+        title: titulo,
+        description: descripcion,
+        category: opcionSeleccionada,
+        services: [
+          {
+            name: subcategoria,
+            price: precio,
+          },
+        ],
+      };
+      const res = await subirServicio(data);
+      if (res) {
+        setTitulo("");
+        setDescripcion("");
+        setPrecio("");
+        setSubcategoria("");
+        setOpcionSeleccionada("carpintero");
+      }
+      console.log(res);
+    }
   };
 
   const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
