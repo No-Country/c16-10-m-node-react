@@ -21,7 +21,6 @@ const RecomendacionesContainer = () => {
     };
 
     fetchServicios();
-    console.log(serviviosRec);
   }, []);
 
   /* 

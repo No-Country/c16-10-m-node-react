@@ -27,6 +27,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { registerUser } from "@/api/user.endpoint";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const FormSignUpModal = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -56,8 +58,13 @@ export const FormSignUpModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await registerUser(values);
     if (response) {
-      handleClose();
-      setShowmodal(false);
+        if(response == "error 500"){
+          toast('Tu nombre de usuario o email ya existe');
+        }else{
+          toast('Tu cuenta se ha creado correctamente');
+          handleClose();
+          setShowmodal(false);
+        }
     }
   };
 
@@ -68,6 +75,21 @@ export const FormSignUpModal = () => {
 
   return (
     <Sheet onOpenChange={handleClose}>
+      <div className="absolute">
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+      </div>
+      
       <SheetTrigger asChild>
         <Button
           onClick={() => setShowmodal(true)}

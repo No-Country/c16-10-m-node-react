@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ServicioProfesional, UserState } from "./component";
 import { FaStar } from "react-icons/fa6";
-import { getUser } from "@/api/user.endpoint";
+import { getProfessional} from "@/api/user.endpoint";
 import { useSelector } from "react-redux";
 
 const RecomendacionesCard = ({
@@ -10,15 +10,16 @@ const RecomendacionesCard = ({
   servicioProfesional: ServicioProfesional | null;
 }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
+  const [servicio, setServicio] = useState<null | UserState>(null);
 
   useEffect(() => {
     const fetchProfressional = async () => {
-      if (servicioProfesional && user.token) {
-        const res = await getUser(
+      if (servicioProfesional) {
+        const res = await getProfessional(
           servicioProfesional.idProfessional,
-          user.token
         );
-        return res;
+        
+        setServicio(res);
       }
     };
     fetchProfressional();
@@ -53,14 +54,20 @@ _id
         <div className="flex ">
           <div className="flex items-center mr-2">
             <img
-              className="rounded-full w-[3rem] "
-              src={servicioProfesional.imagePost}
+              className="rounded-full w-[3rem] h-[3rem]"
+              src={servicio?.imageProfile}
             ></img>
           </div>
           <div className="flex flex-col justify-around w-3/4">
-            <h3 className="pr-1 font-semibold text-[rgb(24,2,2)] text-ellipsis text-nowrap text-sm tracking-wider">
-              {servicioProfesional.title}
-            </h3>
+            <div className="flex">
+              <h3 className="pr-1 font-semibold text-[rgb(24,2,2)] text-ellipsis text-nowrap text-sm tracking-wider">
+                {servicioProfesional.title}
+              </h3>
+              <span className="font-semibold text-sm text-zinc-600">
+                ({servicioProfesional?.services[0]?.name})
+              </span>
+            </div>
+
             <h3 className="font-normal text-slate-400 text-sm tracking-wider">{`De ${servicioProfesional.nameProfessional}`}</h3>
           </div>
         </div>
@@ -74,7 +81,7 @@ _id
           <p>{4.3}</p>
         </div>
         <div>
-          <p className="font-semibold">{`US5${servicioProfesional?.services[0]?.price}`}</p>
+          <p className="font-semibold">{`US $${servicioProfesional?.services[0]?.price}`}</p>
         </div>
       </div>
     </div>

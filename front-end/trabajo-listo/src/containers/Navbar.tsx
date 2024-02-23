@@ -89,7 +89,7 @@ export const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent data-[state=open]:bg-white focus:bg-transparent mr-3 pr-2 pl-0 rounded-full text-base text-white data-[state=open]:text-black">
                   <img
-                    className="rounded-full w-10 "
+                    className="rounded-full w-10 h-10"
                     src={user.imageProfile}
                   ></img>
                 </NavigationMenuTrigger>

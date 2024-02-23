@@ -14,7 +14,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     USER_LOGIN(state, action) {
-      state.isPro = action.payload.isPro;
+      state.isPro = action.payload.isProfessional;
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.imageProfile = action.payload.imageProfile;
@@ -38,6 +38,7 @@ const userSlice = createSlice({
         ? action.payload.imageProfile
         : state.imageProfile;
       state.id = action.payload?._id ? action.payload._id : state.id;
+      state.isPro = action.payload.isProfessional
     },
   },
 });
