@@ -40,13 +40,15 @@ export class UserController {
     return res.status(HttpStatus.OK).json(await this.userService.findId(id));
   }
 
-  @Get('find/:email')
-  async findEmail(@Param('email') email: string, @Res() res: Response) {
+  @Post('find/')
+  async findEmail(@Body() email: any, @Res() res: Response) {
+    console.log(email);
     return res
       .status(HttpStatus.OK)
-      .json(await this.userService.findEmail(email));
+      .json(await this.userService.findEmail(email.email));
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -58,6 +60,7 @@ export class UserController {
       .json(await this.userService.update(id, updateUser));
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     const data = await this.userService.delete(id);
