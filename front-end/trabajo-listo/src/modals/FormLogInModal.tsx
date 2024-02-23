@@ -1,17 +1,6 @@
-"use client"
-
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-
+"use client";
+import { authUser, getProfile } from "@/api/user.endpoint";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -19,69 +8,81 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { authUser } from "@/api/user.endpoint"
-
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { userActions } from "@/store/userSlice";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { z } from "zod";
 
 export const FormLogInModal = () => {
+  const dispatch = useDispatch();
+
   const formSchema = z.object({
     email: z.string().min(5, {
-      message: "Ingrese un email válido"
+      message: "Ingrese un email válido",
     }),
-    contraseña: z.string().min(8, {
-      message: "Contraseña inválida"
-    })
-  })
+    password: z.string().min(8, {
+      message: "Contraseña inválida",
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
-      contraseña: ""
+      password: "",
     },
-  })
+  });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    authUser(values)
-  }
+    const token = await authUser(values);
+    
+    if (token) {
+      dispatch(userActions.SET_TOKEN({token: token}))
+      const userData = await getProfile(token);
+      dispatch(userActions.USER_LOGIN(userData));
+    }
+  };
 
   const handleClose = () => {
-    form.reset()
-  }
+    form.reset();
+  };
 
   return (
     <Sheet onOpenChange={handleClose}>
       <SheetTrigger asChild>
-        <Button variant="default" className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
+        <Button
+          variant="default"
+          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
+        >
           Acceder
         </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className="mb-4">
-          <SheetTitle>
-            Iniciar sesión
-          </SheetTitle>
+          <SheetTitle>Iniciar sesión</SheetTitle>
           <SheetDescription>
             ¡Accede y contrata a profesionales de tu preferencia!"
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Email
-                  </FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
@@ -96,12 +97,10 @@ export const FormLogInModal = () => {
             />
             <FormField
               control={form.control}
-              name="contraseña"
+              name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Contraseña
-                  </FormLabel>
+                  <FormLabel>Contraseña</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
@@ -124,5 +123,5 @@ export const FormLogInModal = () => {
         </Form>
       </SheetContent>
     </Sheet>
-  )
-}
+  );
+};

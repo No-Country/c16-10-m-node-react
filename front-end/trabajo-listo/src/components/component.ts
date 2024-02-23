@@ -28,6 +28,22 @@ export interface EquipoCards {
     nombre: string;
     rol: string;
     link: string;
-    img:string;
-  }
+    img: string;
+  };
+}
+
+export interface UserState {
+  name: string;
+  email: string;
+  imageProfile: string;
+  id: string;
+  token: string;
+  isPro: boolean;
+}
+export interface tokenUser {
+  email: string;
+  exp: number;
+  iat: number;
+  id: string;
+  message: string;
 }

@@ -1,9 +1,8 @@
-import logo from "@/assets/navbar-logo.png"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { FormSignUpModal } from "@/modals/FormSignUpModal"
-import { FormLogInModal } from "@/modals/FormLogInModal"
-
+import logo from "@/assets/navbar-logo.png";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { FormSignUpModal } from "@/modals/FormSignUpModal";
+import { FormLogInModal } from "@/modals/FormLogInModal";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,7 +10,10 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
+import { useDispatch, useSelector } from "react-redux";
+import { UserState } from "@/components/component";
+import { userActions } from "@/store/userSlice";
 
 const listOfServices = [
   "Reparaciones",
@@ -28,17 +30,22 @@ const listOfServices = [
   "Seguridad",
   "Peluquería",
   "Cumpleaños",
-  "Alquileres"
-]
+  "Alquileres",
+];
 
 export const Navbar = () => {
   const searchService = (service: string) => {
     try {
-      console.log(service)
+      console.log(service);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+  const user = useSelector((state: { user: UserState }) => state.user);
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    dispatch(userActions.USER_LOGOUT());
+  };
 
   return (
     <header className="relative">
@@ -49,6 +56,7 @@ export const Navbar = () => {
           className="top-2 left-2 absolute w-28"
         />
       </Link>
+
       <nav className="flex items-center justify-end gap-12 bg-red-500 px-20 py-2 h-16">
         <NavigationMenu>
           <NavigationMenuList>
@@ -64,9 +72,7 @@ export const Navbar = () => {
                       key={i}
                       onClick={() => searchService(service)}
                     >
-                      <NavigationMenuLink>
-                        {service}
-                      </NavigationMenuLink>
+                      <NavigationMenuLink>{service}</NavigationMenuLink>
                     </li>
                   ))}
                 </ul>
@@ -82,10 +88,36 @@ export const Navbar = () => {
             Testimonios
           </Button>
         </Link>
-        <FormLogInModal />
-        <FormSignUpModal />
-
+        {user?.name ? (
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent data-[state=open]:bg-white focus:bg-transparent mr-3 pr-2 pl-0 rounded-full text-base text-white data-[state=open]:text-black">
+                  <img
+                    className="rounded-full w-10 "
+                    src={user.imageProfile}
+                  ></img>
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid md:grid-cols-1 gap-1 p-4 w-[125px] md:w-[150px]">
+                      <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
+                          <Link to={`/perfil/${user.id}`}>Ver perfil</Link>
+                      </li>
+                      <li onClick={logoutHandler} className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
+                          Logout
+                      </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        ) : (
+          <>
+            <FormLogInModal />
+            <FormSignUpModal />
+          </>
+        )}
       </nav>
     </header>
-  )
-}
+  );
+};
