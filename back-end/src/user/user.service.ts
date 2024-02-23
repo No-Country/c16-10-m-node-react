@@ -59,7 +59,7 @@ export class UserService {
     }
   }
 
-  async findEmail(email: any): Promise<any> {
+  async findEmail(email: string): Promise<any> {
     try {
       console.log('User Service: ', email);
       const user = await this.userModel.findOne({ email: email }).exec();

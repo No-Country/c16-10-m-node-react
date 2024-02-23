@@ -9,6 +9,7 @@ import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
+import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
 @Injectable()
 export class PostService {
