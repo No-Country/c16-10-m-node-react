@@ -1,11 +1,11 @@
 import {
   BadRequestException,
   Injectable,
-  UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Post } from 'src/infrastructure/db/schemas/posts.schema';
+import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
@@ -44,33 +44,109 @@ export class PostService {
     }
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll(page: string, limit: string): Promise<Post[]> {
+    const pageInt = parseInt(page);
+    const limitInt = parseInt(limit);
+    const skip = (pageInt - 1) * limitInt;
+    const postsProfessionals = await this.postModel
+      .find()
+      .skip(skip)
+      .limit(limitInt)
+      .lean();
+    return postsProfessionals;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: string): Promise<Post> {
+    try {
+      const post = await this.postModel.findById(id).lean().select('-password');
+      if (!post) {
+        throw new NotFoundException(`Post #${id} not found`);
+      }
+      return post;
+    } catch (err) {
+      console.error(`Error occurred while finding Post #${id}: `, err);
+      throw err;
+    }
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async findByProfessional(id: string): Promise<Post[]> {
+    try {
+      const posts = await this.postModel.find({ idProfessional: id });
+      if (posts.length == 0) {
+        throw new NotFoundException(`Posts by professional #${id} not found`);
+      }
+      return posts;
+    } catch (err) {
+      console.error(
+        `Error occurred while finding posts by Professional #${id}: `,
+        err,
+      );
+      throw err;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async findByCategory(
+    category: string,
+    page: string,
+    limit: string,
+  ): Promise<Post[]> {
+    try {
+      const categoryEnum = CategoriesEnum[category];
+      console.log(categoryEnum, limit, page);
+      const pageInt = parseInt(page);
+      const limitInt = parseInt(limit);
+      const skip = (pageInt - 1) * limitInt;
+      const posts = await this.postModel
+        .find({
+          category: { $all: categoryEnum },
+        })
+        .skip(skip)
+        .limit(limitInt)
+        .lean();
+
+      if (posts.length == 0) {
+        throw new NotFoundException(
+          `Posts with category #${category} not found`,
+        );
+      }
+      return posts;
+    } catch (err) {
+      console.error(
+        `Error occurred while finding posts with category #${category}: `,
+        err,
+      );
+      throw err;
+    }
   }
 
-  async saveImagePost(urlFile: string, idPost: string) {
-    const data = await this.postModel.findById(idPost).exec();
-    data.imagePost = urlFile;
-    data.save();
+  async update(id: string, updatePostDto: UpdatePostDto) {
+    try {
+      const post = await this.postModel
+        .findByIdAndUpdate(id, updatePostDto, {
+          new: true,
+        })
+        .exec();
+      if (!post) {
+        throw new NotFoundException(`Post #${id} not found`);
+      }
+      return post;
+    } catch (err) {
+      console.error(`Error occurred while updating Post Post #${id}:`, err);
+      throw err;
+    }
   }
 
-  async security(userPayload: any, idPost: string) {
-    const { id } = userPayload;
-    const data = await this.postModel.findById(idPost).exec();
-    if (!data) return false;
-    if (data.idProfessional.toString() !== id) return false;
-    return true;
+  async remove(id: string) {
+    try {
+      const post = await this.postModel.findById(id);
+      if (!post) {
+        throw new NotFoundException(`Post post #${id} not found`);
+      }
+      const postDeleted = await this.postModel.findByIdAndDelete(id).exec();
+      return postDeleted;
+    } catch (err) {
+      console.error('Error occurred while deleting post:', err);
+      throw err;
+    }
   }
 }

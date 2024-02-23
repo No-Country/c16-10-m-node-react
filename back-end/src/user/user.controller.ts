@@ -54,7 +54,7 @@ export class UserController {
   async findEmail(@Body() email: string, @Res() res: Response) {
     return res
       .status(HttpStatus.OK)
-      .json(await this.userService.findEmail(email));
+      .json(await this.userService.findEmail(email.email));
   }
 
   @UseGuards(JwtAuthGuard)
