@@ -24,6 +24,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
 
+import "react-toastify/dist/ReactToastify.css";
+import { notificacionesActions } from "@/store/notificacionesSlice";
+
 export const FormLogInModal = () => {
   const dispatch = useDispatch();
 
@@ -46,11 +49,35 @@ export const FormLogInModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = await authUser(values);
-    
+
     if (token) {
-      dispatch(userActions.SET_TOKEN({token: token}))
-      const userData = await getProfile(token);
-      dispatch(userActions.USER_LOGIN(userData));
+      if (token == "error 401") {
+        dispatch(
+          notificacionesActions.ERROR({
+            hidden: false,
+            message: "Tu contraseña es incorrecta",
+          })
+        );
+      } else if (token == "error 404") {
+        dispatch(
+          notificacionesActions.ERROR({
+            hidden: false,
+            message: "El email que ingresaste es incorrecto",
+          })
+        );
+      } else {
+        dispatch(userActions.SET_TOKEN({ token: token }));
+        const userData = await getProfile(token);
+
+        dispatch(userActions.USER_LOGIN(userData));
+        const { name } = userData;
+        dispatch(
+          notificacionesActions.SUCCES({
+            hidden: false,
+            message: `Bienvenido ${name}`,
+          })
+        );
+      }
     }
   };
 

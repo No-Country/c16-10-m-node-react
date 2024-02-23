@@ -7,13 +7,15 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  Req,
   Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
@@ -25,24 +27,31 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
+    const user = await this.userService.create(createUserDto);
     return res
       .status(HttpStatus.CREATED)
-      .json(await this.userService.create(createUserDto));
+      .json({ message: 'user created', name: user.name });
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
-    return res.status(HttpStatus.OK).json(await this.userService.findAll());
+  async findAll(
+    @Query('page') page: string = '1',
+    @Query('limit') limit: string = '10',
+    @Res() res: Response,
+  ) {
+    const users = await this.userService.findAll(page, limit);
+    return res.status(HttpStatus.OK).json(users);
   }
+
 
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findId(id));
   }
 
-  @Post('find/')
-  async findEmail(@Body() email: any, @Res() res: Response) {
-    console.log(email);
+  @UseGuards(JwtAuthGuard)
+  @Get('find')
+  async findEmail(@Body() email: string, @Res() res: Response) {
     return res
       .status(HttpStatus.OK)
       .json(await this.userService.findEmail(email.email));
@@ -70,21 +79,8 @@ export class UserController {
     });
   }
 
-  // @Post('image-profile')
-  // @UseInterceptors(FileInterceptor('image'))
-  // async uploadFile(
-  //   @UploadedFile() file: Express.Multer.File,
-  //   @Res() res: Response,
-  // ) {
-  //   try {
-  //     const data = await this.userService.uploadImage(file);
-  //     return res.status(HttpStatus.OK).json(data.secure_url);
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //     throw new Error('Failed to upload image');
-  //   }
-  // }
 
+  @UseGuards(JwtAuthGuard)
   @Post('image/:id')
   @UseInterceptors(FileInterceptor('image'))
   async uploadImage(
