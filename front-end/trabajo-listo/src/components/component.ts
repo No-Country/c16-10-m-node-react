@@ -54,3 +54,18 @@ export interface tokenUser {
   id: string;
   message: string;
 }
+
+export interface Notificacion {
+  hidden: boolean;
+  message: string;
+}
+
+export interface UserProfile {
+  _id: string;
+  name: string;
+  email: string;
+  imageProfile: string;
+  isProfessional: boolean;
+  category: string[];
+  __v: number;
+}

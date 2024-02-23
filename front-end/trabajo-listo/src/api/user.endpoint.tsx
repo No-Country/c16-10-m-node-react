@@ -1,4 +1,4 @@
-import { UserState, tokenUser } from "@/components/component";
+import { UserProfile, UserState, tokenUser } from "@/components/component";
 import apiClient, { setClientToken } from "../server";
 import { jwtDecode } from "jwt-decode";
 
@@ -24,14 +24,14 @@ export const authUser = async (user: object) => {
     setClientToken(res.data);
     return res.data;
   } catch (error) {
-    if (error instanceof Error && error.message.includes('401')) {
+    if (error instanceof Error && error.message.includes("401")) {
       return "error 401";
     }
-    if (error instanceof Error && error.message.includes('404')) {
+    if (error instanceof Error && error.message.includes("404")) {
       return "error 404";
     }
     console.error("Error al obtener los datos: ", error);
-    throw error
+    throw error;
   }
 };
 
@@ -60,14 +60,14 @@ export const getUser = async (
   }
 };
 
-export const getProfile = async (value: string): Promise<object> => {
+export const getProfile = async (value: string): Promise<UserProfile> => {
   try {
     const decodedToken: tokenUser = jwtDecode(value);
     const res = await apiClient.get(`user/${decodedToken.id}`);
 
     if (!res) throw new Error("Bad Request");
 
-    return res.data;
+    return res.data as UserProfile;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
     throw error;
@@ -141,15 +141,13 @@ export const getAll = async (token: string): Promise<object> => {
 
 export const getProfessional = async (id: string): Promise<UserState> => {
   try {
-    const res = await apiClient.get(`user/${id}`,
-    {
+    const res = await apiClient.get(`user/${id}`, {
       headers: {
         Authorization: "",
       },
     });
 
     if (!res) throw new Error("Bad Request");
-    console.log(res);
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);

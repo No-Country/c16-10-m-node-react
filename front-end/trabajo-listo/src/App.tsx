@@ -9,12 +9,16 @@ import { Testimonios } from "./pages/Testimonios";
 import { Perfil } from "./pages/Perfil";
 import { EditarPerfil } from "./pages/EditarPerfil";
 import { useSelector } from "react-redux";
-import { UserState } from "./components/component";
+import { UserState, Notificacion } from "./components/component";
 import React from "react";
 import { NuevoServicio } from "./pages/NuevoServicio";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
+  const notificacion = useSelector(
+    (state: { notif: Notificacion }) => state.notif
+  );
 
   const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -22,11 +26,23 @@ const App = () => {
     if (!user?.token) return <Navigate to="/" />;
     else return children;
   };
-
+  console.log(notificacion);
   return (
     <BrowserRouter>
       <Navbar />
-      
+      <ToastContainer
+        className="absolute"
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="search" element={<SearchPage />} />

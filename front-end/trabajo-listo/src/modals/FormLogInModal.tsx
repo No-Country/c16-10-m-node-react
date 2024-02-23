@@ -23,8 +23,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import "react-toastify/dist/ReactToastify.css";
+import { notificacionesActions } from "@/store/notificacionesSlice";
 
 export const FormLogInModal = () => {
   const dispatch = useDispatch();
@@ -50,20 +51,33 @@ export const FormLogInModal = () => {
     const token = await authUser(values);
 
     if (token) {
-      if(token == "error 401"){
-        console.log("hola");
-        
-        toast('Tu contraseña es incorrecta');
-      }else if(token == "error 404"){
-        toast("El email que ingresaste es incorrecto")
-      }else{
+      if (token == "error 401") {
+        dispatch(
+          notificacionesActions.ERROR({
+            hidden: false,
+            message: "Tu contraseña es incorrecta",
+          })
+        );
+      } else if (token == "error 404") {
+        dispatch(
+          notificacionesActions.ERROR({
+            hidden: false,
+            message: "El email que ingresaste es incorrecto",
+          })
+        );
+      } else {
         dispatch(userActions.SET_TOKEN({ token: token }));
         const userData = await getProfile(token);
-        handleClose();
+
         dispatch(userActions.USER_LOGIN(userData));
-        toast("Ingresaste a tu cuenta correctamente")
+        const { name } = userData;
+        dispatch(
+          notificacionesActions.SUCCES({
+            hidden: false,
+            message: `Bienvenido ${name}`,
+          })
+        );
       }
-      
     }
   };
 
@@ -73,20 +87,6 @@ export const FormLogInModal = () => {
 
   return (
     <Sheet onOpenChange={handleClose}>
-       <div className="absolute">
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-        </div>
       <SheetTrigger asChild>
         <Button
           variant="default"

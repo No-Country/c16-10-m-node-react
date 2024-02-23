@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ServicioProfesional, UserState } from "./component";
 import { FaStar } from "react-icons/fa6";
-import { getProfessional} from "@/api/user.endpoint";
+import { getProfessional } from "@/api/user.endpoint";
 import { useSelector } from "react-redux";
 
 const RecomendacionesCard = ({
@@ -15,31 +15,14 @@ const RecomendacionesCard = ({
   useEffect(() => {
     const fetchProfressional = async () => {
       if (servicioProfesional) {
-        const res = await getProfessional(
-          servicioProfesional.idProfessional,
-        );
-        
+        const res = await getProfessional(servicioProfesional.idProfessional);
+
         setServicio(res);
       }
     };
     fetchProfressional();
   }, [servicioProfesional, user.token]);
 
-  /* 
-category
-comments
-description
-idProfessional
-imagePost
-nameProfessional
-services
-name
-price
-title
-views
-__v
-_id
-*/
   if (!servicioProfesional) return;
 
   return (
@@ -68,7 +51,7 @@ _id
               </span>
             </div>
 
-            <h3 className="font-normal text-slate-400 text-sm tracking-wider">{`De ${servicioProfesional.nameProfessional}`}</h3>
+            <h3 className="font-normal text-slate-400 text-sm tracking-wider">{`De ${servicio?.name}`}</h3>
           </div>
         </div>
         <div className="">

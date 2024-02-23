@@ -1,5 +1,6 @@
 import { updateImage, updateProfile } from "@/api/user.endpoint";
 import { UserState } from "@/components/component";
+import { notificacionesActions } from "@/store/notificacionesSlice";
 import { userActions } from "@/store/userSlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,10 +31,19 @@ export const EditarPerfil = () => {
       const newValues = await updateProfile(user.id, data);
       dispatch(userActions.EDIT_USER(newValues));
       console.log(newValues);
-    }
-    if (imagen != null && data.name.length > 3 && data.email.length > 3) {
-      const urlImage = await updateImage(user.id, user.token, imagen);
-      dispatch(userActions.EDIT_USER({ imageProfile: urlImage }));
+      dispatch(
+        notificacionesActions.SUCCES({ message: "Datos editados con exito" })
+      );
+      if (imagen != null && data.name.length > 3 && data.email.length > 3) {
+        const urlImage = await updateImage(user.id, user.token, imagen);
+        dispatch(userActions.EDIT_USER({ imageProfile: urlImage }));
+      }
+
+      if (imagen == null) {
+        notificacionesActions.NORMAL({
+          message: "No hiciste cambios en la imagen",
+        });
+      }
     }
   };
 
