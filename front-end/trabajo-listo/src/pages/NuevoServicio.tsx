@@ -1,14 +1,21 @@
 import { subirServicio } from "@/api/service.endpoint";
+import { ServicioProfesional, UserState } from "@/components/component";
+import { notificacionesActions } from "@/store/notificacionesSlice";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const NuevoServicio = () => {
+  const user = useSelector((state: { user: UserState }) => state.user);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
-  const [foto, setFoto] = useState<null | File>(null);
+  // const [foto, setFoto] = useState<null | File>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const opciones = [
     "carpintero",
     "electricista",
@@ -38,17 +45,25 @@ export const NuevoServicio = () => {
       subcategoria.length > 5 &&
       parseInt(precio) > 0
     ) {
-      const data = {
+      const data: ServicioProfesional = {
+        _id: "",
         title: titulo,
         description: descripcion,
         category: opcionSeleccionada,
+        comments: [],
+        idProfessional: "",
+        imagePost: "",
+        nameProfessional: "",
         services: [
           {
             name: subcategoria,
-            price: precio,
+            price: parseFloat(precio),
           },
         ],
+        views: 0,
+        __v: 0,
       };
+
       const res = await subirServicio(data);
       if (res) {
         setTitulo("");
@@ -56,15 +71,26 @@ export const NuevoServicio = () => {
         setPrecio("");
         setSubcategoria("");
         setOpcionSeleccionada("carpintero");
+        dispatch(
+          notificacionesActions.SUCCES({
+            message: "Su servicio se creo correctamente",
+          })
+        );
+        navigate(`/perfil/${user.id}`);
       }
-      console.log(res);
+    } else {
+      dispatch(
+        notificacionesActions.ADVERTENCIA({
+          message: "Los campos deben tener mas de 5 caracteres",
+        })
+      );
     }
   };
 
   const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFoto(file);
+      // setFoto(file);
     }
   };
 

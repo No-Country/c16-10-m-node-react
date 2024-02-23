@@ -67,7 +67,7 @@ export const getProfile = async (value: string): Promise<UserProfile> => {
 
     if (!res) throw new Error("Bad Request");
 
-    return res.data as UserProfile;
+    return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
     throw error;
@@ -79,9 +79,6 @@ export const updateProfile = async (
   data: object
 ): Promise<object> => {
   try {
-    console.log(data);
-    console.log(id);
-
     const res = await apiClient.put(`user/${id}`, data);
 
     if (!res) throw new Error("Fallo al actualizar");
@@ -89,6 +86,9 @@ export const updateProfile = async (
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
+    if (error instanceof Error && error.message.includes("500")) {
+      return { error: "error 500" };
+    }
     throw error;
   }
 };
@@ -99,7 +99,6 @@ export const updateImage = async (
   image: object
 ): Promise<object> => {
   try {
-    console.log(image);
     const res = await apiClient.post(
       `user/image/${id}`,
       { image: image },
@@ -110,7 +109,7 @@ export const updateImage = async (
         },
       }
     );
-    console.log(res.data);
+
     if (!res) throw new Error("Fallo al cargar la imagen");
 
     return res.data;
@@ -129,7 +128,6 @@ export const getAll = async (token: string): Promise<object> => {
       },
     });
 
-    console.log(res.data);
     if (!res) throw new Error("Fallo al cargar la imagen");
 
     return res.data;

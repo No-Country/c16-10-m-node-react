@@ -27,22 +27,26 @@ export const EditarPerfil = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = { name: nombre, email: email };
-    if (data.name.length > 2 && data.email.length > 2) {
+    if (data.name.length > 3 && data.email.length > 3) {
       const newValues = await updateProfile(user.id, data);
+      console.log(newValues);
+      //if (newValues==="Error 500")
       dispatch(userActions.EDIT_USER(newValues));
       console.log(newValues);
       dispatch(
         notificacionesActions.SUCCES({ message: "Datos editados con exito" })
       );
-      if (imagen != null && data.name.length > 3 && data.email.length > 3) {
+      if (imagen != null) {
         const urlImage = await updateImage(user.id, user.token, imagen);
         dispatch(userActions.EDIT_USER({ imageProfile: urlImage }));
       }
 
       if (imagen == null) {
-        notificacionesActions.NORMAL({
-          message: "No hiciste cambios en la imagen",
-        });
+        dispatch(
+          notificacionesActions.NORMAL({
+            message: "No se realizo cambios en la imagen",
+          })
+        );
       }
     }
   };

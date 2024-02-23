@@ -27,14 +27,15 @@ const App = () => {
     else return children;
   };
   console.log(notificacion);
+
   return (
     <BrowserRouter>
       <Navbar />
       <ToastContainer
-        className="absolute"
+        className=""
         position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
+        autoClose={2000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -42,6 +43,7 @@ const App = () => {
         draggable
         pauseOnHover
         theme="light"
+        closeButton={false}
       />
       <Routes>
         <Route path="/" element={<Home />} />
