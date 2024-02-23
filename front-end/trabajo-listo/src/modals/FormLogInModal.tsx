@@ -51,7 +51,11 @@ export const FormLogInModal = () => {
 
     if (token) {
       if(token == "error 401"){
-        toast('Tu email o contraseña son incorrectos');
+        console.log("hola");
+        
+        toast('Tu contraseña es incorrecta');
+      }else if(token == "error 404"){
+        toast("El email que ingresaste es incorrecto")
       }else{
         dispatch(userActions.SET_TOKEN({ token: token }));
         const userData = await getProfile(token);

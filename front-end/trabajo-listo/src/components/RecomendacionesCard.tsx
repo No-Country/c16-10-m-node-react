@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ServicioProfesional, UserState } from "./component";
 import { FaStar } from "react-icons/fa6";
-import { getUser } from "@/api/user.endpoint";
+import { getProfessional} from "@/api/user.endpoint";
 import { useSelector } from "react-redux";
 
 const RecomendacionesCard = ({
@@ -14,12 +14,11 @@ const RecomendacionesCard = ({
 
   useEffect(() => {
     const fetchProfressional = async () => {
-      if (servicioProfesional && user.token) {
-        const res = await getUser(
+      if (servicioProfesional) {
+        const res = await getProfessional(
           servicioProfesional.idProfessional,
-          user.token
         );
-        console.log(res);
+        
         setServicio(res);
       }
     };

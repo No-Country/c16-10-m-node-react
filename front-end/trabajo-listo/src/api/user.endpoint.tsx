@@ -24,11 +24,14 @@ export const authUser = async (user: object) => {
     setClientToken(res.data);
     return res.data;
   } catch (error) {
-    if (error instanceof Error && error.message.includes("401")) {
+    if (error instanceof Error && error.message.includes('401')) {
       return "error 401";
     }
+    if (error instanceof Error && error.message.includes('404')) {
+      return "error 404";
+    }
     console.error("Error al obtener los datos: ", error);
-    throw error;
+    throw error
   }
 };
 
@@ -49,6 +52,7 @@ export const getUser = async (
       isPro: res.data.isProfessional,
       email: res.data.email,
     };
+
     return newObject;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
@@ -135,13 +139,18 @@ export const getAll = async (token: string): Promise<object> => {
   }
 };
 
-export const getProfessional = async (id: string): Promise<object> => {
+export const getProfessional = async (id: string): Promise<UserState> => {
   try {
-    const res = await apiClient.get(`user/${id}`);
+    const res = await apiClient.get(`user/${id}`,
+    {
+      headers: {
+        Authorization: "",
+      },
+    });
 
     if (!res) throw new Error("Bad Request");
-
-    return res;
+    console.log(res);
+    return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
     throw error;

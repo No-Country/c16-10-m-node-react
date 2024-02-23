@@ -23,7 +23,7 @@ export const MisServicios = ({ id }: { id: string }) => {
   }, [id]);
 
   return (
-    <div>
+    <div className="mb-[70px] h-auto">
       {servicios == null ? (
         <div className="flex flex-col items-center justify-center gap-5 bg-white mt-[70px] border border-slate-300 rounded-sm w-[700px] h-[270px]">
           <h2 className="font-semibold text-xl text-zinc-600">
@@ -39,14 +39,22 @@ export const MisServicios = ({ id }: { id: string }) => {
           </Link>
         </div>
       ) : (
-        <div className="mt-[25px] ">
+        <div className="mt-[25px] max-w-[1082px] h-auto">
           <h2 className="mb-3 font-bold text-2xl text-red-500 italic">
             MIS SERVICIOS
           </h2>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 w-full h-auto">
             {servicios.map((el) => (
               <RecomendacionesCard key={el._id} servicioProfesional={el} />
             ))}
+            <Link to="/nuevo-servicio">
+              <div className="flex flex-col items-center justify-center bg-white hover:bg-red-400 shadow-3xl border rounded-2xl w-[350px] h-[443px] text-red-500 hover:text-white transition-all duration-200 overflow-hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <p className="font-semibold text-xl">Agregar un nuevo servicio</p>
+              </div>
+            </Link>
           </div>
         </div>
       )}
