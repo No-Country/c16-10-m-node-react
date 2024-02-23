@@ -27,10 +27,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { registerUser } from "@/api/user.endpoint";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { notificacionesActions } from "@/store/notificacionesSlice";
 
 export const FormSignUpModal = () => {
+  const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
 
@@ -58,13 +61,24 @@ export const FormSignUpModal = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await registerUser(values);
     if (response) {
-        if(response == "error 500"){
-          toast('Tu nombre de usuario o email ya existe');
-        }else{
-          toast('Tu cuenta se ha creado correctamente');
-          handleClose();
-          setShowmodal(false);
-        }
+      if (response == "error 500") {
+        dispatch(
+          notificacionesActions.ERROR({
+            hidden: false,
+            message: "Tu nombre de usuario o email ya existe",
+          })
+        );
+      } else {
+        dispatch(
+          notificacionesActions.SUCCES({
+            hidden: false,
+            message: "Tu cuenta se ha creado correctamente",
+          })
+        );
+
+        handleClose();
+        setShowmodal(false);
+      }
     }
   };
 
@@ -75,21 +89,6 @@ export const FormSignUpModal = () => {
 
   return (
     <Sheet onOpenChange={handleClose}>
-      <div className="absolute">
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
-      </div>
-      
       <SheetTrigger asChild>
         <Button
           onClick={() => setShowmodal(true)}

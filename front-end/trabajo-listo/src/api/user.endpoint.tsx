@@ -1,4 +1,4 @@
-import { UserState, tokenUser } from "@/components/component";
+import { UserProfile, UserState, tokenUser } from "@/components/component";
 import apiClient, { setClientToken } from "../server";
 import { jwtDecode } from "jwt-decode";
 
@@ -24,14 +24,14 @@ export const authUser = async (user: object) => {
     setClientToken(res.data);
     return res.data;
   } catch (error) {
-    if (error instanceof Error && error.message.includes('401')) {
+    if (error instanceof Error && error.message.includes("401")) {
       return "error 401";
     }
-    if (error instanceof Error && error.message.includes('404')) {
+    if (error instanceof Error && error.message.includes("404")) {
       return "error 404";
     }
     console.error("Error al obtener los datos: ", error);
-    throw error
+    throw error;
   }
 };
 
@@ -60,7 +60,7 @@ export const getUser = async (
   }
 };
 
-export const getProfile = async (value: string): Promise<object> => {
+export const getProfile = async (value: string): Promise<UserProfile> => {
   try {
     const decodedToken: tokenUser = jwtDecode(value);
     const res = await apiClient.get(`user/${decodedToken.id}`);
@@ -79,9 +79,6 @@ export const updateProfile = async (
   data: object
 ): Promise<object> => {
   try {
-    console.log(data);
-    console.log(id);
-
     const res = await apiClient.put(`user/${id}`, data);
 
     if (!res) throw new Error("Fallo al actualizar");
@@ -89,6 +86,9 @@ export const updateProfile = async (
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
+    if (error instanceof Error && error.message.includes("500")) {
+      return { error: "error 500" };
+    }
     throw error;
   }
 };
@@ -99,7 +99,6 @@ export const updateImage = async (
   image: object
 ): Promise<object> => {
   try {
-    console.log(image);
     const res = await apiClient.post(
       `user/image/${id}`,
       { image: image },
@@ -110,7 +109,7 @@ export const updateImage = async (
         },
       }
     );
-    console.log(res.data);
+
     if (!res) throw new Error("Fallo al cargar la imagen");
 
     return res.data;
@@ -129,7 +128,6 @@ export const getAll = async (token: string): Promise<object> => {
       },
     });
 
-    console.log(res.data);
     if (!res) throw new Error("Fallo al cargar la imagen");
 
     return res.data;
@@ -141,15 +139,13 @@ export const getAll = async (token: string): Promise<object> => {
 
 export const getProfessional = async (id: string): Promise<UserState> => {
   try {
-    const res = await apiClient.get(`user/${id}`,
-    {
+    const res = await apiClient.get(`user/${id}`, {
       headers: {
         Authorization: "",
       },
     });
 
     if (!res) throw new Error("Bad Request");
-    console.log(res);
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);

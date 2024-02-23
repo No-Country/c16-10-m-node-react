@@ -24,10 +24,9 @@ export const getProfesionalService = async (id: string) => {
   }
 };
 
-export const subirServicio = async (data) => {
+export const subirServicio = async (data: ServicioProfesional) => {
   try {
     const res = await apiClient.post(`post`, data);
-
     if (!res) throw new Error("Bad request");
 
     return res;
@@ -36,5 +35,3 @@ export const subirServicio = async (data) => {
     throw error;
   }
 };
-
-
