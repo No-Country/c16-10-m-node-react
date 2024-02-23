@@ -8,14 +8,13 @@ import {
   Post,
   Put,
   Query,
-  Req,
   Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
@@ -43,15 +42,14 @@ export class UserController {
     return res.status(HttpStatus.OK).json(users);
   }
 
-
   @Get(':id')
   async findId(@Param('id') id: string, @Res() res: Response) {
     return res.status(HttpStatus.OK).json(await this.userService.findId(id));
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('find')
-  async findEmail(@Body() email: string, @Res() res: Response) {
+  @Post('find')
+  async findEmail(@Body() email: any, @Res() res: Response) {
     return res
       .status(HttpStatus.OK)
       .json(await this.userService.findEmail(email.email));
@@ -78,7 +76,6 @@ export class UserController {
       data: data.email,
     });
   }
-
 
   @UseGuards(JwtAuthGuard)
   @Post('image/:id')

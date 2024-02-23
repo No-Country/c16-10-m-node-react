@@ -9,6 +9,7 @@ import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
+import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
 @Injectable()
 export class PostService {
@@ -148,5 +149,19 @@ export class PostService {
       console.error('Error occurred while deleting post:', err);
       throw err;
     }
+  }
+
+  async saveImagePost(urlFile: string, idPost: string) {
+    const data = await this.postModel.findById(idPost).exec();
+    data.imagePost = urlFile;
+    data.save();
+  }
+
+  async security(userPayload: any, idPost: string) {
+    const { id } = userPayload;
+    const data = await this.postModel.findById(idPost).exec();
+    if (!data) return false;
+    if (data.idProfessional.toString() !== id) return false;
+    return true;
   }
 }
