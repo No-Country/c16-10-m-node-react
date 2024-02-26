@@ -12,7 +12,7 @@ export const NuevoServicio = () => {
   const [precio, setPrecio] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
   // const [foto, setFoto] = useState<null | File>(null);
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("carpintero");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,6 +63,8 @@ export const NuevoServicio = () => {
         views: 0,
         __v: 0,
       };
+      console.log(data);
+      
 
       const res = await subirServicio(data);
       if (res) {
@@ -105,13 +107,13 @@ export const NuevoServicio = () => {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="relative flex flex-col bg-white mb-[70px] p-5 border border-slate-300 rounded-sm w-[500px] h-[700px]"
+        className="relative flex flex-col border-slate-300 bg-white mb-[70px] p-5 border rounded-sm w-[500px] h-[700px]"
       >
         <label className="font-semibold text-zinc-500" htmlFor="titulo">
           Título:
         </label>
         <input
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           id="titulo"
           type="text"
           value={titulo}
@@ -122,7 +124,7 @@ export const NuevoServicio = () => {
           Descripción:
         </label>
         <textarea
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           id="descripcion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
@@ -132,7 +134,7 @@ export const NuevoServicio = () => {
           Precio: (US$)
         </label>
         <input
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           id="precio"
           type="number"
           value={precio}
@@ -144,7 +146,7 @@ export const NuevoServicio = () => {
         </label>
         <select
           id="miSelect"
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           value={opcionSeleccionada}
           onChange={handleChange}
         >
@@ -159,7 +161,7 @@ export const NuevoServicio = () => {
           Subcategoría:
         </label>
         <input
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           id="subcategoria"
           type="text"
           value={subcategoria}
@@ -170,7 +172,7 @@ export const NuevoServicio = () => {
           Foto:
         </label>
         <input
-          className="mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
           id="foto"
           type="file"
           accept="image/*"

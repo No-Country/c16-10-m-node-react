@@ -13,6 +13,7 @@ import { UserState, Notificacion } from "./components/component";
 import React from "react";
 import { NuevoServicio } from "./pages/NuevoServicio";
 import { ToastContainer } from "react-toastify";
+import { EditarServicio } from "./pages/EditarServicio";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -66,7 +67,18 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="nuevo-servicio" element={<NuevoServicio />} />
+        <Route path="nuevo-servicio" element={
+          <ProtectedRoute>
+            <NuevoServicio />
+          </ProtectedRoute>} />
+          <Route
+          path="editar-servicio/:id"
+          element={
+            <ProtectedRoute>
+              <EditarServicio />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
