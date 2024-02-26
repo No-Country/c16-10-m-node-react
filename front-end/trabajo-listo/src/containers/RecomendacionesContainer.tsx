@@ -9,10 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import { serviciosRecomendados } from "@/api/service.endpoint";
 import { ServicioProfesional } from "@/components/component";
+import Autoplay from "embla-carousel-autoplay"
 
 const RecomendacionesContainer = () => {
-  const [serviviosRec, setServiciosRec] =
-    useState<null | Array<ServicioProfesional>>(null);
+  const [serviciosRec, setServiciosRec] = useState<null | Array<ServicioProfesional>>(null);
 
   useEffect(() => {
     const fetchServicios = async () => {
@@ -23,42 +23,34 @@ const RecomendacionesContainer = () => {
     fetchServicios();
   }, []);
 
-  /* 
-category
-comments
-description
-idProfessional
-imagePost
-nameProfessional
-services
-name
-price
-title
-views
-__v
-_id
-*/
+
   return (
-    <div className="flex flex-col items-center justify-center gap-8 p-16">
-      <h1 className="px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">
-        SERVICIOS MAS FRECUENTES
-      </h1>
-      <Carousel className="bg-gray-200 shadow-3xl px-1 py-1 rounded-xl w-full">
-        <CarouselContent className="flex gap-2 px-2 py-2 ">
-          {serviviosRec?.map((recomendacion: ServicioProfesional) => (
+    <section className="z-10 flex flex-col items-center bg-main-red -mt-4 -mb-4 py-20 w-[90%]">
+      <h2 className="mb-20 font-extrabold text-4xl text-white uppercase italic">
+        Servicios más frecuentes
+      </h2>
+      <Carousel
+        className="w-[90%]"
+        plugins={[
+          Autoplay({
+            delay: 3000
+          })
+        ]}
+      >
+        <CarouselContent>
+          {serviciosRec?.map((servicio) => (
             <CarouselItem
-              key={recomendacion._id}
-              className="rounded-xl md:basis-1/3 flex justify-center bg-transparent pr-2 pl-4 lg:basis-1/4 "
+              key={servicio._id}
+              className="basis-1/3"
             >
-              <RecomendacionesCard servicioProfesional={recomendacion} />
+              <RecomendacionesCard servicioProfesional={servicio} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="w-[2.5rem] h-[2.5rem] focus-visible:ring-0 focus-visible:ring-offset-0 " />
-        <CarouselNext className="w-[2.5rem] h-[2.5rem] focus-visible:ring-0 focus-visible:ring-offset-0 " />
+        <CarouselPrevious className="-ml-12 w-16 h-16 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-main-red" />
+        <CarouselNext className="-mr-12 w-16 h-16 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-main-red" />
       </Carousel>
-    </div>
-  );
-};
-
+    </section>
+  )
+}
 export default RecomendacionesContainer;

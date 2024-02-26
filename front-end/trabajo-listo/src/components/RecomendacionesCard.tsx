@@ -3,6 +3,7 @@ import { ServicioProfesional, UserState } from "./component";
 import { FaStar } from "react-icons/fa6";
 import { getProfessional } from "@/api/user.endpoint";
 import { useSelector } from "react-redux";
+import { Receipt } from "lucide-react";
 
 const RecomendacionesCard = ({
   servicioProfesional,
@@ -10,7 +11,7 @@ const RecomendacionesCard = ({
   servicioProfesional: ServicioProfesional | null;
 }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
-  const [servicio, setServicio] = useState<null | UserState>(null);
+  const [servicio, setServicio] = useState<UserState | null>(null);
 
   useEffect(() => {
     const fetchProfressional = async () => {
@@ -20,54 +21,56 @@ const RecomendacionesCard = ({
         setServicio(res);
       }
     };
+
     fetchProfressional();
   }, [servicioProfesional, user.token]);
 
   if (!servicioProfesional) return;
 
   return (
-    <div className="bg-white shadow-3xl rounded-2xl w-[350px] h-full overflow-hidden">
-      <div className="">
-        <img
-          className="rounded-lg w-full h-[219px] object-cover"
-          src={servicioProfesional.imagePost}
-        ></img>
-      </div>
-      <div className="flex flex-col gap-3 px-2 py-5 w-full ">
-        <div className="flex ">
-          <div className="flex items-center mr-2">
-            <img
-              className="rounded-full w-[3rem] h-[3rem]"
-              src={servicio?.imageProfile}
-            ></img>
-          </div>
-          <div className="flex flex-col justify-around w-3/4">
-            <div className="flex">
-              <h3 className="pr-1 font-semibold text-[rgb(24,2,2)] text-ellipsis text-nowrap text-sm tracking-wider">
-                {servicioProfesional.title}
-              </h3>
-              <span className="font-semibold text-sm text-zinc-600">
-                ({servicioProfesional?.services[0]?.name})
+    <article className="flex flex-col items-center border-black border-2 h-full font-libre-franklin">
+      <img
+        className="w-full h-full"
+        src={servicioProfesional.imagePost}
+      />
+      <div className="flex flex-col justify-between bg-red-50 w-full">
+        <picture className="flex items-center bg-red-100 p-2">
+          <img
+            className="rounded-full w-12 h-12"
+            src={servicio?.imageProfile}
+          />
+          <div className="flex flex-col px-4 w-full">
+            <h3 className="font-semibold text-black text-ellipsis text-nowrap">
+              {servicioProfesional.title}
+            </h3>
+            <div className="flex flex-col justify-between w-full">
+              <span className="font-semibold text-gray-700 text-sm italic">
+                {servicioProfesional?.services[0]?.name}
               </span>
+              <h3 className="text-xs">
+                {`De ${servicio?.name}`}
+              </h3>
             </div>
-
-            <h3 className="font-normal text-slate-400 text-sm tracking-wider">{`De ${servicio?.name}`}</h3>
+          </div>
+        </picture>
+        <p className="p-4 italic truncate">
+          {servicioProfesional.description}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        </p>
+        <div className="flex flex-row-reverse justify-between p-2">
+          <div className="flex items-center">
+            <FaStar className="mr-2 text-yellow-400" />
+            <FaStar className="mr-2 text-yellow-400" />
+            <FaStar className="mr-2 text-yellow-400" />
+            <FaStar className="mr-2 text-yellow-400" />
+            <FaStar className="mr-2 text-yellow-400" />
+          </div>
+          <div className="flex text-emerald-500">
+            <Receipt className="mr-1" />
+            {servicioProfesional?.services[0]?.price}
           </div>
         </div>
-        <div className="">
-          <p className="line-clamp-2 w-full h-[6ch] text-ellipsis ">
-            {servicioProfesional.description}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 ">
-          <FaStar className="text-yellow-400" />
-          <p>{4.3}</p>
-        </div>
-        <div>
-          <p className="font-semibold">{`US $${servicioProfesional?.services[0]?.price}`}</p>
-        </div>
       </div>
-    </div>
+    </article>
   );
 };
 

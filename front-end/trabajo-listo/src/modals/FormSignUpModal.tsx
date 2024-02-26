@@ -31,8 +31,9 @@ import { registerUser } from "@/api/user.endpoint";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { notificacionesActions } from "@/store/notificacionesSlice";
+import { cn } from "@/lib/utils";
 
-export const FormSignUpModal = () => {
+export const FormSignUpModal = ({ className }: { className?: string }) => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
@@ -93,7 +94,10 @@ export const FormSignUpModal = () => {
         <Button
           onClick={() => setShowmodal(true)}
           variant="default"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
+          className={cn(
+            "bg-transparent hover:bg-white rounded-none text-base text-white hover:text-black",
+            className
+          )}
         >
           Registrarse
         </Button>
@@ -174,7 +178,7 @@ export const FormSignUpModal = () => {
                 </label>
               </div>
               <Button
-                className="bg-red-500 hover:bg-red-600 rounded-full"
+                className="bg-red-600 hover:bg-red-700 rounded-full"
                 type="submit"
                 disabled={!isChecked}
               >
