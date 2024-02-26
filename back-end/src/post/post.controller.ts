@@ -5,8 +5,8 @@ import {
   Get,
   HttpStatus,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
   Req,
   Res,
@@ -78,11 +78,21 @@ export class PostController {
     return res.status(HttpStatus.OK).json(newPost);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(id, updatePostDto);
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updatePostDto: UpdatePostDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const permission = await this.postService.security(req.user, id);
+    if (permission === false) throw new UnauthorizedException();
+    const data = await this.postService.update(id, updatePostDto);
+    return res.status(HttpStatus.OK).json(data);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postService.remove(id);

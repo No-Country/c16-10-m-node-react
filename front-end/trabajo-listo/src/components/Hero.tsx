@@ -38,7 +38,7 @@ export const Hero = () => {
           />
           <Button
             onClick={handleSearch}
-            className="bg-main-red hover:bg-red-700 px-10 rounded-none h-full text-lg text-white outline-none"
+            className="bg-main-red hover:bg-main-hover px-10 rounded-none h-full text-lg text-white outline-none"
           >
             Buscar
           </Button>

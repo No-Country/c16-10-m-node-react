@@ -145,7 +145,7 @@ export const FormLogInModal = ({ className }: { className?: string }) => {
               )}
             />
             <Button
-              className="bg-red-600 hover:bg-red-700 rounded-full"
+              className="bg-main-red hover:bg-main-hover rounded-full"
               type="submit"
             >
               Ingresar

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import trabajoListo from "../assets/navbar-logo.png"
+import trabajoListo from "../assets/logo-blue.png"
 
 
 export const Footer = () => {
 	return (
-		<footer className="flex flex-col gap-12 bg-red-50 py-10 border-t-black border-2 w-full font-libre-franklin">
+		<footer className="flex flex-col gap-12 bg-main-blue py-10 border-t-black border-2 w-full font-libre-franklin">
 			<section className="flex items-center justify-evenly w-full h-full">
 				<img
 					className="w-auto h-60"

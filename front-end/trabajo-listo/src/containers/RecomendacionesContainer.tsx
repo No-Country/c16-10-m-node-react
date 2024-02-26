@@ -25,7 +25,7 @@ const RecomendacionesContainer = () => {
 
 
   return (
-    <section className="z-10 flex flex-col items-center bg-main-red -mt-4 -mb-4 py-20 w-[90%]">
+    <section className="z-10 flex flex-col items-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
       <h2 className="mb-20 font-extrabold text-4xl text-white uppercase italic">
         Servicios más frecuentes
       </h2>

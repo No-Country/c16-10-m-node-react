@@ -178,7 +178,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
                 </label>
               </div>
               <Button
-                className="bg-red-600 hover:bg-red-700 rounded-full"
+                className="bg-main-red hover:bg-main-hover rounded-full"
                 type="submit"
                 disabled={!isChecked}
               >

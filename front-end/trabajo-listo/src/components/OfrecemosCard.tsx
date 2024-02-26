@@ -2,7 +2,7 @@ import { OfrecemosCards } from "./component";
 
 export const OfrecemosCard = ({ card }: { card: OfrecemosCards }) => {
   return (
-    <article className="flex flex-col items-center gap-4 bg-white p-4 border-black border-2 w-1/4">
+    <article className="flex flex-col items-center gap-4 bg-main-blue shadow-xl p-4 border-2 border-gray-700 rounded-xl w-1/4">
       {card.icon}
       <h3 className="font-bold text-3xl">
         {card.title}

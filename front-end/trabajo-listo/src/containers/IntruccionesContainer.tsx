@@ -26,7 +26,7 @@ const IntruccionesContainer = () => {
   ];
 
   return (
-    <section className="flex flex-col items-center bg-red-50 py-20 border-black border-2 w-[95%]">
+    <section className="flex flex-col items-center bg-main-blue py-20 rounded-2xl w-[95%]">
       <h2 className="mb-20 font-extrabold text-4xl text-main-red uppercase italic">
         ¿Cómo contratar en Trabajo Listo?
       </h2>
