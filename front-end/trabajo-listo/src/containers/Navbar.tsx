@@ -1,4 +1,4 @@
-import logo from "@/assets/navbar-logo.png";
+import logo from "@/assets/logo-blue.png";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FormSignUpModal } from "@/modals/FormSignUpModal";
@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { UserState } from "@/components/component";
 import { userActions } from "@/store/userSlice";
+import { VerPerfilModal } from "@/modals/VerPerfilModal";
 
 const listOfServices = [
   "Reparaciones",
@@ -48,7 +49,7 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="relative">
+    <header className="relative font-libre-franklin">
       <Link to="/">
         <img
           src={logo}
@@ -57,7 +58,7 @@ export const Navbar = () => {
         />
       </Link>
 
-      <nav className="flex items-center justify-end gap-12 bg-red-500 px-20 py-2 h-16">
+      <nav className="flex items-center justify-end gap-12 bg-main-red px-20 h-16">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -65,10 +66,10 @@ export const Navbar = () => {
                 Servicios
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid md:grid-cols-3 gap-1 p-4 w-[400px] md:w-[500px]">
+                <ul className="gap-1 grid md:grid-cols-3 p-4 w-[400px] md:w-[500px]">
                   {listOfServices.map((service, i) => (
                     <li
-                      className="hover:bg-gray-50 p-1 rounded-md font-semibold text-black hover:text-red-500 cursor-pointer"
+                      className="hover:bg-gray-50 p-1 rounded-md font-semibold text-black hover:text-mbg-main-red cursor-pointer"
                       key={i}
                       onClick={() => searchService(service)}
                     >
@@ -84,6 +85,8 @@ export const Navbar = () => {
           ¡Quiero ser profesional!
         </Button>
         {user?.name ? (
+          // <VerPerfilModal />
+
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -94,13 +97,13 @@ export const Navbar = () => {
                   ></img>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid md:grid-cols-1 gap-1 p-4 w-[125px] md:w-[150px]">
-                    <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer">
+                  <ul className="gap-1 grid md:grid-cols-1 p-4 w-[125px] md:w-[150px]">
+                    <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-main-hover cursor-pointer">
                       <Link to={`/perfil/${user.id}`}>Ver perfil</Link>
                     </li>
                     <li
                       onClick={logoutHandler}
-                      className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-red-500 cursor-pointer"
+                      className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-main-hover cursor-pointer"
                     >
                       Cerrar sesión
                     </li>

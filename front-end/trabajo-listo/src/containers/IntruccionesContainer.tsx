@@ -1,47 +1,42 @@
-import ServiciosCard from "@/components/InstruccionesCard";
-import image1 from "../assets/imageServicio1.png";
-import image2 from "../assets/imageServicio2.png";
-import image3 from "../assets/imageServicio3.png";
-import { Servicio } from "@/components/component";
+import register from "../assets/register.jpg";
+import findService from "../assets/find-service.jpg";
+import agreement from "../assets/agreement.jpg";
+import InstruccionesCard from "@/components/InstruccionesCard";
 
 const IntruccionesContainer = () => {
-  const DUMMY_SERVICIOS = [
+  const INSTRUCCIONES = [
     {
-      imgUrl: image1,
+      imgUrl: register,
       id: 1,
-      title: "REGISTRARSE",
-      text: "Lorem ipsum dolor sit amet consectetur adipiscing elit integerhimenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,faucibus pulvinar ultricies tellus purus euismod gravida venenatis.",
+      title: "Regístrate",
+      text: "Tanto como cliente o como profesional. ¡Regístrate y comienza a formar parte de esta gran comunidad!",
     },
     {
-      imgUrl: image2,
+      imgUrl: findService,
       id: 2,
-      title: "BUSCAR",
-      text: "Lorem ipsum dolor sit amet consectetur adipiscing elit integerhimenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,faucibus pulvinar ultricies tellus purus euismod gravida venenatis.",
+      title: "Busca tu necesidad",
+      text: "Nuestro buscador todo lo puede. ¡Encuentra cualquier tipo de servicio o profesional que necesites al alcance de un click!",
     },
     {
-      imgUrl: image3,
+      imgUrl: agreement,
       id: 3,
-      title: "ADQUIRIR",
-      text: "Lorem ipsum dolor sit amet consectetur adipiscing elit integerhimenaeos, sapien a feugiat rutrum commodo malesuada dis viverra,faucibus pulvinar ultricies tellus purus euismod gravida venenatis.",
+      title: "Contrata",
+      text: "¿Satisfecho con lo que buscabas? ¡Hora de conectar! El último paso es simple: contrata y resuelve tus necesidades",
     },
   ];
 
   return (
-    <div className="flex flex-col gap-20 bg-[#fffcfc] px-10 py-20">
-      <div className="text-center">
-        <h1 className="px-5 py-3 rounded-xl font-bold text-3xl text-red-500 italic">
-          ¿COMO PUEDO CONTRATAR?
-        </h1>
-        <h2 className="font-bold text-[#5D5657] text-2xl">
-          Siga estas indicanciones
-        </h2>
-      </div>
-      <div className="flex flex-col items-center gap-7 px-1 ">
-        {DUMMY_SERVICIOS.map((servicio: Servicio) => (
-          <ServiciosCard key={servicio.id} servicio={servicio}></ServiciosCard>
-        ))}
-      </div>
-    </div>
+    <section className="flex flex-col items-center bg-main-blue py-20 rounded-2xl w-[95%]">
+      <h2 className="mb-20 font-extrabold text-4xl text-main-red uppercase italic">
+        ¿Cómo contratar en Trabajo Listo?
+      </h2>
+      {INSTRUCCIONES.map((instruccion) => (
+        <InstruccionesCard
+          key={instruccion.id}
+          instruccion={instruccion}
+        />
+      ))}
+    </section>
   );
 };
 

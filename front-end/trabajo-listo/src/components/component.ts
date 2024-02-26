@@ -1,4 +1,4 @@
-export interface Servicio {
+export interface Instruccion {
   imgUrl: string;
   id: number;
   title: string;
@@ -21,22 +21,18 @@ export interface ServicioProfesional {
 }
 
 export interface OfrecemosCards {
-  card: {
-    id: number;
-    text: string;
-    title: string;
-    svg: React.ReactNode;
-  };
+  id: number;
+  text: string;
+  title: string;
+  icon: React.ReactNode;
 }
 
 export interface EquipoCards {
-  item: {
-    id: number;
-    nombre: string;
-    rol: string;
-    link: string;
-    img: string;
-  };
+  id: number;
+  nombre: string;
+  rol: string;
+  link: string;
+  img: string;
 }
 
 export interface UserState {
@@ -47,6 +43,7 @@ export interface UserState {
   token: string;
   isPro: boolean;
 }
+
 export interface tokenUser {
   email: string;
   exp: number;

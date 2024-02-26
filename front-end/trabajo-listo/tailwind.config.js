@@ -17,7 +17,17 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'hero-banner': "url('./assets/banner-professional.jpg')",
+      },
+      fontFamily: {
+        "galada": ["Galada", "cursive"],
+        "libre-franklin": ["Libre Franklin", "sans-serif"]
+      },
       colors: {
+        "main-hover": "#083344",
+        "main-red": "#0e7490",
+        "main-blue": "#e7edfc",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
