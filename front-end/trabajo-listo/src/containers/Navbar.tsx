@@ -14,7 +14,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { UserState } from "@/components/component";
 import { userActions } from "@/store/userSlice";
-import { VerPerfilModal } from "@/modals/VerPerfilModal";
 
 const listOfServices = [
   "Reparaciones",
@@ -58,7 +57,7 @@ export const Navbar = () => {
         />
       </Link>
 
-      <nav className="flex items-center justify-end gap-12 bg-main-red px-20 h-16">
+      <nav className="flex justify-end items-center gap-12 bg-main-red px-20 h-16">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

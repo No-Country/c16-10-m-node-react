@@ -19,7 +19,7 @@ const ModalServicios: React.FC<{
           <h1 className="font-bold text-3xl text-main-red">
             {servicioProfesional.title}
           </h1>
-          <div className="">
+          <div className="shadow-md rounded-sm overflow-hidden">
             <CategoriaCard
               user={user}
               servicioProfesional={{ ...servicioProfesional, title: "" }}
@@ -29,7 +29,7 @@ const ModalServicios: React.FC<{
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
             cum reprehenderit velit tempora, ab pariatur minus molestiae
             voluptates possimus culpa alias aperiam labore iste quos aut qui
-            consequatur et! Officia?
+            consequatur et!
           </p>
         </div>
 
