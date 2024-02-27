@@ -29,7 +29,7 @@ const ModalServicios: React.FC<{
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
             cum reprehenderit velit tempora, ab pariatur minus molestiae
             voluptates possimus culpa alias aperiam labore iste quos aut qui
-            consequatur et! Officia?
+            consequatur et!
           </p>
         </div>
 
