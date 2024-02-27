@@ -5,7 +5,7 @@ import RecomendacionesContainer from "@/containers/RecomendacionesContainer";
 
 export const Home = () => {
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center ">
       <Hero />
       <OfrecemosContainer />
       <InstruccionesContainer />
