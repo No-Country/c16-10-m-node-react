@@ -9,15 +9,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { userActions } from "@/store/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const VerPerfilModal = ({ className }: { className?: string }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
-  const dispatch = useDispatch();
-  const logoutHandler = () => {
+  /*const dispatch = useDispatch();
+ const logoutHandler = () => {
     dispatch(userActions.USER_LOGOUT());
-  }
+  };*/
 
   return (
     <Sheet>
@@ -34,9 +33,7 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
       </SheetTrigger>
       <SheetContent className="flex flex-col items-center w-72">
         <SheetHeader>
-          <SheetTitle>
-
-          </SheetTitle>
+          <SheetTitle></SheetTitle>
           <img
             className="rounded-full w-20 h-20"
             src={user.imageProfile}
