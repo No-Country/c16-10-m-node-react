@@ -25,6 +25,13 @@ const CategoriaCard: React.FC<{
               precision={0.5}
               size="small"
             />
+            <Rating
+              name="read-only"
+              readOnly
+              value={3.5}
+              precision={0.5}
+              size="small"
+            />
           </div>
         </div>
       </div>
