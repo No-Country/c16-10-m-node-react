@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -18,11 +18,11 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'hero-banner': "url('./assets/banner-professional.jpg')",
+        "hero-banner": "url('./assets/banner-professional.jpg')",
       },
       fontFamily: {
-        "galada": ["Galada", "cursive"],
-        "libre-franklin": ["Libre Franklin", "sans-serif"]
+        galada: ["Galada", "cursive"],
+        "libre-franklin": ["Libre Franklin", "sans-serif"],
       },
       colors: {
         "main-hover": "#083344",
@@ -84,4 +84,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

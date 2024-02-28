@@ -1,4 +1,5 @@
-import { IsEnum, IsNumber, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsArray, IsEnum, IsNumber, IsOptional, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import { Comments } from 'src/common/classes/comments.class';
 import { Services } from 'src/common/classes/services.class';
 import { CategoriesEnum } from 'src/common/enums/categories.enum';
 
@@ -26,8 +27,9 @@ export class UpdatePostDto {
   nameProfessional?: string;
 
   @IsOptional()
-  @IsString()
-  comments?: string;
+  @IsArray()
+  @ValidateNested({ each: true })
+  comments?: Comments[];
 
   @IsNumber()
   @IsOptional()

@@ -79,3 +79,15 @@ export interface UserProfile {
   category: string[];
   __v: number;
 }
+
+export interface Consulta {
+  id: string;
+  text: string;
+  idUser: string;
+  respuesta?: [Respuesta];
+}
+
+export interface Respuesta {
+  id: string;
+  text: string;
+}
