@@ -14,7 +14,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { UserState } from "@/components/component";
 import { userActions } from "@/store/userSlice";
-import { VerPerfilModal } from "@/modals/VerPerfilModal";
 
 import { useEffect, useState } from "react";
 import {
