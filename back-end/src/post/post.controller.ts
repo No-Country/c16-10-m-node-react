@@ -22,6 +22,7 @@ import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
 import { PostService } from './post.service';
+import { CommentDto } from 'src/infrastructure/db/dto/postDto/comment-post.dto';
 
 @Controller('post')
 export class PostController {
@@ -76,6 +77,21 @@ export class PostController {
       limit,
     );
     return res.status(HttpStatus.OK).json(newPost);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('comment/:idPost')
+  async comments(
+    @Req() req: Request,
+    @Param('idPost') idPost: string,
+    @Body() comment: CommentDto,
+    @Res() res: Response,
+  ) {
+    const data = await this.postService.newComments(req.user, idPost, comment);
+    return res.status(HttpStatus.OK).json({
+      message: 'add new comment succesfully',
+      data,
+    });
   }
 
   @UseGuards(JwtAuthGuard)

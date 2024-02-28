@@ -13,12 +13,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Star, Pencil, Bell, LogOut, MenuSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
+import { notificacionesActions } from "@/store/notificacionesSlice";
 
 export const VerPerfilModal = ({ className }: { className?: string }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(userActions.USER_LOGOUT());
+    dispatch(notificacionesActions.SUCCES({
+      message: "Sesión cerrada"
+    }))
   }
 
   const opcionesPerfil = [
@@ -28,14 +32,14 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
       to: "/"
     },
     {
-      icon: <Pencil className="w-5 h-5" />,
-      title: "Editar perfil",
-      to: `/perfil/${user.id}`
+      icon: <MenuSquare className="w-5 h-5" />,
+      title: "Ver perfil",
+      to: `perfil/${user.id}`
     },
     {
-      icon: <MenuSquare className="w-5 h-5" />,
-      title: "Mis servicios",
-      to: "/"
+      icon: <Pencil className="w-5 h-5" />,
+      title: "Editar perfil",
+      to: "editar-perfil"
     },
     {
       icon: <Star className="w-5 h-5" />,
@@ -75,6 +79,7 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
         <ul className="flex flex-col gap-2">
           {opcionesPerfil.map((opcion) => (
             <Link
+              key={opcion.title}
               to={opcion.to}
               className="flex items-center gap-2 hover:bg-gray-50 py-2 font-medium hover:text-main-red"
             >
@@ -84,7 +89,9 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
           ))}
           <li
             className="flex items-center gap-2 hover:bg-gray-100 py-2 font-medium hover:text-main-red hover:cursor-pointer"
-            onClick={logoutHandler}
+            onClick={() => {
+              logoutHandler();
+            }}
           >
             <LogOut className="w-5 h-5" />
             Cerrar sesión

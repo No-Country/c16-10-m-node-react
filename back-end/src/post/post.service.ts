@@ -10,6 +10,7 @@ import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
 import { CategoriesEnum } from 'src/common/enums/categories.enum';
+import { CommentDto } from 'src/infrastructure/db/dto/postDto/comment-post.dto';
 
 @Injectable()
 export class PostService {
@@ -134,6 +135,19 @@ export class PostService {
     } catch (err) {
       console.error(`Error occurred while updating Post Post #${id}:`, err);
       throw err;
+    }
+  }
+
+  async newComments(userPayload: any, idPost: string, newComments: CommentDto) {
+    try {
+      const comment = await this.postModel.findById(idPost);
+      if (!comment) throw new BadRequestException('post no exist');
+      newComments.idClient = userPayload.id;
+      comment.comments.push(newComments);
+      comment.save();
+      return comment;
+    } catch (error) {
+      throw error;
     }
   }
 
