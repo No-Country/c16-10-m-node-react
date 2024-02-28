@@ -13,7 +13,7 @@ export enum CategoriesEnum {
   PROGRAMADOR = 'programador',
   SALUD = 'salud',
   CHOFER = 'chofer',
-  PASEADOR_MASCOTAS = 'paseador de mascotas',
+  PASEADOR_MASCOTAS = 'paseador mascotas',
   PROFESOR_PARTICULAR = 'profesor particular',
   LIMPIEZA = 'limpieza',
   OTROS = 'otros',

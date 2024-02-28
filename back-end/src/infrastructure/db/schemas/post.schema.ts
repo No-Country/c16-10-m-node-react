@@ -3,6 +3,7 @@ import mongoose, { HydratedDocument } from 'mongoose';
 import { Services } from 'src/common/classes/services.class';
 import { User } from './user.schema';
 import { CategoriesEnum } from 'src/common/enums/categories.enum';
+import { Comments } from 'src/common/classes/comments.class';
 
 export type PostDocument = HydratedDocument<Post>;
 
@@ -30,8 +31,8 @@ export class Post {
   })
   imagePost: string;
 
-  @Prop({ type: [String] })
-  comments: string[];
+  @Prop({ type: [Comments] })
+  comments: Comments[];
 
   @Prop({ type: Number, default: 0 })
   views: number;
