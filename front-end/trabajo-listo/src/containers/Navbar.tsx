@@ -11,9 +11,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { UserState } from "@/components/component";
-import { userActions } from "@/store/userSlice";
 import { VerPerfilModal } from "@/modals/VerPerfilModal";
 
 const listOfServices = [
@@ -43,10 +42,7 @@ export const Navbar = () => {
     }
   };
   const user = useSelector((state: { user: UserState }) => state.user);
-  const dispatch = useDispatch();
-  const logoutHandler = () => {
-    dispatch(userActions.USER_LOGOUT());
-  };
+
 
   return (
     <header className="relative font-libre-franklin">
@@ -85,33 +81,7 @@ export const Navbar = () => {
           ¡Quiero ser profesional!
         </Button>
         {user?.name ? (
-          // <VerPerfilModal />
-
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent data-[state=open]:bg-white focus:bg-transparent mr-3 pr-2 pl-0 rounded-full text-base text-white data-[state=open]:text-black">
-                  <img
-                    className="rounded-full w-10 h-10"
-                    src={user.imageProfile}
-                  ></img>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="gap-1 grid md:grid-cols-1 p-4 w-[125px] md:w-[150px]">
-                    <li className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-main-hover cursor-pointer">
-                      <Link to={`/perfil/${user.id}`}>Ver perfil</Link>
-                    </li>
-                    <li
-                      onClick={logoutHandler}
-                      className="hover:bg-gray-50 p-1 rounded-md w-[300px] font-semibold text-black hover:text-main-hover cursor-pointer"
-                    >
-                      Cerrar sesión
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          <VerPerfilModal />
         ) : (
           <>
             <FormLogInModal />
