@@ -53,18 +53,6 @@ const ModalServicios: React.FC<{
         <div className="flex gap-3 mb-3">
           <button
             onClick={() => {
-              setShowconsultas(true);
-            }}
-            className={
-              !showConsultas
-                ? "p-1 rounded-lg w-fit font-medium text-lg text-main-red hover:text-main-hover outline-none"
-                : "p-1 rounded-lg w-fit font-medium text-lg bg-main-red text-main-blue outline-none"
-            }
-          >
-            Consultas
-          </button>
-          <button
-            onClick={() => {
               setShowconsultas(false);
             }}
             className={
@@ -74,6 +62,18 @@ const ModalServicios: React.FC<{
             }
           >
             Imagen
+          </button>
+          <button
+            onClick={() => {
+              setShowconsultas(true);
+            }}
+            className={
+              !showConsultas
+                ? "p-1 rounded-lg w-fit font-medium text-lg text-main-red hover:text-main-hover outline-none"
+                : "p-1 rounded-lg w-fit font-medium text-lg bg-main-red text-main-blue outline-none"
+            }
+          >
+            Consultas
           </button>
         </div>
         {!showConsultas ? (

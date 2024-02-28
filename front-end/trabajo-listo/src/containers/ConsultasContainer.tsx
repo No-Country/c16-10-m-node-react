@@ -1,5 +1,6 @@
 import ConsultasItem from "@/components/ConsultasItem";
 import { Consulta } from "@/components/component";
+import { useEffect } from "react";
 
 const ConsultasContainer = () => {
   const DUMMY_COMENTARIOS: Array<Consulta> = [
@@ -58,6 +59,10 @@ const ConsultasContainer = () => {
       respuesta: [{ id: "1", text: "Alrededor de una hora" }],
     },
   ];
+
+  useEffect(() => {
+    //const consultas = getConsultas();
+  }, []);
   return (
     <div className="flex flex-col gap-7 ml-3">
       <div className="flex flex-col gap-3 bg-main-blue pl-4 max-h-[25rem] overflow-y-scroll ">
