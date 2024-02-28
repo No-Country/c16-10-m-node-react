@@ -1,5 +1,5 @@
-import { editarServicio, getUnServicio } from "@/api/service.endpoint";
-import { ServicioProfesional, UserState } from "@/components/component";
+import { editarServicio, getUnServicio, imageServicio } from "@/api/service.endpoint";
+import { ServicioEditar, UserState } from "@/components/component";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ export const EditarServicio = () => {
     const [descripcion, setDescripcion] = useState("");
     const [precio, setPrecio] = useState("");
     const [subcategoria, setSubcategoria] = useState("");
-    // const [foto, setFoto] = useState<null | File>(null);
+    const [foto, setFoto] = useState<null | File>(null);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState("carpintero");
     const { id } = useParams();
 
@@ -64,34 +64,31 @@ export const EditarServicio = () => {
         subcategoria.length > 5 &&
         parseInt(precio) > 0
       ) {
-        const data: ServicioProfesional = {
-          _id: "",
+        const data: ServicioEditar = {
           title: titulo,
           description: descripcion,
           category: opcionSeleccionada,
-          comments: [],
-          idProfessional: "",
-          imagePost: "",
-          nameProfessional: "",
           services: [
             {
               name: subcategoria,
               price: parseFloat(precio),
             },
           ],
-          views: 0,
-          __v: 0,
         };
         console.log(data);
         
         if(id){
             const res = await editarServicio(id, data);
             if (res) {
+                const resFoto = await imageServicio(id, user.token, foto)
+                console.log(resFoto);
+                
                 setTitulo("");
                 setDescripcion("");
                 setPrecio("");
                 setSubcategoria("");
                 setOpcionSeleccionada("carpintero");
+                setFoto(null)
                 dispatch(
                     notificacionesActions.SUCCES({
                     message: "Su servicio se editó correctamente",
@@ -112,7 +109,7 @@ export const EditarServicio = () => {
     const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (file) {
-        // setFoto(file);
+        setFoto(file);
       }
     };
   

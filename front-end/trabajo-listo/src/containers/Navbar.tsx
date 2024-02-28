@@ -1,5 +1,5 @@
 import logo from "@/assets/logo-blue.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FormSignUpModal } from "@/modals/FormSignUpModal";
 import { FormLogInModal } from "@/modals/FormLogInModal";
@@ -14,33 +14,32 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { UserState } from "@/components/component";
 import { userActions } from "@/store/userSlice";
-import { VerPerfilModal } from "@/modals/VerPerfilModal";
-
-const listOfServices = [
-  "Reparaciones",
-  "Lavados",
-  "Mensajería",
-  "Transporte",
-  "Instalaciones",
-  "Decoraciones",
-  "Limpieza",
-  "Cuidados",
-  "Salud",
-  "Jardinería",
-  "Enseñanza",
-  "Seguridad",
-  "Peluquería",
-  "Cumpleaños",
-  "Alquileres",
-];
 
 export const Navbar = () => {
+  const listOfServices = [
+  "carpintero",
+  "electricista",
+  "lavadero",
+  "mecanico",
+  "reparaciones",
+  "plomeria",
+  "peluqueria",
+  "personal trainer",
+  "jardinero",
+  "gasista",
+  "DJ",
+  "programador",
+  "salud",
+  "chofer",
+  "paseador mascotas",
+  "profesor particular",
+  "limpieza",
+  "otros",
+];
+
+  const navigate = useNavigate();
   const searchService = (service: string) => {
-    try {
-      console.log(service);
-    } catch (error) {
-      console.log(error);
-    }
+    navigate("/search", { state: { id: service } });
   };
   const user = useSelector((state: { user: UserState }) => state.user);
   const dispatch = useDispatch();
@@ -58,7 +57,7 @@ export const Navbar = () => {
         />
       </Link>
 
-      <nav className="flex items-center justify-end gap-12 bg-main-red px-20 h-16">
+      <nav className="flex justify-end items-center gap-12 bg-main-red px-20 h-16">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

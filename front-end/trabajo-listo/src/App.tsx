@@ -13,6 +13,7 @@ import React from "react";
 import { NuevoServicio } from "./pages/NuevoServicio";
 import { ToastContainer } from "react-toastify";
 import { EditarServicio } from "./pages/EditarServicio";
+import { Search } from "./pages/Search";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -49,6 +50,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="equipo" element={<Equipo />} />
         <Route path="testimonios" element={<Testimonios />} />
+        <Route path="search" element={<Search />} />
         <Route
           path="perfil/:id"
           element={
@@ -69,7 +71,7 @@ const App = () => {
           <ProtectedRoute>
             <NuevoServicio />
           </ProtectedRoute>} />
-          <Route
+        <Route
           path="editar-servicio/:id"
           element={
             <ProtectedRoute>
@@ -77,6 +79,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        
       </Routes>
       <Footer />
     </BrowserRouter>
