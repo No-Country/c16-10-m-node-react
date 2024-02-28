@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom";
 import { ServicioProfesional, UserState } from "./component";
 import { Rating } from "@mui/material";
 
@@ -6,7 +5,6 @@ const CategoriaCard: React.FC<{
   user: UserState;
   servicioProfesional: ServicioProfesional;
 }> = ({ user, servicioProfesional }) => {
-  const location = useLocation();
 
   return (
     <picture className="flex items-center bg-main-blue p-2">
@@ -21,15 +19,13 @@ const CategoriaCard: React.FC<{
           </span>
           <div className="flex items-center gap-1">
             <h3 className="text-xs">{`De ${user?.name}`}</h3>
-            {location.pathname === "/" && servicioProfesional.title === "" && (
-              <Rating
-                name="read-only"
-                readOnly
-                value={3.5}
-                precision={0.5}
-                size="small"
-              />
-            )}
+            <Rating
+              name="read-only"
+              readOnly
+              value={3.5}
+              precision={0.5}
+              size="small"
+            />
           </div>
         </div>
       </div>

@@ -6,6 +6,12 @@ export interface Instruccion {
   nombre?: string;
 }
 
+export interface BotonCat {
+  name: string;
+  nick: string;
+  svg: JSX.Element;
+}
+
 export interface ServicioProfesional {
   _id: string;
   category: string;
@@ -18,6 +24,13 @@ export interface ServicioProfesional {
   title: string;
   views: number;
   __v: number;
+}
+
+export interface ServicioEditar {
+  category: string;
+  description: string;
+  services: { name: string; price: number }[];
+  title: string;
 }
 
 export interface OfrecemosCards {
