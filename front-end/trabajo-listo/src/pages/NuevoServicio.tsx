@@ -1,4 +1,4 @@
-import { subirServicio } from "@/api/service.endpoint";
+import { imageServicio, subirServicio } from "@/api/service.endpoint";
 import { ServicioProfesional, UserState } from "@/components/component";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { useState } from "react";
@@ -11,7 +11,7 @@ export const NuevoServicio = () => {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
-  // const [foto, setFoto] = useState<null | File>(null);
+  const [foto, setFoto] = useState<null | File>(null);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("carpintero");
 
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const NuevoServicio = () => {
     "programador",
     "salud",
     "chofer",
-    "paseador mascotas",
+    "paseador de mascotas",
     "profesor particular",
     "limpieza",
     "otros",
@@ -45,7 +45,7 @@ export const NuevoServicio = () => {
       subcategoria.length > 5 &&
       parseInt(precio) > 0
     ) {
-      const data: ServicioProfesional = {
+      const datas: ServicioProfesional = {
         _id: "",
         title: titulo,
         description: descripcion,
@@ -63,21 +63,25 @@ export const NuevoServicio = () => {
         views: 0,
         __v: 0,
       };
-      console.log(data);
+      console.log(datas);
+      
+      const res = await subirServicio(datas);
       
 
-      const res = await subirServicio(data);
       if (res) {
         setTitulo("");
         setDescripcion("");
         setPrecio("");
         setSubcategoria("");
         setOpcionSeleccionada("carpintero");
+        setFoto(null)
         dispatch(
           notificacionesActions.SUCCES({
             message: "Su servicio se creo correctamente",
           })
         );
+        const resFoto = await imageServicio(res.data._id, user.token, foto)
+        console.log(resFoto);
         navigate(`/perfil/${user.id}`);
       }
     } else {
@@ -92,7 +96,7 @@ export const NuevoServicio = () => {
   const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // setFoto(file);
+      setFoto(file);
     }
   };
 
