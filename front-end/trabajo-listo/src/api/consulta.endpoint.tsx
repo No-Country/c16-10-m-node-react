@@ -1,8 +1,8 @@
 import apiClient from "@/server";
 
-export const getConsultas = async (idPost: string) => {
+export const postConsulta = async (idPost: string, consulta: object) => {
   try {
-    const res = await apiClient.get(`post/comment/${idPost}`);
+    const res = await apiClient.post(`post/comment/${idPost}`, consulta);
     console.log(res);
     if (!res) throw new Error("Bad request");
     return res;

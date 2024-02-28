@@ -18,7 +18,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="flex justify-start items-center gap-16 bg-hero-banner border-b-2 border-black w-[1500px] max-w-full h-[601px]">
+    <section className="flex justify-start items-center gap-16 bg-hero-banner bg-cover bg-no-repeat border-black rounded-b-2xl w-full max-w-full h-[601px] overflow-hidden b-2">
       <div className="flex flex-col gap-16 ml-8 w-3/5">
         <section className="flex flex-col items-center gap-2">
           <h1 className="font-extrabold font-galada text-7xl text-main-red tracking-wide">
