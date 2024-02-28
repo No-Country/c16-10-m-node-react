@@ -26,8 +26,9 @@ import { z } from "zod";
 
 import "react-toastify/dist/ReactToastify.css";
 import { notificacionesActions } from "@/store/notificacionesSlice";
+import { cn } from "@/lib/utils";
 
-export const FormLogInModal = () => {
+export const FormLogInModal = ({ className }: { className?: string }) => {
   const dispatch = useDispatch();
 
   const formSchema = z.object({
@@ -90,7 +91,10 @@ export const FormLogInModal = () => {
       <SheetTrigger asChild>
         <Button
           variant="default"
-          className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black"
+          className={cn(
+            "bg-transparent hover:bg-white rounded-none text-base text-white hover:text-black",
+            className
+          )}
         >
           Acceder
         </Button>
@@ -141,7 +145,7 @@ export const FormLogInModal = () => {
               )}
             />
             <Button
-              className="bg-red-500 hover:bg-red-600 rounded-full"
+              className="bg-main-red hover:bg-main-hover rounded-full"
               type="submit"
             >
               Ingresar

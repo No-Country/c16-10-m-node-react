@@ -1,30 +1,49 @@
-import { Button } from "./ui/button";
+// import { Button } from "./ui/button";
 //import imageHome from "../assets/homeImage.avif";
-import imageHome from "../assets/imagenTrabajolisto.png";
+// import imageHome from "../assets/imagenTrabajolisto.png";
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
-const Hero = () => {
+export const Hero = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = () => {
+    try {
+      console.log(searchValue);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-around bg-gradient-to-r from-[#fffcfc] via-[#fffcfc] to-red-300 px-10 border-white h-[675px] overflow-hidden">
-      <div className="flex flex-col flex-1 justify-around pl-16 h-[60%]">
-        <div className="flex flex-col gap-2">
-          <h2 className="font-black text-5xl text-red-500 italic">
-            TRABAJO LISTO
-          </h2>
-          <h3 className="font-bold text-[#5D5657] text-3xl">
-            Te ofrecemos accesibilidad y velocidad en busquedas de servicios
+    <section className="flex items-center justify-start gap-16 bg-hero-banner bg-cover bg-no-repeat border-black rounded-b-2xl w-full max-w-full h-[601px] overflow-hidden b-2">
+      <div className="flex flex-col items-center gap-16 ml-8 w-3/5">
+        <section className="flex flex-col items-center gap-2">
+          <h1 className="font-extrabold font-galada text-7xl text-main-red tracking-wide">
+            ¡Tus Servicios a un Click!
+          </h1>
+          <h3 className="font-bold font-libre-franklin text-gray-700 text-xl italic">
+            Velocidad y accesibilidad en búsquedas de servicios
           </h3>
-        </div>
-        <p className="font-medium text-[#5D5657] text-lg">
-        Descubre una amplia gama de servicios ofrecidos por profesionales y personas de diversas áreas en nuestra plataforma. ¡Encuentra exactamente lo que necesitas entre miles de opciones disponibles!
-        </p>
-        <Button className="bg-red-500 hover:bg-red-600 px-10 py-6 rounded-full w-40 text-white text-xl hover:text-white outline-none">
-          Ver servicios
-        </Button>
+        </section>
+        <search className="flex bg-white border-2 border-main-red rounded-lg min-w-[50rem] max-w-[60rem] overflow-hidden">
+          <Input
+            className="px-4 border-0 font-medium text-gray-700 text-xl outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            type="text"
+            value={searchValue}
+            placeholder="Busca tu servicio aquí"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <Button
+            onClick={handleSearch}
+            className="bg-main-red hover:bg-main-hover px-10 rounded-none h-full text-lg text-white outline-none"
+          >
+            Buscar
+          </Button>
+        </search>
       </div>
-      <div className="flex flex-1 items-center justify-end h-full ">
-        <img className="top-0 min-w-[40rem] h-[100%] " src={imageHome}></img>
-      </div>
-    </div>
+    </section>
   );
 };
 

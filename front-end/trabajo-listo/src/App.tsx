@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Navbar } from "./containers/Navbar";
 import "./normalize.css";
-import { SearchPage } from "./pages/Search";
 import { Home } from "./pages/Home";
 import { Footer } from "./containers/Footer";
 import { Equipo } from "./pages/Equipo";
@@ -13,6 +12,7 @@ import { UserState, Notificacion } from "./components/component";
 import React from "react";
 import { NuevoServicio } from "./pages/NuevoServicio";
 import { ToastContainer } from "react-toastify";
+import { EditarServicio } from "./pages/EditarServicio";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -47,7 +47,6 @@ const App = () => {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="search" element={<SearchPage />} />
         <Route path="equipo" element={<Equipo />} />
         <Route path="testimonios" element={<Testimonios />} />
         <Route
@@ -66,7 +65,18 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="nuevo-servicio" element={<NuevoServicio />} />
+        <Route path="nuevo-servicio" element={
+          <ProtectedRoute>
+            <NuevoServicio />
+          </ProtectedRoute>} />
+          <Route
+          path="editar-servicio/:id"
+          element={
+            <ProtectedRoute>
+              <EditarServicio />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
