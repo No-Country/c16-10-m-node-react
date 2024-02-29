@@ -160,7 +160,6 @@ export class PostService {
       }
       // No se encontró el comentario, se agrega un nuevo comentario
       newComments.id = comment.comments.length + 1;
-      newComments.idClient = userPayload.id;
       comment.comments.push(newComments);
       await comment.updateOne(comment);
       return {

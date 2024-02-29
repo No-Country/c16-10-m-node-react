@@ -6,9 +6,6 @@ export class CommentDto {
   id: number;
 
   @IsOptional()
-  idClient: string;
-
-  @IsOptional()
   @IsString()
   nameClient: string;
 
