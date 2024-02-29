@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -140,23 +141,30 @@ export class PostService {
 
   async newComments(userPayload: any, idPost: string, newComments: CommentDto) {
     try {
+      let existe = false;
       const comment = await this.postModel.findById(idPost);
       if (!comment) throw new BadRequestException('post no exist');
 
-      for (let i = 0; i < comment.comments.length; i++) {
-        let comentario = comment.comments[i];
-        if (
-          comentario.id == newComments.id &&
-          comment.idProfessional == userPayload.id
-        ) {
-          // Se encuentra el comentario, se actualiza la propiedad answer
-          comentario.answer = newComments.answer;
-          await comment.updateOne(comment);
-          return {
-            message: 'add answer successfully',
-            comments: comment.comments,
-          };
+      if (comment.idProfessional.toString() === userPayload.id) {
+        for (let i = 0; i < comment.comments.length; i++) {
+          let comentario = comment.comments[i];
+          if (comentario.id == newComments.id) {
+            console.log('entre');
+            // Se encuentra el comentario, se actualiza la propiedad answer
+            comentario.answer = newComments.answer;
+            existe = true;
+            break;
+          }
         }
+      } else {
+        throw new UnauthorizedException('no sos dueño de la publicacion');
+      }
+      if (existe === true) {
+        await comment.updateOne(comment);
+        return {
+          message: 'add answer successfully',
+          comments: comment.comments,
+        };
       }
       // No se encontró el comentario, se agrega un nuevo comentario
       newComments.id = comment.comments.length + 1;
