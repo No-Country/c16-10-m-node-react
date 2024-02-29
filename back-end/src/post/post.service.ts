@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CategoriesEnum } from 'src/common/enums/categories.enum';
+import { CommentDto } from 'src/infrastructure/db/dto/postDto/comment-post.dto';
 import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { UserService } from 'src/user/user.service';
 import { CreatePostDto } from '../infrastructure/db/dto/postDto/create-post.dto';
 import { UpdatePostDto } from '../infrastructure/db/dto/postDto/update-post.dto';
-import { CategoriesEnum } from 'src/common/enums/categories.enum';
-import { CommentDto } from 'src/infrastructure/db/dto/postDto/comment-post.dto';
 
 @Injectable()
 export class PostService {
@@ -140,12 +140,34 @@ export class PostService {
 
   async newComments(userPayload: any, idPost: string, newComments: CommentDto) {
     try {
+      let comentarioEncontrado = false;
       const comment = await this.postModel.findById(idPost);
       if (!comment) throw new BadRequestException('post no exist');
+
+      for (let i = 0; i < comment.comments.length; i++) {
+        let comentario = comment.comments[i];
+        if (
+          comentario.id == newComments.id &&
+          comentario.idClient == newComments.idClient
+        ) {
+          // Se encuentra el comentario, se actualiza la propiedad answer
+          comentario.answer = newComments.answer;
+          await comment.updateOne(comment);
+          return {
+            message: 'add answer successfully',
+            comments: comment.comments,
+          };
+        }
+      }
+      // No se encontró el comentario, se agrega un nuevo comentario
+      newComments.id = comment.comments.length + 1;
       newComments.idClient = userPayload.id;
       comment.comments.push(newComments);
-      comment.save();
-      return comment;
+      await comment.updateOne(comment);
+      return {
+        message: 'add new comment successfully',
+        comments: comment.comments,
+      };
     } catch (error) {
       throw error;
     }
