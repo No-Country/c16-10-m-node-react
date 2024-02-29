@@ -8,8 +8,9 @@ import { Link, useParams } from "react-router-dom";
 import { Receipt } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CategoriaCard from "./CategoriaCard";
-import ModalServicios from "./ModalServicios";
+import ModalServicios from "../modals/ModalServicios";
 import ModalCard from "./ui/ModalCard";
+import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
 type RecomendacionesCardProps = {
   servicioProfesional: ServicioProfesional | null;
@@ -91,7 +92,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
           <div className="flex flex-col justify-between h-full">
             <div className="flex items-center h-full">
               <p className="line-clamp-2 p-4 w-full h-[6ch] text-ellipsis">
-                {servicioProfesional.description}
+                {capitalizeFirstLetter(servicioProfesional.description)}
               </p>
             </div>
             <div className="flex flex-row-reverse justify-between p-2">
@@ -146,6 +147,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
           <ModalServicios
             user={servicio}
             servicioProfesional={servicioProfesional}
+            onClose={closeModalHandler}
           />
         </ModalCard>
       )}

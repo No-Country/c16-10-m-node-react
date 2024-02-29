@@ -81,10 +81,11 @@ export interface UserProfile {
 }
 
 export interface Consulta {
-  id: string;
-  text: string;
-  idUser: string;
-  respuesta?: [Respuesta];
+  id: number;
+  idClient: string;
+  textClient: string;
+  nameClient: string;
+  answer?: string;
 }
 
 export interface Respuesta {
