@@ -140,7 +140,6 @@ export class PostService {
 
   async newComments(userPayload: any, idPost: string, newComments: CommentDto) {
     try {
-      let comentarioEncontrado = false;
       const comment = await this.postModel.findById(idPost);
       if (!comment) throw new BadRequestException('post no exist');
 
@@ -148,7 +147,7 @@ export class PostService {
         let comentario = comment.comments[i];
         if (
           comentario.id == newComments.id &&
-          comentario.idClient == newComments.idClient
+          comment.idProfessional == userPayload.id
         ) {
           // Se encuentra el comentario, se actualiza la propiedad answer
           comentario.answer = newComments.answer;
