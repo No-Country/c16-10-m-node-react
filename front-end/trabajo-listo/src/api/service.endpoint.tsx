@@ -109,8 +109,7 @@ function convertirTexto(texto: string) {
 export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
-    console.log(textoConvertido);
-    
+
     const res = await apiClient.get(`post/category/${textoConvertido}?page=1&limit2`);
     if (!res) throw new Error("Bad request");
     return res;

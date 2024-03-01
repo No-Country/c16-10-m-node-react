@@ -2,6 +2,7 @@ import { UserState } from "@/components/component";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -12,17 +13,29 @@ import { userActions } from "@/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Star, Pencil, Bell, LogOut, MenuSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 
 export const VerPerfilModal = ({ className }: { className?: string }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const logoutHandler = () => {
     dispatch(userActions.USER_LOGOUT());
     dispatch(notificacionesActions.SUCCES({
       message: "Sesión cerrada"
     }))
+  }
+
+  interface opciones {
+    icon: JSX.Element
+    title: string
+    to: string
+  }
+
+  const handleButton = (opcion: opciones) => {
+    navigate(opcion.to)
   }
 
   const opcionesPerfil = [
@@ -78,14 +91,17 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
         <Separator className="" />
         <ul className="flex flex-col gap-2">
           {opcionesPerfil.map((opcion) => (
-            <Link
-              key={opcion.title}
-              to={opcion.to}
-              className="flex items-center gap-2 hover:bg-gray-50 py-2 font-medium hover:text-main-red"
-            >
-              {opcion.icon}
-              {opcion.title}
-            </Link>
+            <SheetClose className="data-[state=open]:bg-secondary">
+              <button
+                  key={opcion.title}
+                  onClick={() => handleButton(opcion)}
+                  className="flex items-center gap-2 hover:bg-gray-50 py-2 font-medium hover:text-main-red"
+                  >
+                    {opcion.icon}
+                    {opcion.title}
+              </button>
+              <span className="sr-only">Close</span>
+            </SheetClose>   
           ))}
           <li
             className="flex items-center gap-2 hover:bg-gray-100 py-2 font-medium hover:text-main-red hover:cursor-pointer"
