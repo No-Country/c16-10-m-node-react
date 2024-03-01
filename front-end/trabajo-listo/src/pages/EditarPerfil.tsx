@@ -12,6 +12,7 @@ export const EditarPerfil = () => {
   const [email, setEmail] = useState(user.email);
   const [imagen, setImagen] = useState<null | object>(null);
 
+  //Se encarga de actualizar los cambios de la input file
   const handleImagenChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -24,15 +25,15 @@ export const EditarPerfil = () => {
     }
   };
 
+  //Se encarga de tomar los datos del form, crear un objeto y subirlo a la base de datos. Tambien valida y notifica los sucesos
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = { name: nombre, email: email };
     if (data.name.length > 3 && data.email.length > 3) {
       const newValues = await updateProfile(user.id, data);
-      console.log(newValues);
       //if (newValues==="Error 500")
       dispatch(userActions.EDIT_USER(newValues));
-      console.log(newValues);
+
       dispatch(
         notificacionesActions.SUCCES({ message: "Datos editados con exito" })
       );
@@ -57,12 +58,12 @@ export const EditarPerfil = () => {
         EDITAR PERFIL
       </h1>
       <form
-        className="relative flex flex-col bg-white mt-5 p-5 border border-slate-300 rounded-sm"
+        className="relative flex flex-col border-slate-300 bg-white mt-5 p-5 border rounded-sm"
         onSubmit={handleSubmit}
       >
         <label className="font-semibold text-zinc-500">Nombre Completo:</label>
         <input
-          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
           placeholder={user.name}
           type="text"
           value={nombre}
@@ -71,7 +72,7 @@ export const EditarPerfil = () => {
 
         <label className="mt-4 font-semibold text-zinc-500">Email:</label>
         <input
-          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
           type="email"
           placeholder={user.email}
           value={email}
