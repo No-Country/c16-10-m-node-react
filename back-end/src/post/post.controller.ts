@@ -88,10 +88,7 @@ export class PostController {
     @Res() res: Response,
   ) {
     const data = await this.postService.newComments(req.user, idPost, comment);
-    return res.status(HttpStatus.OK).json({
-      message: 'add new comment succesfully',
-      data,
-    });
+    return res.status(HttpStatus.OK).json(data);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -36,7 +36,7 @@ export const OfrecemosContainer = () => {
 			<h2 className="mb-20 font-extrabold font-libre-franklin text-4xl text-white uppercase italic">
 				¿Por qué elegir trabajo listo?
 			</h2>
-			<div className="flex justify-center gap-8 w-[105%] font-libre-franklin">
+			<div className="grid md:grid-cols-2 xl:grid-cols-4 justify-center gap-8 w-[105%] font-libre-franklin">
 				{CARDS.map((card) => (
 					<OfrecemosCard
 						key={card.id}
