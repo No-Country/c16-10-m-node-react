@@ -15,9 +15,9 @@ export const serviciosRecomendados = async () => {
 export const getProfesionalService = async (id: string) => {
   try {
     const res = await apiClient.get(`post/professional/${id}`);
-    
+
     if (!res) throw new Error("Bad request");
-    
+
     return res;
   } catch (error) {
     if (error instanceof Error && error.message.includes("404")) {
@@ -42,7 +42,7 @@ export const subirServicio = async (data: ServicioProfesional) => {
 
 export const deleteServicio = async (id: string) => {
   try {
-    const res = await apiClient.delete(`post/${id}`,);
+    const res = await apiClient.delete(`post/${id}`);
     if (!res) throw new Error("Bad request");
 
     return res;
@@ -98,29 +98,29 @@ export const imageServicio = async (
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
-    return {error:"error"}
+    return { error: "error" };
   }
 };
 
 function convertirTexto(texto: string) {
-    return texto.toUpperCase().replace(/ /g, '_');
+  return texto.toUpperCase().replace(/ /g, "_");
 }
 
 export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
 
-    const res = await apiClient.get(`post/category/${textoConvertido}?page=1&limit2`);
+    const res = await apiClient.get(
+      `post/category/${textoConvertido}?page=1&limit2`
+    );
+
     if (!res) throw new Error("Bad request");
     return res;
   } catch (error) {
-    if(error instanceof Error && error.message.includes("404")){
-      return null
+    if (error instanceof Error && error.message.includes("404")) {
+      return null;
     }
     console.error("Error al obtener los datos: ", error);
     throw error;
   }
 };
-
-
-

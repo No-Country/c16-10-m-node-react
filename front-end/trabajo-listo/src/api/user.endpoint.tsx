@@ -19,7 +19,6 @@ export const registerUser = async (user: object) => {
 export const authUser = async (user: object) => {
   try {
     const res = await apiClient.post("auth/login", user);
-
     if (!res) throw new Error("Bad Request");
     setClientToken(res.data);
     return res.data;
