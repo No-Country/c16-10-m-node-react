@@ -71,10 +71,7 @@ export class UserController {
   @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response) {
     const data = await this.userService.delete(id);
-    return res.status(HttpStatus.OK).json({
-      message: 'user deleted',
-      data: data.email,
-    });
+    return res.status(HttpStatus.OK).json(data);
   }
 
   @UseGuards(JwtAuthGuard)

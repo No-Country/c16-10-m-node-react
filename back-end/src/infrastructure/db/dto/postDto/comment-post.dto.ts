@@ -1,14 +1,15 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CommentDto {
   @IsOptional()
-  idClient: string;
+  @IsNumber()
+  id: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   nameClient: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   textClient: string;
 

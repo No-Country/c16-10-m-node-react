@@ -13,12 +13,16 @@ import {
 import { Model } from 'mongoose';
 import { CreateUserDto } from 'src/infrastructure/db/dto/userDto/create-user.dto';
 import { UpdateUserDto } from 'src/infrastructure/db/dto/userDto/update-user.dto';
+import { Post } from 'src/infrastructure/db/schemas/post.schema';
 import { User } from 'src/infrastructure/db/schemas/user.schema';
 
 const streamifier = require('streamifier');
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Post.name) private postModel: Model<Post>,
+  ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
@@ -61,7 +65,6 @@ export class UserService {
 
   async findEmail(email: string): Promise<any> {
     try {
-      console.log('User Service: ', email);
       const user = await this.userModel.findOne({ email: email }).exec();
       if (!user) {
         throw new NotFoundException(`User user ${email} not found`);
@@ -73,14 +76,19 @@ export class UserService {
     }
   }
 
-  async delete(id: string): Promise<User> {
+  async delete(id: string): Promise<Object> {
     try {
       const user = await this.userModel.findById(id);
       if (!user) {
         throw new NotFoundException(`User user #${id} not found`);
       }
       const userDeleted = await this.userModel.findByIdAndDelete(id).exec();
-      return userDeleted;
+      await this.postModel.deleteMany({ idProfessional: user._id });
+      return {
+        message: 'user remove',
+        user: userDeleted,
+        posts: 'all posts a user deleted sucessfully',
+      };
     } catch (err) {
       console.error('Error occurred while deleting user:', err);
       throw err;

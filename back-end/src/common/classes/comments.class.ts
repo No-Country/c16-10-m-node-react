@@ -1,6 +1,6 @@
 export class Comments {
-  idClient: string;
-  nameClient: string
+  id: number;
+  nameClient: string;
   textClient: string;
   answer: string;
 }
