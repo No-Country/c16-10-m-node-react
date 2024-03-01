@@ -31,7 +31,7 @@ export const NuevoServicio = () => {
     "programador",
     "salud",
     "chofer",
-    "paseador de mascotas",
+    "paseador mascotas",
     "profesor particular",
     "limpieza",
     "otros",

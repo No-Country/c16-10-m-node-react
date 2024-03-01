@@ -110,9 +110,13 @@ export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
 
+<<<<<<< HEAD
     const res = await apiClient.get(
       `post/category/${textoConvertido}?page=1&limit2`
     );
+=======
+    const res = await apiClient.get(`post/category/${textoConvertido}?page=1&limit2`);
+>>>>>>> dd83b7f66554a2b3d0f6846d11a81e0b5a23a1a2
     if (!res) throw new Error("Bad request");
     return res;
   } catch (error) {

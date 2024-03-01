@@ -4,17 +4,15 @@ import { Input } from "./ui/input";
 import { useSelector } from "react-redux";
 import { UserState } from "./component";
 import { FormSignUpModal } from "@/modals/FormSignUpModal";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate()
   const user = useSelector((state: { user: UserState }) => state.user);
 
   const handleSearch = () => {
-    try {
-      console.log(searchValue);
-    } catch (error) {
-      console.log(error);
-    }
+    navigate("/search", { state: { buscar: searchValue } });
   };
 
   return (
