@@ -72,7 +72,6 @@ export const Search = () => {
             .includes(`${searchValue.toLocaleLowerCase()}`)
         );
       });
-      console.log(palabraClave);
 
       if (palabraClave.length > 0) {
         setServiciosPrev(palabraClave);

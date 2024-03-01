@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 export const FormLogInModal = ({ className }: { className?: string }) => {
   const dispatch = useDispatch();
 
+  //Validaciones del form
   const formSchema = z.object({
     email: z.string().min(5, {
       message: "Ingrese un email válido",
@@ -48,6 +49,7 @@ export const FormLogInModal = ({ className }: { className?: string }) => {
     },
   });
 
+  //Funcion que toma los datos de las inputs y loguea al usuario, valida y notifica los diferentes sucesos
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const token = await authUser(values);
 
@@ -82,6 +84,7 @@ export const FormLogInModal = ({ className }: { className?: string }) => {
     }
   };
 
+  //Cierre de modal del form
   const handleClose = () => {
     form.reset();
   };

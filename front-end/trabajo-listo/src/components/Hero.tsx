@@ -8,9 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const [searchValue, setSearchValue] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useSelector((state: { user: UserState }) => state.user);
 
+  //Funcion que obtiene el dato de la input y se redirige a otra ruta manteniendo el valor
   const handleSearch = () => {
     navigate("/search", { state: { buscar: searchValue } });
   };

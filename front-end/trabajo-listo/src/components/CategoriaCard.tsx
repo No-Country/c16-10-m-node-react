@@ -5,6 +5,7 @@ import {
 import { ServicioProfesional, UserState } from "./component";
 import { Rating, Tooltip } from "@mui/material";
 
+//Card reutilizable del usuario
 const CategoriaCard: React.FC<{
   user: UserState;
   servicioProfesional: ServicioProfesional;
