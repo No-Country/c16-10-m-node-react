@@ -34,6 +34,7 @@ const ConsultasItem = ({
       console.log(currentConsulta);
       await postConsulta(servicioProfesional._id, currentConsulta);
       const res = await getUnServicio(servicioProfesional._id);
+
       if (res.data.comments) {
         updateConsultas(res.data.comments);
         setShowtext(false);

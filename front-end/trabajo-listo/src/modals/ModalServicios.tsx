@@ -42,7 +42,6 @@ const ModalServicios: React.FC<{
       await postConsulta(servicioProfesional._id, currentConsulta);
       const res = await getUnServicio(servicioProfesional._id);
       setConsultas(res.data.comments);
-      console.log(res.data.comments, "data consultas");
       setShowconsultas(true);
     } catch (error) {
       console.error("Error al obtener los datos: ", error);
