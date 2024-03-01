@@ -28,18 +28,20 @@ export const CatServiceCard = ({ el, estado, getTodos, todos, setServicios, elim
     const handleAddCategory = async (cat: string) => {
         
         if(isActive){
-            eliminar(el.name)
-            setIsActive(false)
+            if(el.name === "todos" && estado === el.name){
+              setIsActive(true)
+            }else{
+              eliminar(el.name)  
+              setIsActive(false)
+            }
         }else{
             if(el.name !== "todos"){
               const categoria = await serviciosCategory(cat)
               if(categoria){
                   const data = categoria.data
                   setServicios(data)
-                  console.log(data);
                   setIsActive(true)
               }else{
-                  console.log("hola");
                   dispatch(
                       notificacionesActions.NORMAL({
                         message: `Todavía no hay servicios en la categoría ${cat}`,
