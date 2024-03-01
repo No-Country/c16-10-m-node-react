@@ -30,16 +30,19 @@ export const OfrecemosContainer = () => {
     },
   ];
 
-  return (
-    <section className="z-10 flex flex-col justify-center items-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
-      <h2 className="mb-20 font-extrabold font-libre-franklin text-4xl text-white italic uppercase">
-        ¿Por qué elegir trabajo listo?
-      </h2>
-      <div className="justify-center gap-8 grid md:grid-cols-2 xl:grid-cols-4 w-[105%] font-libre-franklin">
-        {CARDS.map((card) => (
-          <OfrecemosCard key={card.id} card={card} />
-        ))}
-      </div>
-    </section>
-  );
-};
+	return (
+		<section className="z-10 flex flex-col items-center justify-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
+			<h2 className=" text-center mb-20 font-extrabold font-libre-franklin text-4xl text-white uppercase italic">
+				¿Por qué elegir trabajo listo?
+			</h2>
+			<div className="grid md:grid-cols-2 xl:grid-cols-4 justify-center gap-8 w-[105%] font-libre-franklin">
+				{CARDS.map((card) => (
+					<OfrecemosCard
+						key={card.id}
+						card={card}
+					/>
+				))}
+			</div>
+		</section>
+	)
+}
