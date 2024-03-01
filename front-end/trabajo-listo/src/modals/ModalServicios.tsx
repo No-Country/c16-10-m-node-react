@@ -15,6 +15,7 @@ import { postConsulta } from "@/api/consulta.endpoint";
 import { getUnServicio } from "@/api/service.endpoint";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 import { notificacionesActions } from "@/store/notificacionesSlice";
+import { useNavigate } from "react-router-dom";
 
 const ModalServicios: React.FC<{
   user: UserState;
@@ -26,27 +27,37 @@ const ModalServicios: React.FC<{
   const [consultas, setConsultas] = useState<Array<Consulta>>(
     servicioProfesional.comments
   );
+  const navigate = useNavigate();
   const currentUser = useSelector((state: { user: UserState }) => state.user);
+
   const dispatch = useDispatch();
+
+  //Crea una nueva consulta en el post del servicio profesional
   const consultaHandler = async () => {
     const currentConsulta = {
       nameClient: currentUser.name,
       textClient: consulta,
-      answer: "",
     };
     try {
       await postConsulta(servicioProfesional._id, currentConsulta);
       const res = await getUnServicio(servicioProfesional._id);
       setConsultas(res.data.comments);
+      console.log(res.data.comments, "data consultas");
       setShowconsultas(true);
     } catch (error) {
       console.error("Error al obtener los datos: ", error);
       throw error;
     }
   };
+
+  //Contrata el servicio y notifica al usuario
   const contratarHandler = () => {
     onClose();
     dispatch(notificacionesActions.SUCCES({ message: "Contratado con exito" }));
+  };
+  //Redirige al perfil del profesional
+  const perfilHandler = () => {
+    navigate(`/perfil/${servicioProfesional.idProfessional}`);
   };
 
   return (
@@ -58,6 +69,7 @@ const ModalServicios: React.FC<{
           </h1>
           <div className="shadow-md rounded-sm overflow-hidden">
             <CategoriaCard
+              onPerfil={() => perfilHandler()}
               user={user}
               servicioProfesional={{ ...servicioProfesional, title: "" }}
             ></CategoriaCard>
@@ -138,7 +150,11 @@ const ModalServicios: React.FC<{
             </div>
           </div>
         ) : (
-          <ConsultasContainer consulta={consultas} />
+          <ConsultasContainer
+            servicioProfesional={servicioProfesional}
+            consulta={consultas}
+            updateConsultas={(value) => setConsultas(value)}
+          />
         )}
       </div>
     </div>
