@@ -21,22 +21,27 @@ const ConsultasItem = ({
   const [showText, setShowtext] = useState(false);
   const dispatch = useDispatch();
   const currentUser = useSelector((state: { user: UserState }) => state.user);
+
+  //Toggle para mostra o acultar la respuesta
   const responseHandler = () => {
     setShowtext(!showText);
   };
 
+  //Agregar una respuesta a una consulta del servicio profesional, y obtiene la actualizacion para renderizar los cambios.
   const answerHandler = async () => {
     const currentConsulta = {
       id: consulta.id,
       answer: answer,
     };
     try {
-      console.log(currentConsulta);
+      console.log(currentConsulta.id);
       await postConsulta(servicioProfesional._id, currentConsulta);
       const res = await getUnServicio(servicioProfesional._id);
 
+      //Si hay comentarios, se actualizan los datos, se notifica al usuario y se resetean los datos
       if (res.data.comments) {
         updateConsultas(res.data.comments);
+        console.log(res.data.comments);
         setShowtext(false);
         setAnswer("");
         dispatch(notificacionesActions.NORMAL("Respuesta exitosa"));
@@ -44,6 +49,16 @@ const ConsultasItem = ({
     } catch (error) {
       console.error("Error al obtener los datos: ", error);
       throw error;
+    }
+  };
+
+  //Evento al pulsar enter para enviar la respuesta
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      answerHandler();
+      setAnswer("");
     }
   };
 
@@ -67,6 +82,7 @@ const ConsultasItem = ({
       {showText && (
         <div className="relative flex mt-2 mb-2">
           <textarea
+            onKeyDown={handleKeyDown}
             name="consulta"
             value={answer}
             onChange={(event) => setAnswer(event.target.value)}
@@ -84,7 +100,7 @@ const ConsultasItem = ({
       )}
       {consulta?.answer && (
         <p className="ml-5 p-1 rounded-sm text-gray-600 ">
-          {consulta?.answer && capitalizeFirstLetter(consulta?.answer)}
+          {consulta?.answer && `-  ${capitalizeFirstLetter(consulta?.answer)}`}
         </p>
       )}
     </div>

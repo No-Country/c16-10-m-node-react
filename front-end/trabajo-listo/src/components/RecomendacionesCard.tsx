@@ -8,7 +8,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Receipt } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CategoriaCard from "./CategoriaCard";
-import ModalServicios from "../modals/ModalServicios";
+import ModalServicios from "../modals/modalServicio/ModalServicios";
 import ModalCard from "./ui/ModalCard";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
@@ -32,6 +32,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
     setShowmodal(false);
   };
 
+  //Eliminar servicio del profesional por id
   const handleDelete = async () => {
     if (servicioProfesional?._id) {
       const value = await deleteServicio(servicioProfesional?._id);
@@ -53,6 +54,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
     }
   };
 
+  //Obtener profesional asosiado a un servicio ya posteado
   useEffect(() => {
     const fetchProfressional = async () => {
       if (servicioProfesional) {
