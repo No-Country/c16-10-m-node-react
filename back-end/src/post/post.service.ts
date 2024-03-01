@@ -156,8 +156,6 @@ export class PostService {
             break;
           }
         }
-      } else {
-        throw new UnauthorizedException('no sos dueño de la publicacion');
       }
       if (existe === true) {
         await comment.updateOne(comment);

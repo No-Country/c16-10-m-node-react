@@ -82,7 +82,6 @@ export interface UserProfile {
 
 export interface Consulta {
   id: number;
-  idClient: string;
   textClient: string;
   nameClient: string;
   answer?: string;
