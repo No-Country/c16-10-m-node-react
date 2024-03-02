@@ -8,7 +8,7 @@ import { Testimonios } from "./pages/Testimonios";
 import { Perfil } from "./pages/Perfil";
 import { EditarPerfil } from "./pages/EditarPerfil";
 import { useSelector } from "react-redux";
-import { UserState, Notificacion } from "./components/component";
+import { UserState } from "./components/component";
 import React from "react";
 import { NuevoServicio } from "./pages/NuevoServicio";
 import { ToastContainer } from "react-toastify";
@@ -17,9 +17,6 @@ import { Search } from "./pages/Search";
 
 const App = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
-  const notificacion = useSelector(
-    (state: { notif: Notificacion }) => state.notif
-  );
 
   const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
     children,
@@ -27,7 +24,6 @@ const App = () => {
     if (!user?.token) return <Navigate to="/" />;
     else return children;
   };
-  console.log(notificacion);
 
   return (
     <BrowserRouter>
@@ -67,10 +63,14 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="nuevo-servicio" element={
-          <ProtectedRoute>
-            <NuevoServicio />
-          </ProtectedRoute>} />
+        <Route
+          path="nuevo-servicio"
+          element={
+            <ProtectedRoute>
+              <NuevoServicio />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="editar-servicio/:id"
           element={
@@ -79,7 +79,6 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        
       </Routes>
       <Footer />
     </BrowserRouter>

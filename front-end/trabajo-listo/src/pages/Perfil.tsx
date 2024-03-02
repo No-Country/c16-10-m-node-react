@@ -17,10 +17,12 @@ export const Perfil = () => {
     isPro: false,
   });
 
+  // Scroll al principio de la pagina
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top of the page
+    window.scrollTo(0, 0);
   }, []);
 
+  //Obtiene el usuario por id
   useEffect(() => {
     const llamada = async () => {
       const value: UserState = id

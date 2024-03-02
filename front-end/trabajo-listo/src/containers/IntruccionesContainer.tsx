@@ -26,8 +26,8 @@ const IntruccionesContainer = () => {
   ];
 
   return (
-    <section className="flex flex-col items-center bg-main-blue py-20 rounded-2xl w-[95%]">
-      <h2 className="mb-20 font-extrabold text-4xl text-main-red uppercase italic">
+    <section className="flex flex-col bg-main-blue py-20 rounded-2xl w-[95%]">
+      <h2 className="text-center mb-20 font-extrabold text-4xl text-main-red uppercase italic">
         ¿Cómo contratar en Trabajo Listo?
       </h2>
       {INSTRUCCIONES.map((instruccion) => (

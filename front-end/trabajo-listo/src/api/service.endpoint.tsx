@@ -1,6 +1,7 @@
 import { ServicioEditar, ServicioProfesional } from "@/components/component";
 import apiClient from "@/server";
 
+//Obtener lista de servicios
 export const serviciosRecomendados = async () => {
   try {
     const res = await apiClient.get("post");
@@ -12,6 +13,7 @@ export const serviciosRecomendados = async () => {
   }
 };
 
+//Obtener servicio profesional
 export const getProfesionalService = async (id: string) => {
   try {
     const res = await apiClient.get(`post/professional/${id}`);
@@ -28,6 +30,7 @@ export const getProfesionalService = async (id: string) => {
   }
 };
 
+//Subir servicio profesional
 export const subirServicio = async (data: ServicioProfesional) => {
   try {
     const res = await apiClient.post(`post`, data);
@@ -40,6 +43,7 @@ export const subirServicio = async (data: ServicioProfesional) => {
   }
 };
 
+//Eliminar servicio profesional
 export const deleteServicio = async (id: string) => {
   try {
     const res = await apiClient.delete(`post/${id}`);
@@ -52,6 +56,7 @@ export const deleteServicio = async (id: string) => {
   }
 };
 
+//Editar servicio
 export const editarServicio = async (id: string, data: ServicioEditar) => {
   try {
     const res = await apiClient.put(`post/${id}`, data);
@@ -64,6 +69,7 @@ export const editarServicio = async (id: string, data: ServicioEditar) => {
   }
 };
 
+//Obtener un servicio profesional por id
 export const getUnServicio = async (id: string) => {
   try {
     const res = await apiClient.get(`post/${id}`);
@@ -76,6 +82,7 @@ export const getUnServicio = async (id: string) => {
   }
 };
 
+//Subir imagen al servicio profesional
 export const imageServicio = async (
   id: string,
   token: string,
@@ -102,10 +109,12 @@ export const imageServicio = async (
   }
 };
 
+//Funcion para convertir texto
 function convertirTexto(texto: string) {
   return texto.toUpperCase().replace(/ /g, "_");
 }
 
+//Obtener servicio por categoria
 export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
