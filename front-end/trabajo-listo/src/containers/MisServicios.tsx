@@ -17,10 +17,12 @@ export const MisServicios = ({
 
   const [actualizarServicio, setActualizarServicio] = useState(false);
 
+  //Toggle para actualizar servicios
   const refreshHandler = () => {
     setActualizarServicio(!actualizarServicio);
   };
 
+  //Cada vez que se actualiza la pagina o se edita un servicio, se vuelve a obtener la lista de los servicios por id
   useEffect(() => {
     const llamada = async () => {
       if (usuarioId) {

@@ -2,6 +2,7 @@ import { UserProfile, UserState, tokenUser } from "@/components/component";
 import apiClient, { setClientToken } from "../server";
 import { jwtDecode } from "jwt-decode";
 
+//Registar usuario
 export const registerUser = async (user: object) => {
   try {
     const res = await apiClient.post("user", user);
@@ -16,6 +17,7 @@ export const registerUser = async (user: object) => {
   }
 };
 
+//Loguear usuario
 export const authUser = async (user: object) => {
   try {
     const res = await apiClient.post("auth/login", user);
@@ -34,6 +36,7 @@ export const authUser = async (user: object) => {
   }
 };
 
+//Obtener usuario
 export const getUser = async (
   id: string,
   token: string
@@ -59,8 +62,10 @@ export const getUser = async (
   }
 };
 
+//Obtener perfil de usuario por id
 export const getProfile = async (value: string): Promise<UserProfile> => {
   try {
+    //Decodificar token y guardar el valor
     const decodedToken: tokenUser = jwtDecode(value);
     const res = await apiClient.get(`user/${decodedToken.id}`);
 
@@ -73,6 +78,7 @@ export const getProfile = async (value: string): Promise<UserProfile> => {
   }
 };
 
+//Actualizar perfil de usuario
 export const updateProfile = async (
   id: string,
   data: object
@@ -92,6 +98,7 @@ export const updateProfile = async (
   }
 };
 
+//Actualizar imagen de usuario por id
 export const updateImage = async (
   id: string,
   token: string,
@@ -118,6 +125,7 @@ export const updateImage = async (
   }
 };
 
+//Obtener todos los usuarios
 export const getAll = async (token: string): Promise<object> => {
   try {
     const res = await apiClient.get(`user/`, {
@@ -136,6 +144,7 @@ export const getAll = async (token: string): Promise<object> => {
   }
 };
 
+//Obtener usuario profesional
 export const getProfessional = async (id: string): Promise<UserState> => {
   try {
     const res = await apiClient.get(`user/${id}`, {

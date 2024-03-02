@@ -37,6 +37,7 @@ export const NuevoServicio = () => {
     "otros",
   ];
 
+  //Se encarga de la carga de un nuevo servicio incluyendo la imagen, con validaciones y notificaciones. En caso exitoso se redirige al perfil
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -63,10 +64,8 @@ export const NuevoServicio = () => {
         views: 0,
         __v: 0,
       };
-      console.log(datas);
-      
+
       const res = await subirServicio(datas);
-      
 
       if (res) {
         setTitulo("");
@@ -74,14 +73,14 @@ export const NuevoServicio = () => {
         setPrecio("");
         setSubcategoria("");
         setOpcionSeleccionada("carpintero");
-        setFoto(null)
+        setFoto(null);
         dispatch(
           notificacionesActions.SUCCES({
             message: "Su servicio se creo correctamente",
           })
         );
-        const resFoto = await imageServicio(res.data._id, user.token, foto)
-        console.log(resFoto);
+        await imageServicio(res.data._id, user.token, foto);
+
         navigate(`/perfil/${user.id}`);
       }
     } else {
@@ -93,6 +92,7 @@ export const NuevoServicio = () => {
     }
   };
 
+  //Actualiza los datos de la input file
   const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -100,6 +100,7 @@ export const NuevoServicio = () => {
     }
   };
 
+  //Actualiza los datos del selector de categorias
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setOpcionSeleccionada(event.target.value);
   };

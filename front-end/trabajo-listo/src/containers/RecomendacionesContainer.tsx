@@ -9,11 +9,13 @@ import {
 import { useEffect, useState } from "react";
 import { serviciosRecomendados } from "@/api/service.endpoint";
 import { ServicioProfesional } from "@/components/component";
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
 
 const RecomendacionesContainer = () => {
-  const [serviciosRec, setServiciosRec] = useState<null | Array<ServicioProfesional>>(null);
+  const [serviciosRec, setServiciosRec] =
+    useState<null | Array<ServicioProfesional>>(null);
 
+  //Peticion de servicios recomendados
   useEffect(() => {
     const fetchServicios = async () => {
       const res = await serviciosRecomendados();
@@ -22,7 +24,6 @@ const RecomendacionesContainer = () => {
 
     fetchServicios();
   }, []);
-
 
   return (
     <section className="z-10 flex flex-col items-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
@@ -33,16 +34,13 @@ const RecomendacionesContainer = () => {
         className="w-[90%]"
         plugins={[
           Autoplay({
-            delay: 3000
-          })
+            delay: 3000,
+          }),
         ]}
       >
         <CarouselContent>
           {serviciosRec?.map((servicio) => (
-            <CarouselItem
-              key={servicio._id}
-              className="basis-1/3"
-            >
+            <CarouselItem key={servicio._id} className="basis-1/3">
               <RecomendacionesCard servicioProfesional={servicio} />
             </CarouselItem>
           ))}
@@ -51,6 +49,6 @@ const RecomendacionesContainer = () => {
         <CarouselNext className="-mr-12 w-16 h-16 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-main-red" />
       </Carousel>
     </section>
-  )
-}
+  );
+};
 export default RecomendacionesContainer;

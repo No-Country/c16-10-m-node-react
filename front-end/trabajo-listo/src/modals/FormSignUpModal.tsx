@@ -38,6 +38,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
 
+  //Validaciones del form
   const formSchema = z.object({
     name: z.string().min(3, {
       message: "Mínimo 3 caracteres",
@@ -59,6 +60,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     },
   });
 
+  //Funcion que registra a un usuario y notifica los sucesos
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const response = await registerUser(values);
     if (response) {
@@ -83,6 +85,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     }
   };
 
+  //Cierra modal de registro
   const handleClose = () => {
     form.reset();
     setIsChecked(false);
@@ -168,7 +171,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
                   </FormItem>
                 )}
               />
-              <div className="flex items-center mt-4 space-x-2">
+              <div className="flex items-center space-x-2 mt-4">
                 <Checkbox id="terms" onClick={() => setIsChecked(!isChecked)} />
                 <label
                   htmlFor="terms"

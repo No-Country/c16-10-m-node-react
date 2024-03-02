@@ -21,6 +21,7 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Desloguea usuario y lo notifica
   const logoutHandler = () => {
     dispatch(userActions.USER_LOGOUT());
     dispatch(
@@ -40,6 +41,7 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
     navigate(opcion.to);
   };
 
+  //Iconos por cada item
   const opcionesPerfil = [
     {
       icon: <Bell className="w-5 h-5" />,
@@ -91,16 +93,11 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
           {opcionesPerfil.map((opcion) => (
             <SheetClose
               key={opcion.title}
-              className="data-[state=open]:bg-secondary"
+              className="flex items-center gap-2 data-[state=open]:bg-secondary hover:bg-gray-50 py-2 font-medium hover:text-main-red"
+              onClick={() => handleButton(opcion)}
             >
-              <button
-                key={opcion.title}
-                onClick={() => handleButton(opcion)}
-                className="flex items-center gap-2 hover:bg-gray-50 py-2 font-medium hover:text-main-red"
-              >
-                {opcion.icon}
-                {opcion.title}
-              </button>
+              {opcion.icon}
+              {opcion.title}
               <span className="sr-only">Close</span>
             </SheetClose>
           ))}
