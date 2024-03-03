@@ -1,6 +1,5 @@
 import logo from "@/assets/logo-blue.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { FormSignUpModal } from "@/modals/FormSignUpModal";
 import { FormLogInModal } from "@/modals/FormLogInModal";
 import {
@@ -19,6 +18,7 @@ import {
 	AiOutlineClose,
 } from "react-icons/ai";
 import { VerPerfilModal } from "@/modals/VerPerfilModal";
+import { FormRegistroProfeisonal } from "@/modals/FormRegistroProfesional";
 
 export const Navbar = () => {
 	const listOfServices = [
@@ -96,9 +96,7 @@ export const Navbar = () => {
 					</NavigationMenuItem>
 				</NavigationMenuList>
 			</NavigationMenu>
-			<Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
-				¡Quiero ser profesional!
-			</Button>
+			<FormRegistroProfeisonal />
 			{user?.name ? (
 				<VerPerfilModal />
 			) : (

@@ -14,6 +14,14 @@ import {
 } from "@/components/ui/sheet";
 
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+import {
   Form,
   FormControl,
   FormField,
@@ -32,8 +40,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { cn } from "@/lib/utils";
+import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
-export const FormSignUpModal = ({ className }: { className?: string }) => {
+export const FormRegistroProfeisonal = ({ className }: { className?: string }) => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
@@ -48,7 +57,16 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     password: z.string().min(8, {
       message: "Mínimo 8 caracteres",
     }),
+    phone: z.string().min(10, {
+      message: "Número inválido"
+    }),
+    category: z.string(),
+    address: z.string().min(3, {
+      message: "Mínimo 3 caracteres"
+    })
   });
+
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,8 +78,13 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values)
-    const response = await registerUser(values);
+    const response = await registerUser({
+      ...values,
+      phone: parseInt(values.phone),
+      category: [values.category],
+      isProfessional: true
+    });
+
     if (response) {
       if (response == "error 500") {
         dispatch(
@@ -89,6 +112,27 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     setIsChecked(false);
   };
 
+  const opciones = [
+    "carpintero",
+    "electricista",
+    "lavadero",
+    "mecanico",
+    "reparaciones",
+    "plomeria",
+    "peluqueria",
+    "personal trainer",
+    "jardinero",
+    "gasista",
+    "DJ",
+    "programador",
+    "salud",
+    "chofer",
+    "paseador de mascotas",
+    "profesor particular",
+    "limpieza",
+    "otros",
+  ];
+
   return (
     <Sheet onOpenChange={handleClose}>
       <SheetTrigger asChild>
@@ -100,17 +144,17 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
             className
           )}
         >
-          Registrarse
+          ¡Quiero ser profesional!
         </Button>
       </SheetTrigger>
       {showModal && (
-        <SheetContent>
+        <SheetContent className="font-libre-franklin overflow-scroll">
           <SheetHeader className="mb-4">
             <SheetTitle>
               Registrarse en <i>Trabajo Listo</i>
             </SheetTitle>
             <SheetDescription>
-              ¡Regístrate y comienza a contratar a tus profesionales favoritos!"
+              ¡Regístrate y dislumbra al mundo con tus servicios!
             </SheetDescription>
           </SheetHeader>
           <Form {...form}>
@@ -143,6 +187,68 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
                       <Input
                         type="email"
                         placeholder="jesus@gmail.com"
+                        className="focus-visible:ring-0 focus-visible:ring-offset-0"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Categoría del servicio
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona un servicio" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent >
+                        {opciones.map((opcion) => (
+                          <SelectItem key={opcion} className="font-medium" value={opcion}>
+                            {capitalizeFirstLetter(opcion)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Dirección</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Calle falsa 123"
+                        className="focus-visible:ring-0 focus-visible:ring-offset-0"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Teléfono</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder=""
                         className="focus-visible:ring-0 focus-visible:ring-offset-0"
                         {...field}
                       />
