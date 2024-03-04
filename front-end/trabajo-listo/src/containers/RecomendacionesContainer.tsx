@@ -26,8 +26,8 @@ const RecomendacionesContainer = () => {
   }, []);
 
   return (
-    <section className="z-10 flex flex-col items-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
-      <h2 className="mb-20 font-extrabold text-4xl text-white italic uppercase">
+    <section className="flex flex-col justify-center items-center bg-main-red -mt-4 -mb-4 py-20 rounded-2xl w-[90%]">
+      <h2 className="text-center mb-20 font-extrabold text-4xl text-white italic uppercase">
         Servicios más frecuentes
       </h2>
       <Carousel
@@ -40,13 +40,19 @@ const RecomendacionesContainer = () => {
       >
         <CarouselContent>
           {serviciosRec?.map((servicio) => (
-            <CarouselItem key={servicio._id} className="basis-1/3">
+            <CarouselItem key={servicio._id} className="basis-auto xl:basis-2/5">
               <RecomendacionesCard servicioProfesional={servicio} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="-ml-12 w-16 h-16 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-main-red" />
-        <CarouselNext className="-mr-12 w-16 h-16 focus-visible:ring-0 focus-visible:ring-offset-0 border-2 border-main-red" />
+        <CarouselPrevious className="ml-3 size-10 text-main-red focus:outline-none focus-visible:ring-0 border-2 border-main-red 
+        sm:-ml-1 sm:size-8
+        md:-ml-2 md:size-12 
+        lg:-ml-4 lg:size-14" />
+        <CarouselNext className="mr-3 size-10 text-main-red focus:outline-none focus-visible:ring-0 border-2 border-main-red 
+        sm:-mr-1 sm:size-8
+        md:-mr-1 md:size-12 
+        lg:-mr-4 lg:size-14" />
       </Carousel>
     </section>
   );
