@@ -2,12 +2,12 @@ import {
   capitalizeFirstLetter,
   capitalizeFirstLetterperSentence,
 } from "@/functions/textFunctions";
-import { ServicioProfesional, UserState } from "./component";
+import { ServicioProfesional, UserProfile } from "./component";
 import { Rating, Tooltip } from "@mui/material";
 
 //Card reutilizable del usuario
 const CategoriaCard: React.FC<{
-  user: UserState;
+  user: UserProfile;
   servicioProfesional: ServicioProfesional;
   onPerfil: () => void;
 }> = ({ user, servicioProfesional, onPerfil }) => {

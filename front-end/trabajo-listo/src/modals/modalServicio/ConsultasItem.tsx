@@ -1,5 +1,9 @@
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
-import { Consulta, ServicioProfesional, UserState } from "./component";
+import {
+  Consulta,
+  ServicioProfesional,
+  UserState,
+} from "../../components/component";
 import { useDispatch, useSelector } from "react-redux";
 import { FaReplyAll } from "react-icons/fa6";
 import { useState } from "react";
@@ -34,14 +38,12 @@ const ConsultasItem = ({
       answer: answer,
     };
     try {
-      console.log(currentConsulta.id);
       await postConsulta(servicioProfesional._id, currentConsulta);
       const res = await getUnServicio(servicioProfesional._id);
 
       //Si hay comentarios, se actualizan los datos, se notifica al usuario y se resetean los datos
       if (res.data.comments) {
         updateConsultas(res.data.comments);
-        console.log(res.data.comments);
         setShowtext(false);
         setAnswer("");
         dispatch(notificacionesActions.NORMAL("Respuesta exitosa"));
@@ -56,7 +58,6 @@ const ConsultasItem = ({
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-
       answerHandler();
       setAnswer("");
     }

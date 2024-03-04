@@ -81,16 +81,22 @@ export const Navbar = () => {
               Servicios
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className={!isMenuOpen
-                ? "gap-1 grid md:grid-cols-3 p-4 w-[400px] md:w-[500px]"
-                : "gap-1 grid md:grid-cols-3 p-4 w-[300px] md:w-[500px]"}>
+              <ul
+                className={
+                  !isMenuOpen
+                    ? "gap-1 grid md:grid-cols-3 p-4 w-[400px] md:w-[500px]"
+                    : "gap-1 grid md:grid-cols-3 p-4 w-[300px] md:w-[500px]"
+                }
+              >
                 {listOfServices.map((service, i) => (
                   <li
                     className="hover:bg-gray-50 p-1 rounded-md font-semibold text-black hover:text-mbg-main-red cursor-pointer"
                     key={i}
                     onClick={() => searchService(service)}
                   >
-                    <NavigationMenuLink>{capitalizeFirstLetter(service)}</NavigationMenuLink>
+                    <NavigationMenuLink>
+                      {capitalizeFirstLetter(service)}
+                    </NavigationMenuLink>
                   </li>
                 ))}
               </ul>
@@ -98,7 +104,7 @@ export const Navbar = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <FormRegistroProfeisonal />
+      {!user.isPro && <FormRegistroProfeisonal />}
       {user?.name ? (
         <VerPerfilModal />
       ) : (
