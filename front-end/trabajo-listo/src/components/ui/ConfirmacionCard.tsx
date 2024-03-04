@@ -10,7 +10,7 @@ const ConfirmacionCard = ({
   onClose: () => void;
 }) => {
   return (
-    <div className="flex flex-col justify-between w-full h-[10rem]">
+    <div className="flex flex-col justify-between w-full h-[8rem]">
       <p className="pt-5 font-semibold text-center text-lg">{text}</p>
       <div className="flex gap-4 self-end">
         <Button
