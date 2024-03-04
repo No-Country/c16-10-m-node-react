@@ -1,7 +1,7 @@
 import {
   Consulta,
   ServicioProfesional,
-  UserState,
+  UserProfile,
 } from "../../components/component";
 import { useState } from "react";
 import ConsultasContainer from "@/modals/modalServicio/ConsultasContainer";
@@ -9,10 +9,10 @@ import BarModalservicios from "./BarModalservicios";
 import DetailServicio from "./DetailServicio";
 
 const ModalServicios: React.FC<{
-  user: UserState;
+  user: UserProfile;
   servicioProfesional: ServicioProfesional;
-  onClose: () => void;
-}> = ({ user, servicioProfesional, onClose }) => {
+  onClosemodal: () => void;
+}> = ({ user, servicioProfesional, onClosemodal }) => {
   const [showConsultas, setShowconsultas] = useState(false);
   const [sendConsulta, setSendConsulta] = useState(false);
   const [consultas, setConsultas] = useState<Array<Consulta>>(
@@ -24,10 +24,10 @@ const ModalServicios: React.FC<{
       <DetailServicio
         user={user}
         servicioProfesional={servicioProfesional}
-        onClose={onClose}
         setConsultas={setConsultas}
         setShowconsultas={setShowconsultas}
         setSendConsulta={setSendConsulta}
+        onClosemodal={onClosemodal}
       />
       <div className="w-1/2">
         <BarModalservicios

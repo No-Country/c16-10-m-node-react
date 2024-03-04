@@ -77,6 +77,8 @@ export interface UserProfile {
   imageProfile: string;
   isProfessional: boolean;
   category: string[];
+  phone?: number;
+  address?: string;
   __v: number;
 }
 

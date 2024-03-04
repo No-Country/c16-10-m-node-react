@@ -145,7 +145,7 @@ export const getAll = async (token: string): Promise<object> => {
 };
 
 //Obtener usuario profesional
-export const getProfessional = async (id: string): Promise<UserState> => {
+export const getProfessional = async (id: string): Promise<UserProfile> => {
   try {
     const res = await apiClient.get(`user/${id}`, {
       headers: {

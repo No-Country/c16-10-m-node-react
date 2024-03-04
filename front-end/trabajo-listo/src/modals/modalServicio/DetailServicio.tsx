@@ -4,8 +4,10 @@ import CategoriaCard from "@/components/CategoriaCard";
 import {
   Consulta,
   ServicioProfesional,
+  UserProfile,
   UserState,
 } from "@/components/component";
+import ModalCard from "@/components/ui/ModalCard";
 import { Button } from "@/components/ui/button";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 import { notificacionesActions } from "@/store/notificacionesSlice";
@@ -14,31 +16,33 @@ import { useState } from "react";
 import { IoMdSend } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ContactoProfesional from "./ContactoProfesional";
 
 const DetailServicio = ({
   servicioProfesional,
   user,
-  onClose,
   setConsultas,
   setShowconsultas,
   setSendConsulta,
+  onClosemodal,
 }: {
-  user: UserState;
+  user: UserProfile;
   servicioProfesional: ServicioProfesional;
-  onClose: () => void;
   setConsultas: (value: Array<Consulta>) => void;
   setShowconsultas: (value: boolean) => void;
   setSendConsulta: (value: boolean) => void;
+  onClosemodal: () => void;
 }) => {
   const [consulta, setConsulta] = useState("");
+  const [showContratar, setShowcontratar] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector((state: { user: UserState }) => state.user);
 
   //Contrata el servicio y notifica al usuario
   const contratarHandler = () => {
-    onClose();
-    dispatch(notificacionesActions.SUCCES({ message: "Contratado con exito" }));
+    setShowcontratar(true);
+    //dispatch(notificacionesActions.SUCCES({ message: "Contratado con exito" }));
   };
   //Redirige al perfil del profesional
   const perfilHandler = () => {
@@ -128,13 +132,24 @@ const DetailServicio = ({
           {currentUser?.token && (
             <Button
               onClick={contratarHandler}
-              className="bg-main-red hover:bg-main-hover w-20 self-end"
+              className="bg-main-red hover:bg-main-hover w-25 self-end"
             >
-              Contratar
+              Contactar profesional
             </Button>
           )}
         </div>
       </div>
+      {showContratar && (
+        <ModalCard width={"xs"} onClose={() => setShowcontratar(false)}>
+          <ContactoProfesional
+            onClose={() => {
+              setShowcontratar(false);
+              onClosemodal();
+            }}
+            servicioProfesional={servicioProfesional}
+          />
+        </ModalCard>
+      )}
     </div>
   );
 };

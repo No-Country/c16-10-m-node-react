@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ServicioProfesional, UserState } from "./component";
+import { ServicioProfesional, UserProfile, UserState } from "./component";
 import { getProfessional } from "@/api/user.endpoint";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteServicio } from "@/api/service.endpoint";
@@ -22,7 +22,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   onActualizar,
 }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
-  const [servicio, setServicio] = useState<UserState | null>(null);
+  const [servicio, setServicio] = useState<UserProfile | null>(null);
   const [showModal, setShowmodal] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -154,11 +154,11 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
         </div>
       </article>
       {showModal && (
-        <ModalCard onClose={closeModalHandler}>
+        <ModalCard width={"lg"} onClose={closeModalHandler}>
           <ModalServicios
             user={servicio}
             servicioProfesional={servicioProfesional}
-            onClose={closeModalHandler}
+            onClosemodal={closeModalHandler}
           />
         </ModalCard>
       )}
