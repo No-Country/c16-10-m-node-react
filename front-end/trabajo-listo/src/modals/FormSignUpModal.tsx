@@ -38,6 +38,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
 
+  //Validaciones del form
   const formSchema = z.object({
     name: z.string().min(3, {
       message: "Mínimo 3 caracteres",
@@ -59,6 +60,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     },
   });
 
+  //Funcion que registra a un usuario y notifica los sucesos
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values)
     const response = await registerUser(values);
@@ -84,6 +86,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
     }
   };
 
+  //Cierra modal de registro
   const handleClose = () => {
     form.reset();
     setIsChecked(false);
@@ -96,7 +99,7 @@ export const FormSignUpModal = ({ className }: { className?: string }) => {
           onClick={() => setShowmodal(true)}
           variant="default"
           className={cn(
-            "bg-transparent hover:bg-white rounded-none text-base text-white hover:text-black",
+            "bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black",
             className
           )}
         >

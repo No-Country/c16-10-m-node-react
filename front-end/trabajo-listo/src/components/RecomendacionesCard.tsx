@@ -4,11 +4,11 @@ import { getProfessional } from "@/api/user.endpoint";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteServicio } from "@/api/service.endpoint";
 import { notificacionesActions } from "@/store/notificacionesSlice";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Receipt } from "lucide-react";
 import { cn } from "@/lib/utils";
 import CategoriaCard from "./CategoriaCard";
-import ModalServicios from "../modals/ModalServicios";
+import ModalServicios from "../modals/modalServicio/ModalServicios";
 import ModalCard from "./ui/ModalCard";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
@@ -24,6 +24,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   const user = useSelector((state: { user: UserState }) => state.user);
   const [servicio, setServicio] = useState<UserState | null>(null);
   const [showModal, setShowmodal] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -31,6 +32,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
     setShowmodal(false);
   };
 
+  //Eliminar servicio del profesional por id
   const handleDelete = async () => {
     if (servicioProfesional?._id) {
       const value = await deleteServicio(servicioProfesional?._id);
@@ -52,6 +54,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
     }
   };
 
+  //Obtener profesional asosiado a un servicio ya posteado
   useEffect(() => {
     const fetchProfressional = async () => {
       if (servicioProfesional) {
@@ -69,15 +72,15 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   return (
     <div>
       <article
-        onClick={() => {
-          setShowmodal(true);
-        }}
         className={cn(
           "flex flex-col items-center border-gray-700 bg-white rounded-2xl overflow-hidden shadow-xl w-[350px] h-[455px] font-libre-franklin"
         )}
       >
-        <div className="flex justify-center w-full h-[230px]">
+        <div className="flex justify-center w-full h-[230px] hover:cursor-pointer hover:scale-105">
           <img
+            onClick={() => {
+              setShowmodal(true);
+            }}
             className="h-[230px] object-fill"
             src={servicioProfesional.imagePost}
           />
@@ -87,11 +90,19 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
             <CategoriaCard
               user={servicio}
               servicioProfesional={servicioProfesional}
+              onPerfil={() => {
+                navigate(`/perfil/${servicioProfesional.idProfessional}`);
+              }}
             ></CategoriaCard>
           )}
           <div className="flex flex-col justify-between h-full">
-            <div className="flex items-center h-full">
-              <p className="line-clamp-2 p-4 w-full h-[6ch] text-ellipsis">
+            <div className="flex items-center h-full ">
+              <p
+                onClick={() => {
+                  setShowmodal(true);
+                }}
+                className="line-clamp-2 p-4 w-full h-[6ch] text-ellipsis hover:underline hover:cursor-pointer"
+              >
                 {capitalizeFirstLetter(servicioProfesional.description)}
               </p>
             </div>

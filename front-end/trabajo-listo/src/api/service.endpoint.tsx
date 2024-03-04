@@ -1,6 +1,7 @@
 import { ServicioEditar, ServicioProfesional } from "@/components/component";
 import apiClient from "@/server";
 
+//Obtener lista de servicios
 export const serviciosRecomendados = async () => {
   try {
     const res = await apiClient.get("post");
@@ -12,12 +13,13 @@ export const serviciosRecomendados = async () => {
   }
 };
 
+//Obtener servicio profesional
 export const getProfesionalService = async (id: string) => {
   try {
     const res = await apiClient.get(`post/professional/${id}`);
-    
+
     if (!res) throw new Error("Bad request");
-    
+
     return res;
   } catch (error) {
     if (error instanceof Error && error.message.includes("404")) {
@@ -28,6 +30,7 @@ export const getProfesionalService = async (id: string) => {
   }
 };
 
+//Subir servicio profesional
 export const subirServicio = async (data: ServicioProfesional) => {
   try {
     const res = await apiClient.post(`post`, data);
@@ -40,9 +43,10 @@ export const subirServicio = async (data: ServicioProfesional) => {
   }
 };
 
+//Eliminar servicio profesional
 export const deleteServicio = async (id: string) => {
   try {
-    const res = await apiClient.delete(`post/${id}`,);
+    const res = await apiClient.delete(`post/${id}`);
     if (!res) throw new Error("Bad request");
 
     return res;
@@ -52,6 +56,7 @@ export const deleteServicio = async (id: string) => {
   }
 };
 
+//Editar servicio
 export const editarServicio = async (id: string, data: ServicioEditar) => {
   try {
     const res = await apiClient.put(`post/${id}`, data);
@@ -64,6 +69,7 @@ export const editarServicio = async (id: string, data: ServicioEditar) => {
   }
 };
 
+//Obtener un servicio profesional por id
 export const getUnServicio = async (id: string) => {
   try {
     const res = await apiClient.get(`post/${id}`);
@@ -76,6 +82,7 @@ export const getUnServicio = async (id: string) => {
   }
 };
 
+//Subir imagen al servicio profesional
 export const imageServicio = async (
   id: string,
   token: string,
@@ -98,30 +105,31 @@ export const imageServicio = async (
     return res.data;
   } catch (error) {
     console.error("Error al obtener los datos: ", error);
-    return {error:"error"}
+    return { error: "error" };
   }
 };
 
+//Funcion para convertir texto
 function convertirTexto(texto: string) {
-    return texto.toUpperCase().replace(/ /g, '_');
+  return texto.toUpperCase().replace(/ /g, "_");
 }
 
+//Obtener servicio por categoria
 export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
-    console.log(textoConvertido);
-    
-    const res = await apiClient.get(`post/category/${textoConvertido}?page=1&limit2`);
+
+    const res = await apiClient.get(
+      `post/category/${textoConvertido}?page=1&limit2`
+    );
+
     if (!res) throw new Error("Bad request");
     return res;
   } catch (error) {
-    if(error instanceof Error && error.message.includes("404")){
-      return null
+    if (error instanceof Error && error.message.includes("404")) {
+      return null;
     }
     console.error("Error al obtener los datos: ", error);
     throw error;
   }
 };
-
-
-
