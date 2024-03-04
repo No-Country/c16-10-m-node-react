@@ -11,6 +11,7 @@ import CategoriaCard from "./CategoriaCard";
 import ModalServicios from "../modals/modalServicio/ModalServicios";
 import ModalCard from "./ui/ModalCard";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
+import ConfirmacionCard from "./ui/ConfirmacionCard";
 
 type RecomendacionesCardProps = {
   servicioProfesional: ServicioProfesional | null;
@@ -24,6 +25,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   const user = useSelector((state: { user: UserState }) => state.user);
   const [servicio, setServicio] = useState<UserProfile | null>(null);
   const [showModal, setShowmodal] = useState(false);
+  const [showConfirmacion, setShowconfirmacion] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -43,6 +45,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
             message: "Se eliminó el servicio correctamente",
           })
         );
+        setShowconfirmacion(false);
         if (onActualizar) onActualizar();
       } else {
         dispatch(
@@ -110,7 +113,12 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
               <div className="flex items-center">
                 {servicioProfesional.idProfessional === user.id && id && (
                   <div className="right-3 bottom-2 flex gap-2">
-                    <button type="button" onClick={handleDelete}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowconfirmacion(true);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -143,6 +151,18 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
                       </svg>
                     </Link>
                   </div>
+                )}
+                {showConfirmacion && (
+                  <ModalCard
+                    width={"xs"}
+                    onClose={() => setShowconfirmacion(false)}
+                  >
+                    <ConfirmacionCard
+                      onAction={handleDelete}
+                      text={"¿Estas seguro que deseas eliminar el servicio?"}
+                      onClose={() => setShowconfirmacion(false)}
+                    ></ConfirmacionCard>
+                  </ModalCard>
                 )}
               </div>
               <div className="flex text-emerald-500">
