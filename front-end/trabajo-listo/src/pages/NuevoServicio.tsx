@@ -1,5 +1,6 @@
 import { imageServicio, subirServicio } from "@/api/service.endpoint";
 import { ServicioProfesional, UserState } from "@/components/component";
+import { capitalizeFirstLetter } from "@/functions/textFunctions";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -106,19 +107,19 @@ export const NuevoServicio = () => {
   };
 
   return (
-    <main className="flex flex-col items-center min-h-[100vh] ">
-      <h1 className="mt-[70px] mb-4 font-bold text-2xl text-red-500 italic">
+    <main className="flex flex-col items-center min-h-[100vh]">
+      <h1 className="mt-[70px] mb-4 font-bold text-2xl text-main-red italic">
         AGREGA UN NUEVO SERVICIO
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="relative flex flex-col border-slate-300 bg-white mb-[70px] p-5 border rounded-sm w-[500px] h-[700px]"
+        className="relative flex flex-col bg-white mb-[70px] p-5 border border-slate-300 rounded-sm w-[500px] h-[700px]"
       >
         <label className="font-semibold text-zinc-500" htmlFor="titulo">
           Título:
         </label>
         <input
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           id="titulo"
           type="text"
           value={titulo}
@@ -129,7 +130,7 @@ export const NuevoServicio = () => {
           Descripción:
         </label>
         <textarea
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           id="descripcion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
@@ -139,7 +140,7 @@ export const NuevoServicio = () => {
           Precio: (US$)
         </label>
         <input
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           id="precio"
           type="number"
           value={precio}
@@ -151,13 +152,13 @@ export const NuevoServicio = () => {
         </label>
         <select
           id="miSelect"
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           value={opcionSeleccionada}
           onChange={handleChange}
         >
           {opciones.map((el) => (
             <option key={el} value={el}>
-              {el}
+              {capitalizeFirstLetter(el)}
             </option>
           ))}
         </select>
@@ -166,7 +167,7 @@ export const NuevoServicio = () => {
           Subcategoría:
         </label>
         <input
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           id="subcategoria"
           type="text"
           value={subcategoria}
@@ -177,7 +178,7 @@ export const NuevoServicio = () => {
           Foto:
         </label>
         <input
-          className="focus:border-2 mt-2 mb-4 focus:outline-0 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
           id="foto"
           type="file"
           accept="image/*"
@@ -186,7 +187,7 @@ export const NuevoServicio = () => {
 
         <button
           type="submit"
-          className="right-3 bottom-2 bg-red-500 px-5 py-3 rounded-sm font-semibold text-white"
+          className="right-3 bottom-2 bg-main-red px-5 py-3 rounded-sm font-semibold text-white"
         >
           Subir servicio
         </button>

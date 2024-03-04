@@ -36,13 +36,14 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   const handleDelete = async () => {
     if (servicioProfesional?._id) {
       const value = await deleteServicio(servicioProfesional?._id);
-      console.log(value);
+
       if (value.status == 200) {
         dispatch(
           notificacionesActions.SUCCES({
             message: "Se eliminó el servicio correctamente",
           })
         );
+
         if (onActualizar) onActualizar();
       } else {
         dispatch(
@@ -71,12 +72,8 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
 
   return (
     <div>
-      <article
-        className={cn(
-          "flex flex-col items-center border-gray-700 bg-white rounded-2xl overflow-hidden shadow-xl w-[350px] h-[455px] font-libre-franklin"
-        )}
-      >
-        <div className="flex justify-center w-full h-[230px] hover:cursor-pointer hover:scale-105">
+      <article className="flex flex-col items-center bg-white shadow-xl border-gray-700 rounded-2xl w-[350px] h-[455px] font-libre-franklin overflow-hidden">
+        <div className="flex justify-center w-full h-[230px] hover:cursor-pointer hover:scale-[101%]">
           <img
             onClick={() => {
               setShowmodal(true);
@@ -96,7 +93,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
             ></CategoriaCard>
           )}
           <div className="flex flex-col justify-between h-full">
-            <div className="flex items-center h-full ">
+            <div className="flex items-center h-full">
               <p
                 onClick={() => {
                   setShowmodal(true);
