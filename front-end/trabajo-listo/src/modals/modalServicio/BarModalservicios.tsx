@@ -6,7 +6,7 @@ const BarModalservicios = ({
   showConsultas: boolean;
 }) => {
   return (
-    <div className="flex gap-3 mb-3">
+    <div className="items-start gap-3 mb-3">
       <button
         onClick={() => {
           setShowconsultas(false);

@@ -12,7 +12,7 @@ const CategoriaCard: React.FC<{
   onPerfil: () => void;
 }> = ({ user, servicioProfesional, onPerfil }) => {
   return (
-    <picture onClick={onPerfil} className="flex items-center bg-main-blue p-2 ">
+    <picture onClick={onPerfil} className="flex flex-col sm:flex-row  items-center bg-main-blue p-2 ">
       <Tooltip title={user?.name}>
         <img
           className="rounded-full w-12 h-12 hover:cursor-pointer"
@@ -27,7 +27,7 @@ const CategoriaCard: React.FC<{
           <span className="font-semibold text-gray-700 text-sm italic">
             {capitalizeFirstLetter(servicioProfesional?.services[0]?.name)}
           </span>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-col items-start md:{items-center flex-col} gap-1">
             <h3 className="text-xs">{`De ${capitalizeFirstLetterperSentence(user?.name)}`}</h3>
             <Rating
               name="read-only"

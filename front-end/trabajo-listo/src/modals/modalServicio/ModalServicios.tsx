@@ -29,13 +29,13 @@ const ModalServicios: React.FC<{
         setSendConsulta={setSendConsulta}
         onClosemodal={onClosemodal}
       />
-      <div className="w-1/2">
+      <div className="flex flex-col items-center">
         <BarModalservicios
           setShowconsultas={setShowconsultas}
           showConsultas={showConsultas}
         />
         {!showConsultas ? (
-          <div className="flex flex-col justify-center items-center gap-7 ml-3">
+          <div className="flex mx-auto justify-center">
             <div className="flex gap-3">
               <img
                 className="shadow-xl rounded-lg w-[30rem] "
