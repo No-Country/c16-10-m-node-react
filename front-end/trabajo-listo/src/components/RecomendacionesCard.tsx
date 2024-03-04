@@ -6,7 +6,6 @@ import { deleteServicio } from "@/api/service.endpoint";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Receipt } from "lucide-react";
-import { cn } from "@/lib/utils";
 import CategoriaCard from "./CategoriaCard";
 import ModalServicios from "../modals/modalServicio/ModalServicios";
 import ModalCard from "./ui/ModalCard";
