@@ -28,13 +28,13 @@ export const Perfil = () => {
       const value: UserState = id
         ? await getUser(id, user.token)
         : {
-            name: "",
-            email: "",
-            imageProfile: "",
-            id: "",
-            token: "",
-            isPro: false,
-          };
+          name: "",
+          email: "",
+          imageProfile: "",
+          id: "",
+          token: "",
+          isPro: false,
+        };
 
       if (value) setUsuario(value);
     };
@@ -44,7 +44,7 @@ export const Perfil = () => {
 
   return (
     <main className="flex justify-center gap-[70px] bg-[#f7f7f7] min-h-[100vh]">
-      <section className="relative flex flex-col items-center border-slate-300 bg-white mt-[70px] border rounded-sm w-[400px] h-[270px]">
+      <section className="relative flex flex-col items-center bg-white mt-[70px] border border-slate-300 rounded-sm w-[400px] h-[270px]">
         <img
           className="mt-6 rounded-full w-[150px] h-[150px]"
           src={usuario.imageProfile}
@@ -80,15 +80,15 @@ export const Perfil = () => {
       </section>
       <div>
         {!usuario.isPro && user.id == usuario.id && (
-          <div className="flex flex-col justify-center items-center gap-5 border-slate-300 bg-white mt-[70px] border rounded-sm w-[700px] h-[270px]">
+          <div className="flex flex-col items-center justify-center gap-5 bg-white mt-[70px] border border-slate-300 rounded-sm w-[700px] h-[270px]">
             <h2 className="font-semibold text-xl text-zinc-600">
               ¿Quieres publicar tus propios servicios?
             </h2>
             <button
-              className="bg-red-500 px-5 py-3 rounded-sm font-semibold text-white"
+              className="bg-main-red px-5 py-3 rounded-sm font-semibold text-white"
               typeof="button"
             >
-              Conviertete en vendedor
+              ¡Conviértete en un profesional!
             </button>
           </div>
         )}

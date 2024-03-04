@@ -1,6 +1,5 @@
 import logo from "@/assets/logo-blue.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { FormSignUpModal } from "@/modals/FormSignUpModal";
 import { FormLogInModal } from "@/modals/FormLogInModal";
 import {
@@ -16,6 +15,8 @@ import { UserState } from "@/components/component";
 import { useEffect, useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { VerPerfilModal } from "@/modals/VerPerfilModal";
+import { FormRegistroProfeisonal } from "@/modals/FormRegistroProfesional";
+import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
 export const Navbar = () => {
   //Emun lista de categoria de servicios
@@ -80,20 +81,16 @@ export const Navbar = () => {
               Servicios
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul
-                className={
-                  !isMenuOpen
-                    ? "gap-1 grid md:grid-cols-3 p-4 w-[400px] md:w-[500px]"
-                    : "gap-1 grid md:grid-cols-3 p-4 w-[300px] md:w-[500px]"
-                }
-              >
+              <ul className={!isMenuOpen
+                ? "gap-1 grid md:grid-cols-3 p-4 w-[400px] md:w-[500px]"
+                : "gap-1 grid md:grid-cols-3 p-4 w-[300px] md:w-[500px]"}>
                 {listOfServices.map((service, i) => (
                   <li
                     className="hover:bg-gray-50 p-1 rounded-md font-semibold text-black hover:text-mbg-main-red cursor-pointer"
                     key={i}
                     onClick={() => searchService(service)}
                   >
-                    <NavigationMenuLink>{service}</NavigationMenuLink>
+                    <NavigationMenuLink>{capitalizeFirstLetter(service)}</NavigationMenuLink>
                   </li>
                 ))}
               </ul>
@@ -101,9 +98,7 @@ export const Navbar = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <Button className="bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black">
-        ¡Quiero ser profesional!
-      </Button>
+      <FormRegistroProfeisonal />
       {user?.name ? (
         <VerPerfilModal />
       ) : (

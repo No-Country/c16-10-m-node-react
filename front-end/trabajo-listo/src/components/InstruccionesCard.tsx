@@ -8,7 +8,7 @@ const InstruccionesCard = ({ instruccion }: { instruccion: Instruccion }) => {
       "mb-4 flex items-center justify-center flex-col md:flex-row md:gap-4 font-libre-franklin mx-6",
       instruccion.id === 2 && "flex-auto md:flex-row-reverse "
     )}>
-      <div className="mb-4 flex shadow-xl rounded-xl w-72 sm:w-[45%] md:w-[48%] lx:w-[60%] overflow-hidden">
+      <div className="flex shadow-xl mb-4 rounded-xl w-72 lx:w-[60%] sm:w-[45%] md:w-[48%] overflow-hidden">
         <img
           src={instruccion.imgUrl}
           alt={instruccion.title}
@@ -26,7 +26,7 @@ const InstruccionesCard = ({ instruccion }: { instruccion: Instruccion }) => {
         </p>
         <div className="flex justify-start mt-4">
           {instruccion.id === 1 && (
-            <FormSignUpModal className="bg-main-red hover:bg-main-hover rounded-none hover:text-white self-end gap-y-9" />
+            <FormSignUpModal className="gap-y-9 bg-main-red hover:bg-main-hover rounded-md hover:text-white self-end" />
           )}
         </div>
       </div>

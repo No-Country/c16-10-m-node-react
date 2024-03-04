@@ -95,7 +95,7 @@ export const FormLogInModal = ({ className }: { className?: string }) => {
         <Button
           variant="default"
           className={cn(
-            "bg-transparent hover:bg-white rounded-none text-base text-white hover:text-black",
+            "bg-transparent hover:bg-white rounded-full text-base text-white hover:text-black",
             className
           )}
         >
