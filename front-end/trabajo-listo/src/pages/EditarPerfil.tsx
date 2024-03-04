@@ -4,6 +4,7 @@ import { notificacionesActions } from "@/store/notificacionesSlice";
 import { userActions } from "@/store/userSlice";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export const EditarPerfil = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -53,17 +54,17 @@ export const EditarPerfil = () => {
   };
 
   return (
-    <main className="flex flex-col items-center bg-[#f7f7f7] min-h-[100vh]">
-      <h1 className="mt-[70px] font-bold text-3xl text-red-500 italic">
+    <main className="flex flex-col items-center bg-[#f7f7f7] min-h-[100vh] font-libre-franklin">
+      <h1 className="mt-[70px] font-bold text-3xl text-main-red italic">
         EDITAR PERFIL
       </h1>
       <form
-        className="relative flex flex-col border-slate-300 bg-white mt-5 p-5 border rounded-sm"
+        className="relative flex flex-col bg-white mt-5 p-5 border border-slate-300 rounded-sm"
         onSubmit={handleSubmit}
       >
         <label className="font-semibold text-zinc-500">Nombre Completo:</label>
         <input
-          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
           placeholder={user.name}
           type="text"
           value={nombre}
@@ -72,7 +73,7 @@ export const EditarPerfil = () => {
 
         <label className="mt-4 font-semibold text-zinc-500">Email:</label>
         <input
-          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
+          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
           type="email"
           placeholder={user.email}
           value={email}
@@ -80,30 +81,37 @@ export const EditarPerfil = () => {
         />
 
         <div className="flex flex-col mt-4">
-          <div>
-            <label className="mr-5 font-semibold text-zinc-500 ">
-              Imagen de perfil:
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              name="image"
-              onChange={handleImagenChange}
-            />
-          </div>
-          <img
-            className="mt-3 rounded-full w-[85px] h-[85px]"
-            src={user.imageProfile}
-            alt={`Foto de perfil del usuario ${user.name}`}
+          <label className="mr-5 font-semibold text-zinc-500">
+            Imagen de perfil:
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            name="image"
+            onChange={handleImagenChange}
           />
-        </div>
+          <div className="flex items-end justify-between mt-2">
 
-        <button
-          className="right-3 bottom-2 absolute bg-red-500 px-3 py-2 rounded-sm font-semibold text-white"
-          type="submit"
-        >
-          Guardar cambios
-        </button>
+            <img
+              className="mt-3 rounded-full w-[85px] h-[85px]"
+              src={user.imageProfile}
+              alt={`Foto de perfil del usuario ${user.name}`}
+            />
+            <Link
+              to={`/perfil/${user.id}`}
+              className="bg-main-red p-2 rounded-sm h-fit font-semibold text-white"
+              type="submit"
+            >
+              Descartar
+            </Link>
+            <button
+              className="bg-main-red p-2 rounded-sm h-fit font-semibold text-white"
+              type="submit"
+            >
+              Guardar cambios
+            </button>
+          </div>
+        </div>
       </form>
     </main>
   );

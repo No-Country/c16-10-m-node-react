@@ -17,7 +17,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="flex justify-start items-center gap-16 bg-hero-banner bg-cover bg-no-repeat border-black rounded-b-2xl w-full max-w-full h-[601px] overflow-hidden b-2">
+    <section className="flex items-center justify-start gap-16 bg-hero-banner bg-cover bg-no-repeat border-black rounded-b-2xl w-full max-w-full h-[601px] overflow-hidden b-2">
       <div className="flex flex-col gap-16 ml-8 w-3/5">
         <section className="flex flex-col items-center gap-2">
           <h1 className="font-extrabold font-galada text-7xl text-main-red tracking-wide">
@@ -28,9 +28,9 @@ export const Hero = () => {
           </h3>
         </section>
         {user.id ? (
-          <search className="flex border-2 border-main-red bg-white">
+          <search className="flex bg-white border-2 border-main-red rounded-md">
             <Input
-              className="border-0 px-4 font-medium text-gray-700 text-xl outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="px-4 border-0 font-medium text-gray-700 text-xl outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               value={searchValue}
               placeholder="Busca tu servicio aquí"
@@ -45,7 +45,7 @@ export const Hero = () => {
           </search>
         ) : (
           <div className="flex justify-center">
-            <FormSignUpModal className="bg-main-red hover:bg-main-hover px-10 rounded-none w-fit h-full text-lg text-white hover:text-white outline-none" />
+            <FormSignUpModal className="bg-main-red hover:bg-main-hover px-10 rounded-md w-fit h-full text-lg text-white hover:text-white outline-none" />
           </div>
         )}
       </div>
