@@ -56,7 +56,7 @@ export const Equipo = () => {
       id: 8,
       nombre: "Harry Yanarico",
       rol: "Full-Stack",
-      link: "",
+      link: "https://www.linkedin.com/in/harry-yanarico-20802a12b/",
       img: harryTL,
     },
   ];
