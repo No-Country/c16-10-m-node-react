@@ -43,7 +43,7 @@ export const Perfil = () => {
   }, [id, user.token]);
 
   return (
-    <main className="flex justify-center gap-[70px] bg-[#f7f7f7] min-h-[100vh]">
+    <main className="flex justify-center gap-[70px] bg-[#f7f7f7] min-h-[100vh] font-libre-franklin">
       <section className="relative flex flex-col items-center bg-white mt-[70px] border border-slate-300 rounded-sm w-[400px] h-[270px]">
         <img
           className="mt-6 rounded-full w-[150px] h-[150px]"

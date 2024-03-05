@@ -41,14 +41,14 @@ export const MisServicios = ({
 
   return (
     <div className="mb-[70px] h-auto">
-      {servicios == null ? (
+      {servicios === null ? (
         <div className="flex flex-col items-center justify-center gap-5 bg-white mt-[70px] border border-slate-300 rounded-sm w-[700px] h-[270px]">
           <h2 className="font-semibold text-xl text-zinc-600">
             Todavia no tienes ningún servicio, ¿Deseas agregar alguno?
           </h2>
           <Link to="/nuevo-servicio">
             <button
-              className="bg-red-500 px-5 py-3 rounded-sm font-semibold text-white"
+              className="bg-main-red hover:bg-main-hover px-5 py-3 rounded-sm font-semibold text-white"
               typeof="button"
             >
               Agregar Servicio
