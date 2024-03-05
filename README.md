@@ -1,6 +1,9 @@
 # Trabajo Listo
 
-"Trabajo Listo" fue creada con el propósito de simplificar y agilizar el proceso de búsqueda de servicios. La función principal de la aplicación es brindar una plataforma que permite a los usuarios buscar servicios posteados por profesionales, realizar consultas, contactar al profesional y contratar el servicio.
+"Trabajo Listo" fue creado con el propósito de simplificar y agilizar el proceso de búsqueda de servicios. La función principal de la aplicación es brindar una plataforma que permite a los usuarios buscar servicios posteados por profesionales, realizar consultas, contactar al profesional y contratar el servicio.
+
+## Link a la Web
+[c16-10-m-node-react.vercel.app](c16-10-m-node-react.vercel.app)
 
 ## Links de deploy
   * Frontend: [Trabajo listo](https://c16-10-m-node-react-chi.vercel.app/)
@@ -52,29 +55,17 @@
 * Contactar al profesional
 * Contratar servicio
 
-## Instalación
-
-1. **Clona el repositorio de manera local.**
-    * git clone https://github.com/No-Country/c16-10-m-node-react
-2. **Instala las dependencias del backend.**
-
-3. **Instala dependencias del frontend.**
-    * npm install
-4. **Inicia el servidor de desarrollo.**
-    * npm run dev
-5. **Abre tu navegador web y accede a http://localhost:5173 para ver la aplicación en funcionamiento.**
-
 ## Equipo
 | **Nombre**        | **ROL**           |
 | ------------- | ------------- |
-| [Dario Nicolas Ramos](https://www.linkedin.com/in/dario-nicolas-ramos/) | Backend  |
 | [Fernando Acosta](https://www.linkedin.com/in/fernando-acosta-172557239/) | Frontend  |
 | [Franco Tevez](https://www.linkedin.com/in/franco-tevez-1a985b219/) | Frontend |
+| [Valentin Di Geronimo](https://www.linkedin.com/in/digeronimovalentin/)| Frontend  |
+| [Piero Sanchez](https://www.linkedin.com/in/sanchezpiero/) | UX/UI  |
 | [Harry Yanarico]  | Fullstack  |
 | [Juan Oh](https://www.linkedin.com/in/jioh19/) | Backend |
-| [Piero Sanchez](https://www.linkedin.com/in/sanchezpiero/) | UX/UI  |
-| [Valentin Di Geronimo](https://www.linkedin.com/in/digeronimovalentin/)| Frontend  |
-|Juan Emilio Busalmen  | TL  |
+| [Dario Nicolas Ramos](https://www.linkedin.com/in/dario-nicolas-ramos/) | Backend  |
+|Juan Emilio Busalmen  | Team Leader  |
 
 ## Vista previa
 
@@ -163,16 +154,7 @@
       * Implementar busqueda de servicios con filtros
       * Crear detalles de servicios, agregar consultas y respuestas
       * Traer datos de contacto del profesional
-      
-
-
-
-
-
-      
-
-
-
-
-
- 
+  * **SPRINT-4**
+      * Corrección y resolución final de conflictos
+      * Reorganización de archivos
+      * Creación de la documentación oficial
