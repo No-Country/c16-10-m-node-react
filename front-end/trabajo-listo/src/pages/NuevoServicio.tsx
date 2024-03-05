@@ -3,6 +3,7 @@ import { ServicioProfesional, UserState } from "@/components/component";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { useState } from "react";
+import { MdArrowBack } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -108,18 +109,25 @@ export const NuevoServicio = () => {
 
   return (
     <main className="flex flex-col items-center min-h-[100vh]">
+      <button
+        onClick={() => navigate(-1)}
+        className="top-[6rem] left-[10rem] absolute flex items-center gap-1 bg-main-red p-2 rounded-full text-main-blue"
+      >
+        <MdArrowBack className="text-xl "></MdArrowBack>
+        <p>Volver</p>
+      </button>
       <h1 className="mt-[70px] mb-4 font-bold text-2xl text-main-red italic">
         AGREGA UN NUEVO SERVICIO
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="relative flex flex-col bg-white mb-[70px] p-5 border border-slate-300 rounded-sm w-[500px] h-[700px]"
+        className="relative flex flex-col border-slate-300 bg-white mb-[70px] p-5 border rounded-sm w-[500px] h-[700px]"
       >
         <label className="font-semibold text-zinc-500" htmlFor="titulo">
           Título:
         </label>
         <input
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           id="titulo"
           type="text"
           value={titulo}
@@ -130,7 +138,7 @@ export const NuevoServicio = () => {
           Descripción:
         </label>
         <textarea
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           id="descripcion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
@@ -140,7 +148,7 @@ export const NuevoServicio = () => {
           Precio: (US$)
         </label>
         <input
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           id="precio"
           type="number"
           value={precio}
@@ -152,7 +160,7 @@ export const NuevoServicio = () => {
         </label>
         <select
           id="miSelect"
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           value={opcionSeleccionada}
           onChange={handleChange}
         >
@@ -167,7 +175,7 @@ export const NuevoServicio = () => {
           Subcategoría:
         </label>
         <input
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           id="subcategoria"
           type="text"
           value={subcategoria}
@@ -178,7 +186,7 @@ export const NuevoServicio = () => {
           Foto:
         </label>
         <input
-          className="mt-2 mb-4 py-2 pl-2 focus:border-2 focus:outline-0 pr-4 border rounded-md"
+          className="focus:border-2 mt-2 mb-4 py-2 pl-2 focus:outline-0 pr-4 border rounded-md"
           id="foto"
           type="file"
           accept="image/*"
