@@ -45,7 +45,7 @@ export const Perfil = () => {
   return (
     <main className="flex justify-center gap-[70px] bg-[#f7f7f7] min-h-[100vh] font-libre-franklin">
       <section className="justify-center items-center">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-5">
+        <div className="flex flex-col md:flex-row items-center sm:items-start justify-center gap-5">
           <div className="relative flex flex-col items-center justify-center bg-white mt-[70px] border border-slate-300 rounded-sm w-72 sm:w-[400px] h-22 sm:h-[270px]">
             <img
               className="mt-6 rounded-full w-[150px] h-[150px]"
