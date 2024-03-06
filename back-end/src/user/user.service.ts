@@ -23,7 +23,7 @@ export class UserService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Post.name) private postModel: Model<Post>,
   ) {}
-
+  //  Crea y registra un usuario en la base de datos
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const saltOrRounds = Number(process.env.BCRYPT_ENV);
@@ -37,6 +37,7 @@ export class UserService {
       throw new Error(error);
     }
   }
+  // Busca todos los usuarios con una paginacion
   async findAll(page: string, limit: string): Promise<User[]> {
     const pageInt = parseInt(page);
     const limitInt = parseInt(limit);
@@ -49,7 +50,7 @@ export class UserService {
       .select('-password');
     return usersProfessionals;
   }
-
+  // Busca un usuario por id
   async findId(id: string): Promise<any> {
     try {
       const user = await this.userModel.findById(id).lean().select('-password');
@@ -62,7 +63,7 @@ export class UserService {
       throw err;
     }
   }
-
+  // Busca un usuario atravez del email
   async findEmail(email: string): Promise<any> {
     try {
       const user = await this.userModel.findOne({ email: email }).exec();
@@ -75,7 +76,7 @@ export class UserService {
       throw err;
     }
   }
-
+  // Borra un usuario con el id del usuario
   async delete(id: string): Promise<Object> {
     try {
       const user = await this.userModel.findById(id);
@@ -94,7 +95,7 @@ export class UserService {
       throw err;
     }
   }
-
+  // actualiza el usuario y actualiza el password
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       const { password } = updateUserDto;
@@ -116,7 +117,7 @@ export class UserService {
       throw err;
     }
   }
-
+  // Guarda la imagen en el servicio cloudinary
   uploadImage(
     file: Express.Multer.File,
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
@@ -136,7 +137,7 @@ export class UserService {
       },
     );
   }
-
+  // Guarda el enlace de la imagen en la base de datos
   async saveImageProfile(urlFile: string, id: string) {
     const user = await this.userModel.findById(id).exec();
     if (!user) throw new NotFoundException(`User user #${id} not found`);

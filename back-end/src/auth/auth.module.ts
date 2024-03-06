@@ -9,11 +9,13 @@ import { UserModule } from 'src/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
+  // Importa otros módulos requeridos por este módulo
   imports: [
-    ConfigModule.forRoot(),
-    PassportModule,
-    UserModule,
+    ConfigModule.forRoot(), // Importa el módulo Config para acceder a variables de entorno
+    PassportModule, // Importa PassportModule para la autenticación
+    UserModule, // Importa el módulo de usuarios
     JwtModule.register({
+      // Importa el módulo JWT para la autenticación basada en tokens
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: process.env.JWT_EXPIRE },
     }),
