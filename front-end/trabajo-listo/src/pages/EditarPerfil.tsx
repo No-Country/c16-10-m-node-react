@@ -3,8 +3,9 @@ import { UserState } from "@/components/component";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { userActions } from "@/store/userSlice";
 import React, { useState } from "react";
+import { MdArrowBack } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const EditarPerfil = () => {
   const user = useSelector((state: { user: UserState }) => state.user);
@@ -12,6 +13,7 @@ export const EditarPerfil = () => {
   const [nombre, setNombre] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [imagen, setImagen] = useState<null | object>(null);
+  const navigate = useNavigate();
 
   //Se encarga de actualizar los cambios de la input file
   const handleImagenChange = async (
@@ -55,16 +57,23 @@ export const EditarPerfil = () => {
 
   return (
     <main className="flex flex-col items-center bg-[#f7f7f7] min-h-[100vh] font-libre-franklin">
+      <button
+        onClick={() => navigate(-1)}
+        className="top-[6rem] left-[10rem] absolute flex items-center gap-1 bg-main-red p-2 rounded-full text-main-blue"
+      >
+        <MdArrowBack className="text-xl "></MdArrowBack>
+        <p>Volver</p>
+      </button>
       <h1 className="mt-[70px] font-bold text-3xl text-main-red italic">
         EDITAR PERFIL
       </h1>
       <form
-        className="relative flex flex-col bg-white mt-5 p-5 border border-slate-300 rounded-sm"
+        className="relative flex flex-col border-slate-300 bg-white mt-5 p-5 border rounded-sm"
         onSubmit={handleSubmit}
       >
         <label className="font-semibold text-zinc-500">Nombre Completo:</label>
         <input
-          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
           placeholder={user.name}
           type="text"
           value={nombre}
@@ -73,7 +82,7 @@ export const EditarPerfil = () => {
 
         <label className="mt-4 font-semibold text-zinc-500">Email:</label>
         <input
-          className="mt-2 focus:outline-0 py-2 pr-4 pl-2 border focus:border-2 rounded-md"
+          className="mt-2 focus:outline-0 focus:border-2 py-2 pr-4 pl-2 border rounded-md"
           type="email"
           placeholder={user.email}
           value={email}
@@ -90,8 +99,7 @@ export const EditarPerfil = () => {
             name="image"
             onChange={handleImagenChange}
           />
-          <div className="flex items-end justify-between mt-2">
-
+          <div className="flex justify-between items-end mt-2">
             <img
               className="mt-3 rounded-full w-[85px] h-[85px]"
               src={user.imageProfile}
