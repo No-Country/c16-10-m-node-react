@@ -1,23 +1,25 @@
 import React, { ReactNode } from "react";
 import Dialog from "@mui/material/Dialog";
-import { DialogActions, DialogContent } from "@mui/material";
+import { Breakpoint, DialogActions, DialogContent } from "@mui/material";
 import { MdClose } from "react-icons/md";
 type RecomendacionesCardProps = {
   children: ReactNode;
   onClose?: () => void;
+  width: Breakpoint | false;
 };
 
 const ModalCard: React.FC<RecomendacionesCardProps> = ({
   children,
   onClose,
+  width,
 }) => {
   return (
     <Dialog
-      className="z-40 "
+      className="z-40"
       open={true}
       onClose={onClose}
       fullWidth={true}
-      maxWidth="lg"
+      maxWidth={width}
     >
       <DialogContent className="relative w-full">{children}</DialogContent>
       <DialogActions>

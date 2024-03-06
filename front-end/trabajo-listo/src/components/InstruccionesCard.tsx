@@ -5,16 +5,16 @@ import { FormSignUpModal } from "@/modals/FormSignUpModal";
 const InstruccionesCard = ({ instruccion }: { instruccion: Instruccion }) => {
   return (
     <article className={cn(
-      "mb-4 flex items-center flex-col sm:flex-col md:flex-row md:gap-4 justify-around w-full font-libre-franklin",
+      "mb-4 flex items-center justify-center flex-col md:flex-row md:gap-4 font-libre-franklin mx-6",
       instruccion.id === 2 && "flex-auto md:flex-row-reverse "
     )}>
-      <div className="mb-4 flex shadow-xl rounded-xl w-4/5 sm:w-2/5 h-auto overflow-hidden">
+      <div className="flex shadow-xl mb-4 rounded-xl w-72 lx:w-[60%] sm:w-[45%] md:w-[48%] overflow-hidden">
         <img
           src={instruccion.imgUrl}
           alt={instruccion.title}
         />
       </div>
-      <div className="gap-4 bg-white p-8 border-2 border-dashed border-gray-700 rounded-xl w-full sm:w-1/2">
+      <div className="gap-4 bg-white p-8 border-2 border-dashed border-gray-700 rounded-xl w-full sm:w-4/6">
         <h2 className="font-bold text-3xl uppercase">
           <span className="mr-2 font-bold text-3xl text-main-red">
             {instruccion.id}.
@@ -24,9 +24,11 @@ const InstruccionesCard = ({ instruccion }: { instruccion: Instruccion }) => {
         <p className="font-semibold text-gray-700 text-md tracking-wide italic">
           {instruccion.text}
         </p>
-        {instruccion.id === 1 && (
-          <FormSignUpModal className="bg-main-red hover:bg-main-hover rounded-none w-1/2 hover:text-white self-end" />
-        )}
+        <div className="flex justify-start mt-4">
+          {instruccion.id === 1 && (
+            <FormSignUpModal className="gap-y-9 bg-main-red hover:bg-main-hover rounded-md hover:text-white self-end" />
+          )}
+        </div>
       </div>
     </article>
   );

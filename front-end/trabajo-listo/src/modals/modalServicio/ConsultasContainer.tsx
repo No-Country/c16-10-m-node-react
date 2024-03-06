@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import ConsultasItem from "@/components/ConsultasItem";
+import ConsultasItem from "@/modals/modalServicio/ConsultasItem";
 import { Consulta, ServicioProfesional } from "@/components/component";
 
 const ConsultasContainer = ({

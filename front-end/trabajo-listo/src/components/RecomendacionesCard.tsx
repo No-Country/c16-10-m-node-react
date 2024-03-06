@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { ServicioProfesional, UserState } from "./component";
+import { ServicioProfesional, UserProfile, UserState } from "./component";
 import { getProfessional } from "@/api/user.endpoint";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteServicio } from "@/api/service.endpoint";
 import { notificacionesActions } from "@/store/notificacionesSlice";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Receipt } from "lucide-react";
-import { cn } from "@/lib/utils";
 import CategoriaCard from "./CategoriaCard";
 import ModalServicios from "../modals/modalServicio/ModalServicios";
 import ModalCard from "./ui/ModalCard";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
+import ConfirmacionCard from "./ui/ConfirmacionCard";
 
 type RecomendacionesCardProps = {
   servicioProfesional: ServicioProfesional | null;
@@ -22,8 +22,9 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   onActualizar,
 }) => {
   const user = useSelector((state: { user: UserState }) => state.user);
-  const [servicio, setServicio] = useState<UserState | null>(null);
+  const [servicio, setServicio] = useState<UserProfile | null>(null);
   const [showModal, setShowmodal] = useState(false);
+  const [showConfirmacion, setShowconfirmacion] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -36,13 +37,15 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
   const handleDelete = async () => {
     if (servicioProfesional?._id) {
       const value = await deleteServicio(servicioProfesional?._id);
-      console.log(value);
+
       if (value.status == 200) {
         dispatch(
           notificacionesActions.SUCCES({
             message: "Se eliminó el servicio correctamente",
           })
         );
+
+        setShowconfirmacion(false);
         if (onActualizar) onActualizar();
       } else {
         dispatch(
@@ -71,12 +74,8 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
 
   return (
     <div>
-      <article
-        className={cn(
-          "flex flex-col items-center border-gray-700 bg-white rounded-2xl overflow-hidden shadow-xl w-[350px] h-[455px] font-libre-franklin"
-        )}
-      >
-        <div className="flex justify-center w-full h-[230px] hover:cursor-pointer hover:scale-105">
+      <article className="flex flex-col items-center border-gray-700 bg-white shadow-xl rounded-2xl w-[350px] h-[455px] font-libre-franklin overflow-hidden">
+        <div className="flex justify-center w-full h-[230px] hover:cursor-pointer hover:scale-[101%]">
           <img
             onClick={() => {
               setShowmodal(true);
@@ -95,8 +94,8 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
               }}
             ></CategoriaCard>
           )}
-          <div className="flex flex-col justify-between h-full">
-            <div className="flex items-center h-full ">
+          <div className="flex flex-row items-center sm:items-start sm:flex-col sm:justify-between h-full">
+            <div className="flex items-center h-full">
               <p
                 onClick={() => {
                   setShowmodal(true);
@@ -110,7 +109,12 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
               <div className="flex items-center">
                 {servicioProfesional.idProfessional === user.id && id && (
                   <div className="right-3 bottom-2 flex gap-2">
-                    <button type="button" onClick={handleDelete}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowconfirmacion(true);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -144,6 +148,18 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
                     </Link>
                   </div>
                 )}
+                {showConfirmacion && (
+                  <ModalCard
+                    width={"xs"}
+                    onClose={() => setShowconfirmacion(false)}
+                  >
+                    <ConfirmacionCard
+                      onAction={handleDelete}
+                      text={"¿Estas seguro que deseas eliminar el servicio?"}
+                      onClose={() => setShowconfirmacion(false)}
+                    ></ConfirmacionCard>
+                  </ModalCard>
+                )}
               </div>
               <div className="flex text-emerald-500">
                 <Receipt className="mr-1" />
@@ -154,11 +170,11 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
         </div>
       </article>
       {showModal && (
-        <ModalCard onClose={closeModalHandler}>
+        <ModalCard width={"lg"} onClose={closeModalHandler}>
           <ModalServicios
             user={servicio}
             servicioProfesional={servicioProfesional}
-            onClose={closeModalHandler}
+            onClosemodal={closeModalHandler}
           />
         </ModalCard>
       )}

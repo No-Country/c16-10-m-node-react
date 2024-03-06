@@ -56,14 +56,14 @@ export const Equipo = () => {
       id: 8,
       nombre: "Harry Yanarico",
       rol: "Full-Stack",
-      link: "",
+      link: "https://www.linkedin.com/in/harry-yanarico-20802a12b/",
       img: harryTL,
     },
   ];
 
   return (
-    <main className="flex flex-col items-center gap-14 min-h-[100vh]">
-      <h1 className="mt-[60px] font-bold text-[#FE4C55] text-4xl italic">
+    <main className="flex flex-col items-center gap-14 min-h-[100vh] font-libre-franklin">
+      <h1 className="mt-[60px] font-bold text-4xl text-main-red italic">
         CONOCE AL EQUIPO
       </h1>
       <div className="flex flex-wrap justify-center gap-5 mb-[80px] max-w-[800px]">

@@ -486,7 +486,7 @@ export const Search = () => {
 
   return (
     <main className="flex flex-col items-center mb-20 min-h-[100vh] font-libre-franklin">
-      <section className="flex flex-col justify-center items-center bg-[#E7EDFC] mb-12 w-full h-[350px]">
+      <section className="flex flex-col items-center justify-center bg-[#E7EDFC] mb-12 w-full h-[350px]">
         <h1 className="font-bold text-[#0E7490] text-4xl">
           Busca tus servicios
         </h1>
@@ -513,14 +513,14 @@ export const Search = () => {
       </section>
 
       <div className="flex w-[90%]">
-        <div className="flex flex-col gap-3 border-main-red border rounded-3xl w-[400px] h-[500px]">
+        <div className="flex flex-col gap-3 border border-main-red rounded-3xl w-[400px] h-[500px]">
           <h3 className="mt-8 ml-7 font-bold text-[#083643] text-lg">
             Filtra tus servicios
           </h3>
           <form onSubmit={(e) => handleSearch(e)}>
             <search className="flex items-center ml-7">
               <input
-                className="border-[#7C7C7C] border-2 py-2 pr-4 pl-2 border-r-0 rounded-xl rounded-tr-none rounded-br-none outline-none"
+                className="py-2 pr-4 pl-2 border-r-0 border-[#7C7C7C] border-2 rounded-xl rounded-tr-none rounded-br-none outline-none"
                 type="text"
                 placeholder="Busca una palabra clave"
                 value={searchValue}
@@ -532,7 +532,7 @@ export const Search = () => {
                 }}
               />
               <button
-                className="border-[#7C7C7C] border-2 py-2 pr-2 border-l-0 rounded-xl rounded-tl-none rounded-bl-none text-[#7C7C7C]"
+                className="py-2 pr-2 border-l-0 border-[#7C7C7C] border-2 rounded-xl rounded-tl-none rounded-bl-none text-[#7C7C7C]"
                 type="submit"
               >
                 <svg
