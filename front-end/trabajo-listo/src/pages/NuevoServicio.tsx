@@ -68,7 +68,7 @@ export const NuevoServicio = () => {
       };
 
       const res = await subirServicio(datas);
-
+      //Si existe respuesta, el servicio se creó correctamente y se resetean los estados, además de crear la imagen
       if (res) {
         setTitulo("");
         setDescripcion("");
@@ -113,7 +113,7 @@ export const NuevoServicio = () => {
         onClick={() => navigate(-1)}
         className="top-[6rem] left-[10rem] absolute flex items-center gap-1 bg-main-red p-2 rounded-full text-main-blue"
       >
-        <MdArrowBack className="text-xl "></MdArrowBack>
+        <MdArrowBack className="text-xl"></MdArrowBack>
         <p>Volver</p>
       </button>
       <h1 className="mt-[70px] mb-4 font-bold text-2xl text-main-red italic">

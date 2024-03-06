@@ -33,6 +33,7 @@ export const Search = () => {
   const [ordenMayor, setOrdenMayor] = useState(false);
   const [ordenMenor, setOrdenMenor] = useState(false);
 
+  //resetea los valores al entrar a cada funcionalidad
   const resetValues = () => {
     setSearchValue("");
     setClave(false);
@@ -40,12 +41,14 @@ export const Search = () => {
     setOrdenMenor(false);
   };
 
+  //Guarda en value todos los servicios al entrar a la page search y los agrega al estado si: no hay servicios en una categoría ingresada / si el usuario entró por palabra clave 
   const getAllService = async () => {
     resetValues();
     const value = await serviciosRecomendados();
     setServicios(value.data);
   };
 
+  // Guarda en value todos los servicios y los agrega al estado al borrar la última categoría activada 
   const getAllServiceCat = async () => {
     resetValues();
     const value = await serviciosRecomendados();
@@ -54,6 +57,8 @@ export const Search = () => {
     setTodos(true);
   };
 
+  //Hace un filtro de los servicios por la palabra clave ingresada en el estado searchValue
+  //Si encuentra servicios guarda esos servicios en un estado y se muestra, sino avisa con un toast que no encontró servicios con esa palabra clave
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOrdenMayor(false);
@@ -89,6 +94,7 @@ export const Search = () => {
     }
   };
 
+  //Ordena los servicios de mayor a menor
   const handleClickMayor = () => {
     if (!ordenMayor) {
       if (searchValue.length > 0) {
@@ -110,6 +116,7 @@ export const Search = () => {
     setOrdenMenor(false);
   };
 
+  //Ordena los servicios de menor a mayor
   const handleClickMenor = () => {
     if (!ordenMenor) {
       if (searchValue.length > 0) {
@@ -131,16 +138,27 @@ export const Search = () => {
     setOrdenMenor(!ordenMenor);
   };
 
+  //Primero se fija si el usuario entró a la page usando una categoría, si es así, busca esa categoría en el endpoint y se muestra si hay servicios en ella, sino se muestran todas las categorías
   useEffect(() => {
     setServicios([]);
     const getServicios = async () => {
       if (service) {
-        setEstado(service);
+        setEstado(service.replace(/\bde\b/g, '').replace(/\s+/g, ' ').trim());
         const value = await serviciosCategory(service);
+        console.log(value); 
         if (value) {
           const data = value.data;
           setServiciosPrev(data);
           setServicios(data);
+        }else{
+          await getAllService();
+          setEstado("todos");
+          setTodos(true);
+          dispatch(
+          notificacionesActions.NORMAL({
+            message: `Todavía no hay servicios en la categoría ${service}`,
+          })
+        );
         }
       } else {
         await getAllService();
@@ -154,6 +172,7 @@ export const Search = () => {
     getServicios();
   }, [service]);
 
+  //Agrega los servicios de la categoría clickeada si no se clickeó en todas las categorías
   const handleSetServicio = (value: Array<ServicioProfesional>) => {
     resetValues();
     if (todos) {
@@ -165,6 +184,7 @@ export const Search = () => {
     }
   };
 
+  //borra una categoría del estado de servicios y si muestra todos los servicios si se borró la última categoría
   const handleDeleteServicio = (value: string) => {
     resetValues();
     const filterServicio = servicios.filter((el) => el.category !== value);
@@ -486,7 +506,7 @@ export const Search = () => {
 
   return (
     <main className="flex flex-col items-center mb-20 min-h-[100vh] font-libre-franklin">
-      <section className="flex flex-col items-center justify-center bg-[#E7EDFC] mb-12 w-full h-[350px]">
+      <section className="flex flex-col justify-center items-center bg-[#E7EDFC] mb-12 w-full h-[350px]">
         <h1 className="font-bold text-[#0E7490] text-4xl">
           Busca tus servicios
         </h1>
@@ -513,14 +533,14 @@ export const Search = () => {
       </section>
 
       <div className="flex w-[90%]">
-        <div className="flex flex-col gap-3 border border-main-red rounded-3xl w-[400px] h-[500px]">
+        <div className="flex flex-col gap-3 border-main-red border rounded-3xl min-w-[400px] h-[500px]">
           <h3 className="mt-8 ml-7 font-bold text-[#083643] text-lg">
             Filtra tus servicios
           </h3>
           <form onSubmit={(e) => handleSearch(e)}>
             <search className="flex items-center ml-7">
               <input
-                className="py-2 pr-4 pl-2 border-r-0 border-[#7C7C7C] border-2 rounded-xl rounded-tr-none rounded-br-none outline-none"
+                className="border-[#7C7C7C] border-2 py-2 pr-4 pl-2 border-r-0 rounded-xl rounded-tr-none rounded-br-none outline-none"
                 type="text"
                 placeholder="Busca una palabra clave"
                 value={searchValue}
@@ -532,7 +552,7 @@ export const Search = () => {
                 }}
               />
               <button
-                className="py-2 pr-2 border-l-0 border-[#7C7C7C] border-2 rounded-xl rounded-tl-none rounded-bl-none text-[#7C7C7C]"
+                className="border-[#7C7C7C] border-2 py-2 pr-2 border-l-0 rounded-xl rounded-tl-none rounded-bl-none text-[#7C7C7C]"
                 type="submit"
               >
                 <svg
@@ -588,7 +608,7 @@ export const Search = () => {
         {clave ? (
           <>
             {serviciosPrev && (
-              <div className="flex flex-wrap justify-start gap-9 px-9 max-w-[1200px]">
+              <div className="flex flex-wrap justify-center gap-9 px-9 max-w-[1200px]">
                 {serviciosPrev.map((el) => (
                   <RecomendacionesCard key={el._id} servicioProfesional={el} />
                 ))}
@@ -598,7 +618,7 @@ export const Search = () => {
         ) : (
           <>
             {servicios && (
-              <div className="flex flex-wrap justify-start gap-9 px-9 max-w-[1200px]">
+              <div className="flex flex-wrap justify-center gap-9 px-9 max-w-[1200px]">
                 {servicios.map((el) => (
                   <RecomendacionesCard key={el._id} servicioProfesional={el} />
                 ))}
