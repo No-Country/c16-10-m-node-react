@@ -23,6 +23,10 @@ export const VerPerfilModal = ({ className }: { className?: string }) => {
 
   //Desloguea usuario y lo notifica
   const logoutHandler = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 700);
+
     dispatch(userActions.USER_LOGOUT());
     dispatch(
       notificacionesActions.SUCCES({

@@ -19,7 +19,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 import {
   Form,
@@ -42,7 +42,11 @@ import { notificacionesActions } from "@/store/notificacionesSlice";
 import { cn } from "@/lib/utils";
 import { capitalizeFirstLetter } from "@/functions/textFunctions";
 
-export const FormRegistroProfeisonal = ({ className }: { className?: string }) => {
+export const FormRegistroProfeisonal = ({
+  className,
+}: {
+  className?: string;
+}) => {
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [showModal, setShowmodal] = useState(true);
@@ -58,15 +62,13 @@ export const FormRegistroProfeisonal = ({ className }: { className?: string }) =
       message: "Mínimo 8 caracteres",
     }),
     phone: z.string().min(10, {
-      message: "Número inválido"
+      message: "Número inválido",
     }),
     category: z.string(),
     address: z.string().min(3, {
-      message: "Mínimo 3 caracteres"
-    })
+      message: "Mínimo 3 caracteres",
+    }),
   });
-
-
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,7 +84,7 @@ export const FormRegistroProfeisonal = ({ className }: { className?: string }) =
       ...values,
       phone: parseInt(values.phone),
       category: [values.category],
-      isProfessional: true
+      isProfessional: true,
     });
 
     if (response) {
@@ -100,7 +102,6 @@ export const FormRegistroProfeisonal = ({ className }: { className?: string }) =
             message: "Tu cuenta se ha creado correctamente",
           })
         );
-
         handleClose();
         setShowmodal(false);
       }
@@ -200,18 +201,20 @@ export const FormRegistroProfeisonal = ({ className }: { className?: string }) =
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Categoría del servicio
-                    </FormLabel>
-                    <Select onValueChange={field.onChange} >
+                    <FormLabel>Categoría del servicio</FormLabel>
+                    <Select onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Selecciona un servicio" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent >
+                      <SelectContent>
                         {opciones.map((opcion) => (
-                          <SelectItem key={opcion} className="font-medium" value={opcion}>
+                          <SelectItem
+                            key={opcion}
+                            className="font-medium"
+                            value={opcion}
+                          >
                             {capitalizeFirstLetter(opcion)}
                           </SelectItem>
                         ))}
@@ -275,7 +278,7 @@ export const FormRegistroProfeisonal = ({ className }: { className?: string }) =
                   </FormItem>
                 )}
               />
-              <div className="flex items-center mt-4 space-x-2">
+              <div className="flex items-center space-x-2 mt-4">
                 <Checkbox id="terms" onClick={() => setIsChecked(!isChecked)} />
                 <label
                   htmlFor="terms"

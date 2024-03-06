@@ -31,6 +31,9 @@ export class PostController {
     private readonly userServices: UserService,
   ) {}
 
+  /*  Este método maneja las solicitudes POST para crear una nueva 
+  publicación. Requiere un createPostDto en el cuerpo de la solicitud 
+  y utiliza el servicio postService para crear la publicación. */
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(
@@ -42,6 +45,9 @@ export class PostController {
     return res.status(HttpStatus.CREATED).json(newPost);
   }
 
+  /*  Este método maneja las solicitudes GET para obtener todas las 
+  publicaciones. Puede opcionalmente recibir parámetros de consulta 
+  page y limit para paginar los resultados.*/
   @Get()
   async findAll(
     @Query('page') page: string = '0',
@@ -52,17 +58,24 @@ export class PostController {
     return res.status(HttpStatus.OK).json(posts);
   }
 
+  /* Este método maneja las solicitudes GET para obtener una publicación 
+  específica por su ID.*/
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return await this.postService.findOne(id);
   }
 
+  /*  Este método maneja las solicitudes GET para obtener publicaciones 
+  asociadas a un profesional específico por su ID. */
   @Get('professional/:id')
   async findByProfessional(@Param('id') id: string, @Res() res: Response) {
     const newPost = await this.postService.findByProfessional(id);
     return res.status(HttpStatus.OK).json(newPost);
   }
 
+  /*  Este método maneja las solicitudes GET para obtener publicaciones por 
+  una categoría específica. También puede recibir parámetros de consulta page 
+  y limit. */
   @Get('category/:category')
   async findByCategory(
     @Param('category') category: string,
@@ -79,6 +92,9 @@ export class PostController {
     return res.status(HttpStatus.OK).json(newPost);
   }
 
+  /*  Este método maneja las solicitudes POST para agregar un comentario 
+  a una publicación específica. Requiere un objeto comment en el cuerpo 
+  de la solicitud. */
   @UseGuards(JwtAuthGuard)
   @Post('comment/:idPost')
   async comments(
@@ -91,6 +107,9 @@ export class PostController {
     return res.status(HttpStatus.OK).json(data);
   }
 
+  /*  Este método maneja las solicitudes PUT para actualizar una publicación 
+  existente. Requiere un updatePostDto en el cuerpo de la solicitud y verifica 
+  los permisos de seguridad antes de realizar la actualización. */
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
@@ -105,12 +124,17 @@ export class PostController {
     return res.status(HttpStatus.OK).json(data);
   }
 
+  /*  Este método maneja las solicitudes DELETE para eliminar una publicación por 
+  su ID. */
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postService.remove(id);
   }
 
+  /* Este método maneja las solicitudes POST para cargar una imagen asociada a una 
+  publicación. Utiliza FileInterceptor para manejar la carga de archivos y verifica 
+  los permisos antes de cargar la imagen. */
   @UseGuards(JwtAuthGuard)
   @Post('image/:idPost')
   @UseInterceptors(FileInterceptor('image'))
