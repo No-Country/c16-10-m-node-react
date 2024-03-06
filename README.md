@@ -67,9 +67,11 @@
 | [Dario Nicolas Ramos](https://www.linkedin.com/in/dario-nicolas-ramos/) | Backend  |
 |Juan Emilio Busalmen  | Team Leader  |
 
+
 ## API Backend documentación
 
 [API DOC](https://insomnia-coral.vercel.app/)
+
 
 ## Vista previa
 
