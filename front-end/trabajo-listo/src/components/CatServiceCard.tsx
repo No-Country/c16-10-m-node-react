@@ -23,6 +23,7 @@ export const CatServiceCard = ({
   const [isActive, setIsActive] = useState(false);
   const dispatch = useDispatch();
 
+    //Activa | Desactiva el componente al cambiar el state "estado"
     useEffect(() => {
         if(el.name === "todos"){
           if(!todos){

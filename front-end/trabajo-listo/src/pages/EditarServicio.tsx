@@ -60,6 +60,7 @@ export const EditarServicio = () => {
     "otros",
   ];
 
+  //Crea una constante data donde se setean los datos de los estados, para luego actualizar el servicio con los mismos
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -79,9 +80,10 @@ export const EditarServicio = () => {
           },
         ],
       };
-
+      //Entra aquí si existe un "id" en la url /editar-servicio/${id}
       if (id) {
         const res = await editarServicio(id, data);
+        //Si existe respuesta, el servicio se actualizó correctamente y se resetean los estados, además de actualizar la imagen
         if (res) {
           await imageServicio(id, user.token, foto);
 
@@ -122,7 +124,7 @@ export const EditarServicio = () => {
   };
 
   return (
-    <main className="flex flex-col items-center min-h-[100vh] ">
+    <main className="flex flex-col items-center min-h-[100vh]">
       <h1 className="mt-[70px] mb-4 font-bold text-2xl text-red-500 italic">
         AGREGA UN NUEVO SERVICIO
       </h1>

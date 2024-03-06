@@ -66,7 +66,7 @@ export const NuevoServicio = () => {
       };
 
       const res = await subirServicio(datas);
-
+      //Si existe respuesta, el servicio se creó correctamente y se resetean los estados, además de crear la imagen
       if (res) {
         setTitulo("");
         setDescripcion("");
@@ -106,7 +106,7 @@ export const NuevoServicio = () => {
   };
 
   return (
-    <main className="flex flex-col items-center min-h-[100vh] ">
+    <main className="flex flex-col items-center min-h-[100vh]">
       <h1 className="mt-[70px] mb-4 font-bold text-2xl text-red-500 italic">
         AGREGA UN NUEVO SERVICIO
       </h1>
