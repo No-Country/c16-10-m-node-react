@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -20,6 +19,10 @@ export class PostService {
     private userService: UserService,
   ) {}
 
+  /* Este método crea una nueva publicación.
+  Verifica si el usuario que está creando la publicación es un profesional.
+  Si es un profesional, crea una nueva publicación con los datos proporcionados y el nombre del profesional.
+  Guarda la nueva publicación en la base de datos y la devuelve. */
   async create(userPayload: any, createPostDto: CreatePostDto): Promise<Post> {
     try {
       if (userPayload.isProfessional != true)
@@ -47,6 +50,9 @@ export class PostService {
     }
   }
 
+  /* Este método encuentra todas las publicaciones en la base de datos, con paginación opcional.
+  Obtiene los parámetros de page y limit y los utiliza para paginar las publicaciones.
+  Devuelve las publicaciones encontradas. */
   async findAll(page: string, limit: string): Promise<Post[]> {
     const pageInt = parseInt(page);
     const limitInt = parseInt(limit);
@@ -59,6 +65,9 @@ export class PostService {
     return postsProfessionals;
   }
 
+  /* Encuentra una publicación por su ID.
+  Devuelve la publicación si se encuentra.
+  Si no se encuentra la publicación, lanza una excepción NotFoundException. */
   async findOne(id: string): Promise<Post> {
     try {
       const post = await this.postModel.findById(id).lean().select('-password');
@@ -72,6 +81,9 @@ export class PostService {
     }
   }
 
+  /* Encuentra las publicaciones asociadas a un profesional específico por su ID.
+  Devuelve las publicaciones encontradas o lanza una excepción NotFoundException si 
+  no se encuentran. */
   async findByProfessional(id: string): Promise<Post[]> {
     try {
       const posts = await this.postModel.find({ idProfessional: id });
@@ -88,6 +100,10 @@ export class PostService {
     }
   }
 
+  /* Encuentra las publicaciones por una categoría específica.
+  Utiliza la enumeración CategoriesEnum para verificar la categoría.
+  Devuelve las publicaciones encontradas o lanza una excepción NotFoundException 
+  si no se encuentran. */
   async findByCategory(
     category: string,
     page: string,
@@ -112,6 +128,19 @@ export class PostService {
           `Posts with category #${category} not found`,
         );
       }
+
+      /* Paginación */
+      // const postTotal = await this.postModel.countDocuments({
+      //   category: { $all: categoryEnum },
+      // });
+      // const pageTotal = ((postTotal / limitInt) | 0) + 1;
+      // return {
+      //   pageTotal,
+      //   postTotal,
+      //   pageNum: pageInt,
+      //   limitNum: limitInt,
+      //   data: posts,
+      // };
       return posts;
     } catch (err) {
       console.error(
@@ -122,6 +151,10 @@ export class PostService {
     }
   }
 
+  /* Actualiza una publicación existente por su ID.
+  Utiliza el modelo de Mongoose para encontrar y actualizar la publicación.
+  Devuelve la publicación actualizada o lanza una excepción NotFoundException 
+  si no se encuentra la publicación. */
   async update(id: string, updatePostDto: UpdatePostDto) {
     try {
       const post = await this.postModel
@@ -139,6 +172,10 @@ export class PostService {
     }
   }
 
+  /* Agrega nuevos comentarios a una publicación.
+  Verifica si el comentario ya existe y actualiza su respuesta si es necesario.
+  Si el comentario no existe, se agrega como un nuevo comentario a la publicación.
+  Devuelve un mensaje y los comentarios actualizados. */
   async newComments(userPayload: any, idPost: string, newComments: CommentDto) {
     try {
       let existe = false;
@@ -147,7 +184,7 @@ export class PostService {
 
       if (comment.idProfessional.toString() === userPayload.id) {
         for (let i = 0; i < comment.comments.length; i++) {
-          let comentario = comment.comments[i];
+          const comentario = comment.comments[i];
           if (comentario.id == newComments.id) {
             console.log('entre');
             // Se encuentra el comentario, se actualiza la propiedad answer
@@ -177,6 +214,9 @@ export class PostService {
     }
   }
 
+  /* Elimina una publicación por su ID.
+  Verifica si la publicación existe antes de eliminarla.
+  Devuelve la publicación eliminada. */
   async remove(id: string) {
     try {
       const post = await this.postModel.findById(id);
@@ -191,12 +231,18 @@ export class PostService {
     }
   }
 
+  /* Guarda la URL de una imagen asociada a una publicación.
+  Encuentra la publicación por su ID y actualiza su campo imagePost con la URL 
+  proporcionada.*/
   async saveImagePost(urlFile: string, idPost: string) {
     const data = await this.postModel.findById(idPost).exec();
     data.imagePost = urlFile;
     data.save();
   }
 
+  /* Verifica los permisos de seguridad para una publicación.
+  Compara el ID del usuario con el ID del profesional que creó la publicación.
+  Devuelve true si el usuario tiene permiso, false si no. */
   async security(userPayload: any, idPost: string) {
     const { id } = userPayload;
     const data = await this.postModel.findById(idPost).exec();
