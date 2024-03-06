@@ -40,7 +40,7 @@ const RecomendacionesContainer = () => {
       >
         <CarouselContent>
           {serviciosRec?.map((servicio) => (
-            <CarouselItem key={servicio._id} className="basis-auto md:basis-[58%] rp860:basis-[53%] rp960:basis-[48%] lg:basis-[43.5%] rp1150:basis-[40%] rp1220:basis-[38%] xl:basis-[35%]">
+            <CarouselItem key={servicio._id} className="basis-auto md:basis-[58%] rp860:basis-[53%] rp960:basis-[48%] lg:basis-[43.5%] rp1150:basis-[40%] rp1220:basis-[38%] xl:basis-[35%] rp1380:basis-[33%] rp1420:basis-[32%] rp1500:basis-[30%] 2xl:basis-[29%]">
               <RecomendacionesCard servicioProfesional={servicio} />
             </CarouselItem>
           ))}
