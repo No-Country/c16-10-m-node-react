@@ -94,7 +94,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
               }}
             ></CategoriaCard>
           )}
-          <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-row items-center sm:items-start sm:flex-col sm:justify-between h-full">
             <div className="flex items-center h-full">
               <p
                 onClick={() => {
