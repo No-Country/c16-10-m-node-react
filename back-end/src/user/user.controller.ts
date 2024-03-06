@@ -83,7 +83,7 @@ export class UserController {
   async findEmail(@Body() email: any, @Res() res: Response) {
     return res
       .status(HttpStatus.OK)
-      .json(await this.userService.findEmail(email));
+      .json(await this.userService.findEmail(email.email));
   }
   // Este controlador maneja solicitudes PUT para actualizar la información de un usuario.
   // Utiliza la anotación @UseGuards(JwtAuthGuard) para aplicar un guardia de autorización JWT, que protege la ruta y requiere que el cliente esté autenticado con un token JWT válido.
