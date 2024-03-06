@@ -61,6 +61,7 @@ export const EditarServicio = () => {
     "otros",
   ];
 
+  //Crea una constante data donde se setean los datos de los estados, para luego actualizar el servicio con los mismos
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -80,9 +81,10 @@ export const EditarServicio = () => {
           },
         ],
       };
-
+      //Entra aquí si existe un "id" en la url /editar-servicio/${id}
       if (id) {
         const res = await editarServicio(id, data);
+        //Si existe respuesta, el servicio se actualizó correctamente y se resetean los estados, además de actualizar la imagen
         if (res) {
           await imageServicio(id, user.token, foto);
 
@@ -128,7 +130,7 @@ export const EditarServicio = () => {
         onClick={() => navigate(-1)}
         className="top-[6rem] left-[10rem] absolute flex items-center gap-1 bg-main-red p-2 rounded-full text-main-blue"
       >
-        <MdArrowBack className="text-xl "></MdArrowBack>
+        <MdArrowBack className="text-xl"></MdArrowBack>
         <p>Volver</p>
       </button>
       <h1 className="mt-[70px] mb-4 font-bold text-2xl text-main-red italic">

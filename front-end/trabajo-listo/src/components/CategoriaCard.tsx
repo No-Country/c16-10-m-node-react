@@ -12,22 +12,24 @@ const CategoriaCard: React.FC<{
   onPerfil: () => void;
 }> = ({ user, servicioProfesional, onPerfil }) => {
   return (
-    <picture onClick={onPerfil} className="flex flex-col sm:flex-row  items-center bg-main-blue p-2 ">
+    <picture onClick={onPerfil} className="flex sm:flex-row flex-col items-center gap-4 bg-main-blue p-2">
       <Tooltip title={user?.name}>
-        <img
-          className="rounded-full w-12 h-12 hover:cursor-pointer"
-          src={user?.imageProfile}
-        />
+          <img
+            className="rounded-full w-12 h-12 hover:cursor-pointer object-fill"
+            src={user?.imageProfile}
+          />
       </Tooltip>
-      <div className="flex flex-col px-4 w-full">
-        <h3 className="font-semibold text-black text-ellipsis text-nowrap">
-          {capitalizeFirstLetter(servicioProfesional.title)}
-        </h3>
-        <div className="flex flex-col justify-between w-full">
+      <div className="flex flex-col pr-3 w-fit max-w-[269px]">
+        <Tooltip title={capitalizeFirstLetter(servicioProfesional.title)}>
+          <h3 className="font-semibold text-black text-ellipsis text-nowrap overflow-hidden">
+            {capitalizeFirstLetter(servicioProfesional.title)}
+          </h3>
+        </Tooltip>
+        <div className="flex flex-col justify-between w-fit">
           <span className="font-semibold text-gray-700 text-sm italic">
             {capitalizeFirstLetter(servicioProfesional?.services[0]?.name)}
           </span>
-          <div className="flex flex-col items-start md:{items-center flex-col} gap-1">
+          <div className="flex items-center gap-1">
             <h3 className="text-xs">{`De ${capitalizeFirstLetterperSentence(user?.name)}`}</h3>
             <Rating
               name="read-only"
