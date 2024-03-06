@@ -17,6 +17,12 @@ module.exports = {
       },
     },
     extend: {
+      screens:{
+        'rp860':'860px',
+        'rp960':'960px',
+        'rp1150':'1150px',
+        'rp1220':'1220px',
+      },
       backgroundImage: {
         "hero-banner": "url('./assets/banner-professional.jpg')",
       },
