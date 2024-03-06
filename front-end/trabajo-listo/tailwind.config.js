@@ -21,7 +21,11 @@ module.exports = {
         'rp860':'860px',
         'rp960':'960px',
         'rp1150':'1150px',
+        'rp1100':'1100px',
         'rp1220':'1220px',
+        'rp1380':'1380px',
+        'rp1420':'1420px',
+        'rp1500':'1500px',
       },
       backgroundImage: {
         "hero-banner": "url('./assets/banner-professional.jpg')",
