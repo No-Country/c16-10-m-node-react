@@ -94,7 +94,7 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
               }}
             ></CategoriaCard>
           )}
-          <div className="flex flex-row items-center sm:items-start sm:flex-col sm:justify-between h-full">
+          <div className="flex flex-row sm:flex-col sm:justify-between items-center sm:items-start h-full">
             <div className="flex items-center h-full">
               <p
                 onClick={() => {
@@ -105,10 +105,10 @@ const RecomendacionesCard: React.FC<RecomendacionesCardProps> = ({
                 {capitalizeFirstLetter(servicioProfesional.description)}
               </p>
             </div>
-            <div className="flex flex-row-reverse justify-between p-2">
+            <div className="flex flex-row-reverse justify-between p-2 w-full">
               <div className="flex items-center">
                 {servicioProfesional.idProfessional === user.id && id && (
-                  <div className="right-3 bottom-2 flex gap-2">
+                  <div className="flex gap-2">
                     <button
                       type="button"
                       onClick={() => {

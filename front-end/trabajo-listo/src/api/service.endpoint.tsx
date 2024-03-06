@@ -111,14 +111,15 @@ export const imageServicio = async (
 
 //Funcion para convertir texto
 function convertirTexto(texto: string) {
-  return texto.toUpperCase().replace(/ /g, "_");
+  return texto.toUpperCase().replace(/ /g, "_").split("DE").join("").replace(/_+/g, "_");
 }
 
 //Obtener servicio por categoria
 export const serviciosCategory = async (categoria: string) => {
   try {
     const textoConvertido = convertirTexto(categoria);
-
+    console.log(textoConvertido);
+    
     const res = await apiClient.get(
       `post/category/${textoConvertido}?page=1&limit2`
     );
