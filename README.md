@@ -62,7 +62,7 @@
 | [Franco Tevez](https://www.linkedin.com/in/franco-tevez-1a985b219/) | Frontend |
 | [Valentin Di Geronimo](https://www.linkedin.com/in/digeronimovalentin/)| Frontend  |
 | [Piero Sanchez](https://www.linkedin.com/in/sanchezpiero/) | UX/UI  |
-| [Harry Yanarico]  | Fullstack  |
+| [Harry Yanarico](https://www.linkedin.com/in/harry-yanarico-20802a12b/)  | Fullstack  |
 | [Juan Oh](https://www.linkedin.com/in/jioh19/) | Backend |
 | [Dario Nicolas Ramos](https://www.linkedin.com/in/dario-nicolas-ramos/) | Backend  |
 |Juan Emilio Busalmen  | Team Leader  |
