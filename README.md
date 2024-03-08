@@ -6,7 +6,7 @@
 [c16-10-m-node-react.vercel.app](c16-10-m-node-react.vercel.app)
 
 ## Links de deploy
-  * Frontend: [Trabajo listo](https://c16-10-m-node-react-chi.vercel.app/)
+  * Frontend: [Trabajo listo](https://trabajo-listo-nc.vercel.app/)
   * Backend: [Trabajo listo backend](https://trabajo-listo.vercel.app/api)
 ## Tecnologías Utilizadas
 
